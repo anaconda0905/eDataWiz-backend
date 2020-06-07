@@ -10,6 +10,22 @@ class HomeController extends Controller
     {
     	return view('welcome');
     }
+    public function about($value='')
+    {
+    	return view('about');
+    }
+    public function solution($value='')
+    {
+    	return view('solution');
+    }
+    public function contact($value='')
+    {
+    	return view('contact');
+    }
+    public function demo($value='')
+    {
+    	return view('demo');
+    }
     public function YourhomePage($value='')
     {
     	return view('home');

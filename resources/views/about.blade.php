@@ -1,56 +1,21 @@
 @extends('frontLayout.app')
 @section('title')
-Home Page
+About Us
 @stop
 
 @section('style')
 
 @stop
 @section('content')
-
-
-<!-- Slider area -->
-<section class="slider_area row m0">
-    <div class="slider_inner">
-        <div data-thumb="images/slider-1.jpg" data-src="images/slider-1.jpg">
-            <div class="camera_caption">
-                <div class="container">
-                    <h5 class=" wow fadeInUp animated">Thinking Ahead with AI </h5>
-                    <h3 class=" wow fadeInUp animated" data-wow-delay="0.5s">to the Future of Industry</h3>
-                    <p class=" wow fadeInUp animated" data-wow-delay="0.8s">
-                        Our engineering services are designed to help manufacturers identify areas within the
-                        organization that will benefit the most from digitalization.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div data-thumb="images/slider-2.jpg" data-src="images/slider-2.jpg">
-            <div class="camera_caption">
-                <div class="container" style="padding-right: 20%;">
-                    <h5 class=" wow fadeInUp animated">One-Stop Digital Transformation </h5>
-                    <h3 class=" wow fadeInUp animated" data-wow-delay="0.5s">in Manufacture & Heavy-Duty Industry
-                    </h3>
-                    <p class=" wow fadeInUp animated" data-wow-delay="0.8s">Strategizing the best manufacturing
-                        operation approaches to integrate smart outcomes from this era of Digital Transformation.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div data-thumb="images/slider-3.jpg" data-src="images/slider-3.jpg">
-            <div class="camera_caption">
-                <div class="container" style="padding-left: 30%;">
-                    <h5 class=" wow fadeInUp animated">Accelerating Digital </h5>
-                    <h3 class=" wow fadeInUp animated" data-wow-delay="0.5s">Implementations & Managing Risks</h3>
-                    <p class=" wow fadeInUp animated" data-wow-delay="0.8s">Empowering the internal processes with
-                        the power of advanced technologies which will walk you through advanced features and
-                        principles of operating flexibly.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Banner area -->
+<section class="banner_area" data-stellar-background-ratio="0.5">
+    <h2>About Us</h2>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('home') }}">Home</a></li>
+        <li><a href="#" class="active">About Us</a></li>
+    </ol>
 </section>
-<!-- End Slider area -->
+<!-- End Banner area -->
 
 <!-- About Us Area -->
 <section class="about_us_area row">
@@ -153,6 +118,8 @@ Home Page
     </div>
 </section>
 <!-- end why choose us -->
+
+
 
 @endsection
 

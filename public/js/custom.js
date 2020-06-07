@@ -1,4 +1,5 @@
 $('.faq-wrapper .faq-title').on('click', function (e) {
+  
     var element = $(this).parent('.faq-item');
     if (element.hasClass('open')) {
       element.removeClass('open');

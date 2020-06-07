@@ -12,6 +12,11 @@
 */
 Route::auth();
 Route::get('/', ['uses' => 'HomeController@home', 'as' => 'home']);
+Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
+Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']);
+Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'contact']);
+Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
+
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
