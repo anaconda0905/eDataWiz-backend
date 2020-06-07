@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	  <meta name="csrf-token" content="{{ csrf_token() }}" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>@yield('title')</title>
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title')</title>
+
     <!-- Favicon -->
     <link rel="icon" href="{{ URL::asset('/images/favicon.png') }}" type="image/x-icon" />
     <!-- Bootstrap CSS -->
@@ -29,15 +30,73 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 
-	@yield('style')
+    @yield('style')
 </head>
-<body>
-	<!-- Preloader -->
-    <div class="preloader"></div>
-    @yield('content')
-	
 
-	<!-- jQuery JS -->
+<body>
+    <!-- Preloader -->
+    <div class="preloader"></div>
+    <!-- Top Header_Area -->
+    <section class="top_header_area">
+        <div class="container">
+            <ul class="nav navbar-nav top_nav">
+                <li><a href="tel:+65 86996780"><i class="fa fa-phone"></i>+65 86996780</a></li>
+                <li><a href="mailto:info@edatawiz.com"><i class="fa fa-envelope-o"></i>info@edatawiz.com</a></li>
+                <!-- <li><a href="#"><i class="fa fa-clock-o"></i>Mon - Sat 12:00 - 20:00</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right social_nav">
+                <li><a href="https://www.facebook.com" target=" _blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.twitter.com" target=" _blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.google.com" target=" _blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com" target=" _blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.pinterest.com" target=" _blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.linkedin.com" target=" _blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href="https://wa.me/6586996780" title="" target=" _blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                <li><a href="we-chat.html" title="" target=" _blank"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </section>
+    <!-- End Top Header_Area -->
+    @yield('content')
+
+    <!-- Footer Area -->
+    <footer class="footer_area">
+        <div class="container">
+            <div class="footer_row row">
+                <div class="col-md-4 col-sm-6 footer_about first">
+                    <img src="images/footer-logo.png" alt="">
+                </div>
+                <div class="col-md-4 col-sm-6 footer_about quick">
+                    <h2>Quick links</h2>
+                    <ul class="quick_link">
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Home</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>About Us</a></li>
+                        <li><a href="solutions.html"><i class="fa fa-chevron-right"></i>Solutions</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Log in/Sign Up</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-sm-6 footer_about">
+                    <h2>CONTACT US</h2>
+                    <address>
+                        <ul class="my_address">
+                            <li><a href="tel:+65 86996780"><i class="fa fa-phone"></i>+65 86996780</a></li>
+                            <li><a href="mailto:info@edatawiz.com"><i class="fa fa-envelope-o"></i>info@edatawiz.com</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-clock-o"></i>Mon - Sat 9:00 - 19:00</a></li>
+                            <!-- <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>Singapore</a></li> -->
+                        </ul>
+                    </address>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_area">
+            Copyright 2020 All rights reserved by The <a href="https://edatawiz.com">eDatawiz.</a>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+    <!-- jQuery JS -->
     <script src="{{ URL::asset('/js/jquery-1.12.0.min.js') }}"></script>
     <!-- Bootstrap JS -->
     <script src="{{ URL::asset('/js/bootstrap.min.js') }}"></script>
@@ -58,13 +117,14 @@
     <script src="{{ URL::asset('/vendors/stellar/jquery.stellar.js') }}"></script>
     <!-- Theme JS -->
     <script src="{{ URL::asset('/js/theme.js') }}"></script>
-	 <script type="text/javascript">
-      $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     </script>
-	@yield('scripts')
+    @yield('scripts')
 </body>
+
 </html>

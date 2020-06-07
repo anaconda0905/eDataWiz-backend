@@ -3,27 +3,7 @@
 Login
 @stop
 @section('content')
-<!-- Top Header_Area -->
-<section class="top_header_area">
-  <div class="container">
-    <ul class="nav navbar-nav top_nav">
-      <li><a href="tel:+65 86996780"><i class="fa fa-phone"></i>+65 86996780</a></li>
-      <li><a href="mailto:info@edatawiz.com"><i class="fa fa-envelope-o"></i>info@edatawiz.com</a></li>
-      <!-- <li><a href="#"><i class="fa fa-clock-o"></i>Mon - Sat 12:00 - 20:00</a></li> -->
-    </ul>
-    <ul class="nav navbar-nav navbar-right social_nav">
-      <li><a href="https://www.facebook.com" target=" _blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.twitter.com" target=" _blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.google.com" target=" _blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.instagram.com" target=" _blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.pinterest.com" target=" _blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.linkedin.com" target=" _blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-      <li><a href="https://wa.me/6586996780" title="" target=" _blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
-      <li><a href="we-chat.html" title="" target=" _blank"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
-    </ul>
-  </div>
-</section>
-<!-- End Top Header_Area -->
+
 <!-- Header_Area -->
 <nav class="navbar navbar-default header_aera" id="main_navbar">
   <div class="container">
@@ -126,43 +106,7 @@ Login
 </section>
 <!-- End Login Form -->
 
-<!-- Footer Area -->
-<footer class="footer_area">
-  <div class="container">
-    <div class="footer_row row">
-      <div class="col-md-4 col-sm-6 footer_about first">
-        <img src="images/footer-logo.png" alt="">
-      </div>
-      <div class="col-md-4 col-sm-6 footer_about quick">
-        <h2>Quick links</h2>
-        <ul class="quick_link">
-          <li><a href="#"><i class="fa fa-chevron-right"></i>Home</a></li>
-          <li><a href="#"><i class="fa fa-chevron-right"></i>About Us</a></li>
-          <li><a href="solutions.html"><i class="fa fa-chevron-right"></i>Solutions</a></li>
-          <li><a href="#"><i class="fa fa-chevron-right"></i>Log in/Sign Up</a></li>
-          <li><a href="#"><i class="fa fa-chevron-right"></i>Contact Us</a></li>
-        </ul>
-      </div>
 
-      <div class="col-md-4 col-sm-6 footer_about">
-        <h2>CONTACT US</h2>
-        <address>
-          <ul class="my_address">
-            <li><a href="tel:+65 86996780"><i class="fa fa-phone"></i>+65 86996780</a></li>
-            <li><a href="mailto:info@edatawiz.com"><i class="fa fa-envelope-o"></i>info@edatawiz.com</a>
-            </li>
-            <li><a href="#"><i class="fa fa-clock-o"></i>Mon - Sat 9:00 - 19:00</a></li>
-            <!-- <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>Singapore</a></li> -->
-          </ul>
-        </address>
-      </div>
-    </div>
-  </div>
-  <div class="copyright_area">
-    Copyright 2020 All rights reserved by The <a href="https://edatawiz.com">eDatawiz.</a>
-  </div>
-</footer>
-<!-- End Footer Area -->
 @endsection
 
 @section('scripts')
