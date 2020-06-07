@@ -165,4 +165,7 @@ Login
 <!-- End Footer Area -->
 @endsection
 
-@section('scr
+@section('scripts')
+
+
+@endsection
