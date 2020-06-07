@@ -1,0 +1,185 @@
+/* about_us_area */
+.about_us_area{
+    background: #fefefe;
+    .about_row{
+        padding-top: 40px;
+        padding-bottom: 40px;
+        .about-col{
+            display: table;
+            padding-bottom: 30px;
+        }
+        p{
+            font: 400 16px $roboto;
+            color: $p;
+            padding-top: 28px;
+            padding-bottom: 54px;
+            line-height: 30px;
+        }
+        .about_client{
+            padding-top: 7px;
+            img{
+                max-width: 100%;
+            }
+        }
+        // our_skill_inner
+        .our_skill_inner{
+            .single_skill{
+                h3{
+                    font: 700 18px $roboto;
+                    color: $h2;
+                    padding-bottom: 8px;
+                }
+                .progress{
+                    background:#f5f5f5; 
+                    box-shadow: none;
+                    height: 8px;
+                    width: 100%;
+                    overflow: visible;
+                    border-radius: 0;
+                    position: relative;
+                    margin-bottom: 40px;
+                    .progress-bar{
+                        background: $bc; 
+                        box-shadow: none;
+                        .progress_parcent{
+                            font: 700 18px $roboto;
+                            color: $h2;
+                            position: absolute;
+                            right: 0;
+                            top: -30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .about_us2_pages{
+        padding-top: 90px;
+    }
+}
+
+/* End about_us_area */
+.faq-left-content {
+    margin-top: -10px;
+}
+
+.faq-left-content .title {
+    margin-bottom: 45px;
+}
+
+.faq-wrapper {
+    margin: -15px 0;
+}
+
+.faq-item {
+    padding: 12px 0;
+    transition: all 0.3s;
+}
+
+.faq-item .faq-title {
+    font-size: 20px;
+    margin-top: -7px;
+    margin-bottom: -7px;
+    text-transform: capitalize;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0px 10px 14px 0px rgba(9, 107, 216, 0.05);
+}
+
+.faq-item .faq-title .title {
+    width: calc(100% - 40px);
+    padding: 10px 10px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.faq-item.open .faq-title {
+    background-color: #273272;
+}
+
+.faq-item.open .faq-title .title {
+    color: #fff;
+    background-color: #273272;
+}
+
+.faq-item .faq-content {
+    display: none;
+}
+
+.faq-item .faq-content .img-responsive-2{
+    
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.faq-item.active .faq-content {
+    display: block;
+}
+
+.faq-item .faq-content p {
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.faq-item .faq-content p:last-child {
+    margin-bottom: -7px;
+}
+
+.faq-item .right-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.faq-item .right-icon::before {
+    width: 2px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+}
+
+.faq-item .right-icon::before,
+.faq-item .right-icon::after {
+    position: absolute;
+    content: "";
+    background: black;
+    -webkit-transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.faq-item.open .right-icon::before,
+.faq-item.open .right-icon::after {
+    background-color: #fff;
+}
+
+.faq-item .right-icon::after {
+    width: 16px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+}
+
+.faq-item.active.open .faq-title .right-icon::before {
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
+    -ms-transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-item.open .faq-title .right-icon::before {
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
+    -ms-transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
