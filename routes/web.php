@@ -22,7 +22,7 @@ Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 
 
- Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
+Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users
         Route::resource('user', 'UserController');
@@ -42,3 +42,7 @@ Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
         Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);
         Route::post('qrLogin-autogenerate', ['uses' => 'QrLoginController@QrAutoGenerate']);
  });
+
+
+ Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');

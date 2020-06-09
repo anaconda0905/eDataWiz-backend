@@ -20,6 +20,7 @@ Login
           @endif
           
           {{ Form::open(array('url' => route('login'), 'class' => 'create-account-form','files' => true)) }}
+          {!! csrf_field() !!}
           <div class="form-group">
             <i class="fa fa-envelope"></i>
             {!! Form::text('email', null, ['style' => 'padding-left:50px','placeholder '=>'E-mail']) !!}
@@ -47,13 +48,13 @@ Login
           </div>
           <ul class="sign-up-option">
             <li>
-              <a href="#0" class="google"><i class="fa fa-google"></i></a>
+              <a href="{{ url('login/google') }}" class="google"><i class="fa fa-google"></i></a>
             </li>
             <li>
-              <a href="#0" class="facebook"><i class="fa fa-facebook-f"></i></a>
+              <a href="{{ url('login/facebook') }}" class="facebook"><i class="fa fa-facebook-f"></i></a>
             </li>
             <li>
-              <a href="#0" class="twitter"><i class="fa fa-linkedin"></i></a>
+              <a href="{{ url('login/linkedin') }}" class="twitter"><i class="fa fa-linkedin"></i></a>
             </li>
           </ul>
           <div class="terms-area">

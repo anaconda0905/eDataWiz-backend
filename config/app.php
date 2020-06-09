@@ -184,7 +184,8 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         //Qr login 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-
+        //social login
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -239,9 +240,10 @@ return [
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
-         //QR GEERATOR
-         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-
+        //QR GEERATOR
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        //social login
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
