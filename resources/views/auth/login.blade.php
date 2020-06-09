@@ -18,6 +18,7 @@ Login
             <strong>{{Session::get('status')}}!</strong> {!! Session::get('message') !!}
           </div>
           @endif
+          
           {{ Form::open(array('url' => route('login'), 'class' => 'create-account-form','files' => true)) }}
           <div class="form-group">
             <i class="fa fa-envelope"></i>
@@ -57,7 +58,7 @@ Login
           </ul>
           <div class="terms-area">
             <p class="terms-and-conditions">Don't have an account? &nbsp;&nbsp;
-              <a href="signup.html" class="account-control-button">Sign up</a>
+              <a href="{{url('register')}}" class="account-control-button">Sign up</a>
             </p>
           </div>
         </div>

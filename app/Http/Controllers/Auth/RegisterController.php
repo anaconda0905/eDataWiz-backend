@@ -58,7 +58,7 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request){
-
+        
         $validation = Validator::make($request->all(), [
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -80,7 +80,7 @@ class RegisterController extends Controller
             $user->roles()->sync([2]); // 2 = client
             Session::flash('message', 'Registration is completed');
             Session::flash('status', 'success');
-           return redirect('/'); 
+           return redirect('/dashboard'); 
         }
          Session::flash('message', 'There was an error with the registration' );
          Session::flash('status', 'error');
