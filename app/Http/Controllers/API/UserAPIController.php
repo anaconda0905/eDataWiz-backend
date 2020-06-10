@@ -55,8 +55,12 @@ class UserAPIController extends Controller
                 ]);
             }
             $user = Sentinel::authenticate($request->all(), true);
-            $user->device_token = $request->input('device_token', '');
-            $user->save();
+            if(!$user){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User does not exist.'
+                ]);
+            }
             return response()->json([
                 'success' => true,
                 'data'    => $user,
@@ -134,5 +138,45 @@ class UserAPIController extends Controller
                 'message' => 'Reset link not sent.'
             ]);
         }
+    }
+
+    function socialLogin($social)
+    {
+        try{
+            $url = Socialite::driver($social)->stateless()->redirect()->getTargetUrl();
+            
+            return response()->json([
+                'success' => true,
+                'data'    => $url,
+                'message' => 'Social login successfully redirected.'
+            ]);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => $e
+            ]);
+        }
+    }
+    public function handleProviderCallback($social, Request $request)
+    {
+        // $userSocial = Socialite::driver($social)->stateless()->userFromToken($token);
+        // $user = User::where(['email' => $userSocial->getEmail()])->first();
+        // if(!$user){
+        //     $user = new User;
+        //     $user->first_name = $userSocial->name;
+        //     $user->email = $userSocial->email;
+        //     $user->password = bcrypt(str_random());
+        //     $user->api_token = str_random(60);
+        //     $user->save();
+        //     $activation = Activation::create($user);
+        //     $activation = Activation::complete($user, $activation->code);
+        //     $user->roles()->sync([2]);
+        // }
+        return response()->json([
+            'success' => true,
+            'data'    => $request->has('code'),
+            'message' => 'User retrieved successfully.'
+        ]);
     }
 }
