@@ -11,7 +11,7 @@ Register
       <div class="col-lg-3 text-center"></div>
       <div class="col-lg-6 text-center">
         <div class="login-form-area">
-          <a class="site-logo site-title" href="index.html"><img src="images/logo.png" style="height:100px;" alt="site-logo"></a>
+          <a class="site-logo site-title" href="index.html"><img src="/images/logo.png" style="height:100px;" alt="site-logo"></a>
           @if (Session::has('message'))
           <div class="alert alert-{{(Session::get('status')=='error')?'danger':Session::get('status')}} " alert-dismissable fade in id="sessions-hide">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -24,12 +24,22 @@ Register
 
           <div class="form-group">
             <i class="fa fa-envelope"></i>
-            {!! Form::email('email', null, ['style' => 'padding-left:50px','placeholder '=>'E-mail']) !!}
+            @if(!empty($email))
+            {!! Form::email('email', $email, ['style' => 'padding-left:50px','placeholder '=>'E-mail' ]) !!}
+            @else
+            {!! Form::email('email', old('email'), ['style' => 'padding-left:50px','placeholder '=>'E-mail' ]) !!}
+            @endif
+
             {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
           </div>
           <div class="form-group">
             <i class="fa fa-id-card"></i>
-            {!! Form::text('first_name', null, ['style' => 'padding-left:50px','placeholder '=>'Enter your firtst name']) !!}
+            @if(!empty($name))
+            {!! Form::text('first_name', $name, ['style' => 'padding-left:50px','placeholder '=>'Enter your firtst name']) !!}
+            @else
+            {!! Form::text('first_name', old('name'), ['style' => 'padding-left:50px','placeholder '=>'Enter your firtst name']) !!}
+            @endif
+            
             {!! $errors->first('first_name', '<p class="help-block">:message</p>') !!}
           </div>
           <div class="form-group">

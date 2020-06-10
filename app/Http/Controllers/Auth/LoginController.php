@@ -115,12 +115,16 @@ class LoginController extends Controller
     {
         $userSocial = Socialite::driver($social)->user();
         $user = User::where(['email' => $userSocial->getEmail()])->first();
-        if($user){
-            Auth::login($user);
-            return redirect()->action('HomeController@index');
-        }else{
-            return view('auth.register',['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
+        if(!$user){
+            $user = new User;
+            $user->first_name = $userSocial->name;
+            $user->email = $userSocial->email;
+            $user->password = bcrypt(str_random());
+            $user->save();
+
         }
+        Sentinel::login($user);
+        return redirect('/dashboard');
     }
 
     protected function logout()
