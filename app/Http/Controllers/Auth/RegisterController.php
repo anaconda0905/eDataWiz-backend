@@ -69,8 +69,13 @@ class RegisterController extends Controller
           if ($validation->fails()) {
                 return Redirect::back()->withErrors($validation)->withInput();
          }
-
+         
          $user = Sentinel::register($request->all());
+         $user->api_token = str_random(60);
+         $user->phone = $request['phone'];
+         $user->company = $request['company'];
+         $user->save();
+
         //Activate the user ** 
          $activation = Activation::create($user);
          $activation = Activation::complete($user, $activation->code);

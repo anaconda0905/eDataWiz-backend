@@ -49,11 +49,11 @@ Register
           </div>
           <div class="form-group">
             <i class="fa fa-industry"></i>
-            <input style="padding-left:50px" type="text" placeholder="Company">
+            <input style="padding-left:50px" name="company" type="text" placeholder="Company">
           </div>
           <div class="form-group">
             <i class="fa fa-mobile"></i>
-            <input style="padding-left:50px" type="text" placeholder="(+65)">
+            <input style="padding-left:50px" name="phone" type="text" placeholder="(+65)">
           </div>
           <div class="form-group">
             <i class="fa fa-lock"></i>

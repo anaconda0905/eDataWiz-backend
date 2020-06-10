@@ -120,7 +120,9 @@ class LoginController extends Controller
             $user->first_name = $userSocial->name;
             $user->email = $userSocial->email;
             $user->password = bcrypt(str_random());
+            $user->api_token = str_random(60);
             $user->save();
+            
         }
         Sentinel::login($user);
         return redirect('/dashboard');

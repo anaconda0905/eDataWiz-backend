@@ -16,10 +16,13 @@ class UsersGenerate extends Seeder
 			    		'email' 		=> 'admin@admin.com',
 			    		'password' 		=> bcrypt('admin'),
 			    		'permissions' 	=> '{"home.dashboard":true}',
-			    		'first_name' 			=> 'John',
-			    		'last_name' 		=> 'Doe',
-			    		'QRpassword'=>'Dammy-CODE-1S4u7lJzehk62xDm3DgYgXXYWtbHE6gSP'
-			    		
+			    		'first_name' 	=> 'John',
+			    		'last_name' 	=> 'Doe',
+			    		'QRpassword'    => 'Dammy-CODE-1S4u7lJzehk62xDm3DgYgXXYWtbHE6gSP',
+						'api_token'     => 'PivvPlsQWxPl1bB5KrbKNBuraJit0PrUZekQUgtLyTRuyBq921atFtoR1HuA',
+						'device_token'  => NULL,
+						'company'       => NULL,
+						'phone'			=> NULL,
 			    ]
 
 			]);
