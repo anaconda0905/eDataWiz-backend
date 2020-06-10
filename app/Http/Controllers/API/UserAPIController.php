@@ -22,6 +22,7 @@ use Socialite;
 use Activation;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class UserAPIController extends Controller
 {
@@ -100,7 +101,7 @@ class UserAPIController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
-            
+
             return response()->json([
                 'success' => true,
                 'data'    => $user,
@@ -112,4 +113,26 @@ class UserAPIController extends Controller
         }
     }
 
+    function sendResetLinkEmail(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        $response = Password::broker()->sendResetLink(
+            $request->only('email')
+        );
+
+        if ($response == Password::RESET_LINK_SENT) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Reset link was sent successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Reset link not sent.'
+            ]);
+        }
+    }
 }
