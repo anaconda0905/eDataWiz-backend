@@ -2,56 +2,67 @@
 
 namespace App\Http\Controllers\API;
 
+use App\User;
+use Validator;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Repositories\CustomFieldRepository;
-use App\Repositories\RoleRepository;
-use App\Repositories\UploadRepository;
-use App\Repositories\UserRepository;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+
+use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
+use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Sentinel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Password;
+use Activation;
+use Redirect;
+use Session;
+use Illuminate\Support\Facades\Input;
+use Mail;
+use Carbon\Carbon;
+use Mailchimp;
+use App\ZipCode;
+use Socialite;
 use Illuminate\Support\Facades\Response;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserAPIController extends Controller
 {
-    private $userRepository;
-    private $uploadRepository;
-    private $roleRepository;
-    private $customFieldRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, UploadRepository $uploadRepository, RoleRepository $roleRepository, CustomFieldRepository $customFieldRepo)
+    public function __construct()
     {
-        $this->userRepository = $userRepository;
-        $this->uploadRepository = $uploadRepository;
-        $this->roleRepository = $roleRepository;
-        $this->customFieldRepository = $customFieldRepo;
+        $this->middleware('guest')->except('logout');
     }
 
     function login(Request $request)
     {
         try {
-            $this->validate($request, [
+            // Validation
+            $validation = Validator::make($request->all(), [
                 'email' => 'required|email',
-                'password' => 'required',
+                'password' => 'required'
             ]);
-            if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-                // Authentication passed...
-                $user = auth()->user();
-                $user->device_token = $request->input('device_token', '');
-                $user->save();
-                return $this->sendResponse($user, 'User retrieved successfully');
+            
+            if ($validation->fails()) {
+                // return response()->json($validation->errors(), 422);
+                return response()->json([
+                    'success' => false,
+                    'data'    => $validation->errors(),
+                    'message' => 'The given data was invalid.'
+                ]);
             }
+            $user = Sentinel::authenticate($request->all(), true);
+            $user->device_token = $request->input('device_token', '');
+            $user->save();
+            return response()->json([
+                'success' => true,
+                'data'    => $user,
+                'message' => 'User retrieved successfully.'
+            ]);
+     
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 401);
+            return response()->json($e, 401);
         }
-
     }
 }
