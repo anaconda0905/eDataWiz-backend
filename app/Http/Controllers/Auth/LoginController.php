@@ -122,11 +122,8 @@ class LoginController extends Controller
             $user->password = bcrypt(str_random());
             $user->api_token = str_random(60);
             $user->save();
-            $activation = Activation::create($user);
-            $activation = Activation::complete($user, $activation->code);
-            $user->roles()->sync([2]);
+            
         }
-
         Sentinel::login($user);
         return redirect('/dashboard');
     }
