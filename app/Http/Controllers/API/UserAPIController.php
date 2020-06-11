@@ -61,6 +61,9 @@ class UserAPIController extends Controller
                     'message' => 'User does not exist.'
                 ]);
             }
+            $user->api_token = str_random(60);
+            $user->save();
+
             return response()->json([
                 'success' => true,
                 'data'    => $user,
@@ -70,6 +73,40 @@ class UserAPIController extends Controller
         } catch (\Exception $e) {
             return response()->json($e, 401);
         }
+    }
+
+    function logout(Request $request)
+    {
+        
+        $user = User::where(['api_token' => $request->input('api_token')])->first();
+        
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ]);
+        }
+
+        try {
+            Sentinel::logout();
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e,
+            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ]);
+        }
+        $user->api_token = '';
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'data'    => $user->email,
+            'message' => 'User logout successfully.'
+        ]);
     }
 
     function register(Request $request)
@@ -160,7 +197,7 @@ class UserAPIController extends Controller
     }
     public function handleProviderCallback($social, Request $request)
     {
-        // $userSocial = Socialite::driver($social)->stateless()->userFromToken($token);
+        $userSocial = Socialite::driver($social)->stateless()->user();
         // $user = User::where(['email' => $userSocial->getEmail()])->first();
         // if(!$user){
         //     $user = new User;

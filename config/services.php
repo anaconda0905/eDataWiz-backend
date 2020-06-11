@@ -36,9 +36,20 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '4274302532587842', //Facebook API
-        'client_secret' => '63e2f1a1e6f473732541872a4038130f', //Facebook Secret
-        'redirect' => 'http://localhost:3000/login/facebook/callback',
-     ],
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_CALLBACK_URL'),
+    ],
 
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT'),
+    ],
+    
+    'linkedin' => [
+        'client_id'     => env('LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+        'redirect'      => env('LINKEDIN_REDIRECT'),
+    ],
 ];
