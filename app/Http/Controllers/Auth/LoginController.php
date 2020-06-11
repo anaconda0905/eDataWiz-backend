@@ -111,8 +111,11 @@ class LoginController extends Controller
     * @param $social
     * @return Response
     */
-    public function handleProviderCallback($social)
+    public function handleProviderCallback($social, Request $request)
     {
+        // if (!$request->has('code') || $request->has('denied')) {
+        //     return redirect('/');
+        // }
         $userSocial = Socialite::driver($social)->user();
         $user = User::where(['email' => $userSocial->getEmail()])->first();
         if(!$user){

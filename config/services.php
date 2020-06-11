@@ -40,16 +40,17 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_CALLBACK_URL'),
     ],
+    
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID'),         // Your LinkedIn Client ID
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'), // Your LinkedIn Client Secret
+        'redirect' => env('LINKEDIN_CALLBACK_URL'),       // Your LinkedIn Callback URL
+    ],
 
     'google' => [
         'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect'      => env('GOOGLE_REDIRECT'),
     ],
-    
-    'linkedin' => [
-        'client_id'     => env('LINKEDIN_CLIENT_ID'),
-        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
-        'redirect'      => env('LINKEDIN_REDIRECT'),
-    ],
+
 ];
