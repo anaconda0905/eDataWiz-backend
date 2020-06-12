@@ -74,7 +74,7 @@ class UserAPIController extends Controller
         }
     }
     
-    function resetpassword(Request $request)
+    function changepassword(Request $request)
     {
         $user = User::where(['api_token' => $request->input('api_token')])->first();
 
@@ -106,7 +106,6 @@ class UserAPIController extends Controller
 
         $user = User::where(['api_token' => $request->input('api_token')])->first();
 
-
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -121,13 +120,10 @@ class UserAPIController extends Controller
                 'success' => false,
                 'message' => $e,
             ]);
-            return response()->json([
-                'success' => false,
-                'message' => 'User not found.'
-            ]);
         }
-        $user->api_token = '';
+        $user->api_token = str_random(60);
         $user->save();
+        
         return response()->json([
             'success' => true,
             'data'    => $user->email,
@@ -205,6 +201,7 @@ class UserAPIController extends Controller
     {
 
         $user = User::where(['email' => $request->input('email')])->first();
+        
         if (!$user) {
             $user = new User;
             $user->first_name = $request->input('name');
@@ -217,6 +214,8 @@ class UserAPIController extends Controller
             $user->roles()->sync([2]);
         }
         Sentinel::login($user);
+        $user->api_token = str_random(60);
+        $user->save();
         return response()->json([
             'success' => true,
             'data'    => $user,

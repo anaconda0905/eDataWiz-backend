@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', 'API\UserAPIController@login');
 Route::post('register', 'API\UserAPIController@register');
 Route::post('send_reset_link_email', 'API\UserAPIController@sendResetLinkEmail');
-Route::get('logout', 'API\UserAPIController@logout');
-Route::post('resetpassword', 'API\UserAPIController@resetpassword');
+Route::post('logout', 'API\UserAPIController@logout');
+Route::post('changepassword', 'API\UserAPIController@changepassword');
 Route::post('login/{social}','API\UserAPIController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
