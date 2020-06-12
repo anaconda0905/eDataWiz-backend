@@ -204,7 +204,15 @@ class UserAPIController extends Controller
         
         if (!$user) {
             $user = new User;
-            $user->first_name = $request->input('name');
+            $fullname = explode(" ", $request->input('name'));
+            if(count($fullname) == 2){
+                $user->first_name = $fullname[0];
+                $user->last_name = $fullname[1];
+            }
+            else{
+                $user->first_name = $fullname[0];
+                $user->last_name = $fullname[0];
+            }
             $user->email = $request->input('email');
             $user->password = bcrypt(str_random());
             $user->api_token = str_random(60);

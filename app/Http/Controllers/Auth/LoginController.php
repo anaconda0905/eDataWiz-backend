@@ -110,7 +110,15 @@ class LoginController extends Controller
         $user = User::where(['email' => $userSocial->getEmail()])->first();
         if (!$user) {
             $user = new User;
-            $user->first_name = $userSocial->name;
+            $fullname = explode(" ", $userSocial->name);
+            if(count($fullname) == 2){
+                $user->first_name = $fullname[0];
+                $user->last_name = $fullname[1];
+            }
+            else{
+                $user->first_name = $fullname[0];
+                $user->last_name = $fullname[0];
+            }
             $user->email = $userSocial->email;
             $user->password = bcrypt(str_random());
             $user->api_token = str_random(60);
