@@ -79,7 +79,6 @@ class LoginController extends Controller
                    return redirect('dashboard'); 
                 
             }
-
             return Redirect::back()->withErrors(['global' => 'Invalid password or this user does not exist' ]);
 
         } catch (NotActivatedException $e) {
@@ -113,9 +112,9 @@ class LoginController extends Controller
     */
     public function handleProviderCallback($social, Request $request)
     {
-        // if (!$request->has('code') || $request->has('denied')) {
-        //     return redirect('/');
-        // }
+        if (!$request->has('code') || $request->has('denied')) {
+            return redirect('/');
+        }
         $userSocial = Socialite::driver($social)->user();
         $user = User::where(['email' => $userSocial->getEmail()])->first();
         if(!$user){

@@ -45,7 +45,7 @@ class UserAPIController extends Controller
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-            
+
             if ($validation->fails()) {
                 // return response()->json($validation->errors(), 422);
                 return response()->json([
@@ -55,7 +55,7 @@ class UserAPIController extends Controller
                 ]);
             }
             $user = Sentinel::authenticate($request->all(), true);
-            if(!$user){
+            if (!$user) {
                 return response()->json([
                     'success' => false,
                     'message' => 'User does not exist.'
@@ -69,7 +69,6 @@ class UserAPIController extends Controller
                 'data'    => $user,
                 'message' => 'User retrieved successfully.'
             ]);
-     
         } catch (\Exception $e) {
             return response()->json($e, 401);
         }
@@ -77,9 +76,9 @@ class UserAPIController extends Controller
 
     function logout(Request $request)
     {
-        
+
         $user = User::where(['api_token' => $request->input('api_token')])->first();
-        
+
 
         if (!$user) {
             return response()->json([
@@ -117,7 +116,7 @@ class UserAPIController extends Controller
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-            
+
             if ($validation->fails()) {
                 // return response()->json($validation->errors(), 422);
                 return response()->json([
@@ -137,7 +136,7 @@ class UserAPIController extends Controller
             $user->phone = $request->input('phone');
 
             $user->api_token = str_random(60);
-            
+
             $user->save();
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
@@ -148,7 +147,6 @@ class UserAPIController extends Controller
                 'data'    => $user,
                 'message' => 'User created successfully.'
             ]);
-     
         } catch (\Exception $e) {
             return response()->json($e, 401);
         }
@@ -177,42 +175,25 @@ class UserAPIController extends Controller
         }
     }
 
-    function socialLogin($social)
+    function socialLogin($social, Request $request)
     {
-        try{
-            $url = Socialite::driver($social)->stateless()->redirect()->getTargetUrl();
-            
-            return response()->json([
-                'success' => true,
-                'data'    => $url,
-                'message' => 'Social login successfully redirected.'
-            ]);
+
+        $user = User::where(['email' => $request->input('email')])->first();
+        if (!$user) {
+            $user = new User;
+            $user->first_name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = bcrypt(str_random());
+            $user->api_token = str_random(60);
+            $user->save();
+            $activation = Activation::create($user);
+            $activation = Activation::complete($user, $activation->code);
+            $user->roles()->sync([2]);
         }
-        catch(\Exception $e){
-            return response()->json([
-                'success' => false,
-                'message' => $e
-            ]);
-        }
-    }
-    public function handleProviderCallback($social, Request $request)
-    {
-        $userSocial = Socialite::driver($social)->stateless()->user();
-        // $user = User::where(['email' => $userSocial->getEmail()])->first();
-        // if(!$user){
-        //     $user = new User;
-        //     $user->first_name = $userSocial->name;
-        //     $user->email = $userSocial->email;
-        //     $user->password = bcrypt(str_random());
-        //     $user->api_token = str_random(60);
-        //     $user->save();
-        //     $activation = Activation::create($user);
-        //     $activation = Activation::complete($user, $activation->code);
-        //     $user->roles()->sync([2]);
-        // }
+        Sentinel::login($user);
         return response()->json([
             'success' => true,
-            'data'    => $request->has('code'),
+            'data'    => $user,
             'message' => 'User retrieved successfully.'
         ]);
     }
