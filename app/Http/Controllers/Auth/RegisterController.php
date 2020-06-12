@@ -91,7 +91,4 @@ class RegisterController extends Controller
          Session::flash('status', 'error');
          return Redirect::back();
     }
-
-
-
 }

@@ -73,6 +73,33 @@ class UserAPIController extends Controller
             return response()->json($e, 401);
         }
     }
+    
+    function resetpassword(Request $request)
+    {
+        $user = User::where(['api_token' => $request->input('api_token')])->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ]);
+        }
+        $data["email"] = $user->email;
+        $data["password"] = $request->input('old_password');
+        $user1 = Sentinel::authenticate($data, true);
+        if(!$user1){
+            return response()->json([
+                'success' => false,
+                'message' => "Old password doesn't match.",
+            ]);
+        }
+        $user->password = Hash::make($request->input('new_password'));
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Password changed successfully.'
+        ]);
+    }
 
     function logout(Request $request)
     {
@@ -131,7 +158,6 @@ class UserAPIController extends Controller
             $user->last_name = $request->input('last_name');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->email = $request->input('email');
             $user->company = $request->input('company');
             $user->phone = $request->input('phone');
 

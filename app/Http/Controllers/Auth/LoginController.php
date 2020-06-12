@@ -34,7 +34,7 @@ class LoginController extends Controller
     |
     */
 
-   use  ThrottlesLogins;
+    use  ThrottlesLogins;
 
     /**
      * Where to redirect users after login.
@@ -57,13 +57,10 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    
+
     protected function login(Request $request)
     {
-
-
         try {
-
             // Validation
             $validation = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -75,49 +72,43 @@ class LoginController extends Controller
             }
             $remember = (Input::get('remember') == 'on') ? true : false;
             if ($user = Sentinel::authenticate($request->all(), $remember)) {
-                
-                   return redirect('dashboard'); 
-                
+
+                return redirect('dashboard');
             }
-            return Redirect::back()->withErrors(['global' => 'Invalid password or this user does not exist' ]);
-
+            return Redirect::back()->withErrors(['global' => 'Invalid password or this user does not exist']);
         } catch (NotActivatedException $e) {
-            return Redirect::back()->withErrors(['global' => 'This user is not activated','activate_contact'=>1]);
-
-        }
-        catch (ThrottlingException $e) {
+            return Redirect::back()->withErrors(['global' => 'This user is not activated', 'activate_contact' => 1]);
+        } catch (ThrottlingException $e) {
             $delay = $e->getDelay();
-            return Redirect::back()->withErrors(['global' => 'You are temporary susspended' .' '. $delay .' seconds','activate_contact'=>1]);
+            return Redirect::back()->withErrors(['global' => 'You are temporary susspended' . ' ' . $delay . ' seconds', 'activate_contact' => 1]);
         }
 
         return Redirect::back()->withErrors(['global' => 'Login problem please contact the administrator']);
-
-        
     }
-    
+
     /**
-    * Handle Social login request
-    *
-    * @return response
-    */
+     * Handle Social login request
+     *
+     * @return response
+     */
     public function socialLogin($social)
     {
         return Socialite::driver($social)->redirect();
     }
 
     /**
-    * Obtain the user information from Social Logged in.
-    * @param $social
-    * @return Response
-    */
+     * Obtain the user information from Social Logged in.
+     * @param $social
+     * @return Response
+     */
     public function handleProviderCallback($social, Request $request)
     {
-        if (!$request->has('code') || $request->has('denied')) {
+        if (!$request->has('code')) {
             return redirect('/');
         }
         $userSocial = Socialite::driver($social)->user();
         $user = User::where(['email' => $userSocial->getEmail()])->first();
-        if(!$user){
+        if (!$user) {
             $user = new User;
             $user->first_name = $userSocial->name;
             $user->email = $userSocial->email;
@@ -138,7 +129,8 @@ class LoginController extends Controller
         Sentinel::logout();
         return redirect('/');
     }
-    protected function activate($id){
+    protected function activate($id)
+    {
         $user = Sentinel::findById($id);
 
         $activation = Activation::create($user);
@@ -147,5 +139,4 @@ class LoginController extends Controller
         Session::flash('status', 'success');
         return redirect('login');
     }
-
 }
