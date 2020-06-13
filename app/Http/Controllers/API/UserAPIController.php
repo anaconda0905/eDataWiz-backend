@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-
-use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
-use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
-use Sentinel;
-use Illuminate\Http\Request;
-use Redirect;
-use Session;
-use Illuminate\Support\Facades\Input;
-use Mail;
-use Carbon\Carbon;
-use Mailchimp;
-use App\ZipCode;
-use Socialite;
 use Activation;
-use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Response;
+use Mail;
+use Sentinel;
+use Validator;
 
 class UserAPIController extends Controller
 {
@@ -37,28 +27,28 @@ class UserAPIController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    function login(Request $request)
+    public function login(Request $request)
     {
         try {
             // Validation
             $validation = Validator::make($request->all(), [
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required',
             ]);
 
             if ($validation->fails()) {
                 // return response()->json($validation->errors(), 422);
                 return response()->json([
                     'success' => false,
-                    'data'    => $validation->errors(),
-                    'message' => 'The given data was invalid.'
+                    'data' => $validation->errors(),
+                    'message' => 'The given data was invalid.',
                 ]);
             }
             $user = Sentinel::authenticate($request->all(), true);
             if (!$user) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'User does not exist.'
+                    'message' => 'Either email or password is incorrect.',
                 ]);
             }
             $user->api_token = str_random(60);
@@ -66,28 +56,27 @@ class UserAPIController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data'    => $user,
-                'message' => 'User retrieved successfully.'
+                'data' => $user,
+                'message' => 'User retrieved successfully.',
             ]);
         } catch (\Exception $e) {
             return response()->json($e, 401);
         }
     }
-    
-    function changepassword(Request $request)
+
+    public function changepassword(Request $request)
     {
         $user = User::where(['api_token' => $request->input('api_token')])->first();
-
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'User not found.'
+                'message' => 'User not found.',
             ]);
         }
         $data["email"] = $user->email;
         $data["password"] = $request->input('old_password');
         $user1 = Sentinel::authenticate($data, true);
-        if(!$user1){
+        if (!$user1) {
             return response()->json([
                 'success' => false,
                 'message' => "Old password doesn't match.",
@@ -97,19 +86,17 @@ class UserAPIController extends Controller
         $user->save();
         return response()->json([
             'success' => true,
-            'message' => 'Password changed successfully.'
+            'message' => 'Password changed successfully.',
         ]);
     }
 
-    function logout(Request $request)
+    public function logout(Request $request)
     {
-
         $user = User::where(['api_token' => $request->input('api_token')])->first();
-
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'User not found.'
+                'message' => 'User not found.',
             ]);
         }
 
@@ -123,29 +110,29 @@ class UserAPIController extends Controller
         }
         $user->api_token = str_random(60);
         $user->save();
-        
+
         return response()->json([
             'success' => true,
-            'data'    => $user->email,
-            'message' => 'User logout successfully.'
+            'data' => $user->email,
+            'message' => 'User logout successfully.',
         ]);
     }
 
-    function register(Request $request)
+    public function register(Request $request)
     {
         try {
             // Validation
             $validation = Validator::make($request->all(), [
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required',
             ]);
 
             if ($validation->fails()) {
                 // return response()->json($validation->errors(), 422);
                 return response()->json([
                     'success' => false,
-                    'data'    => $validation->errors(),
-                    'message' => 'The given data was invalid.'
+                    'data' => $validation->errors(),
+                    'message' => 'The given data was invalid.',
                 ]);
             }
 
@@ -156,7 +143,6 @@ class UserAPIController extends Controller
             $user->password = Hash::make($request->input('password'));
             $user->company = $request->input('company');
             $user->phone = $request->input('phone');
-
             $user->api_token = str_random(60);
 
             $user->save();
@@ -166,50 +152,136 @@ class UserAPIController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data'    => $user,
-                'message' => 'User created successfully.'
+                'data' => $user,
+                'message' => 'User created successfully.',
             ]);
         } catch (\Exception $e) {
             return response()->json($e, 401);
         }
     }
-
-    function sendResetLinkEmail(Request $request)
+    
+    public function verifyCode(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
-
-        $response = Password::broker()->sendResetLink(
-            $request->only('email')
-        );
-
-        if ($response == Password::RESET_LINK_SENT) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Reset link was sent successfully.'
-            ]);
-        } else {
+        if ($validation->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Reset link not sent.'
+                'data' => $validation->errors(),
+                'message' => 'The given data was invalid.',
             ]);
+        }
+        $user = User::where(['email' => $request->input('email')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
+        }
+        if(Hash::check($request->input('code'), $user->device_token) == false){
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid code',
+            ]);
+        }
+        $user->remember_token = str_random(60);
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'remember_token' => $user->remember_token,
+            'message' => 'verfied',
+        ]);
+    }
+
+    public function resetpassword(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => $validation->errors(),
+                'message' => 'The given data was invalid.',
+            ]);
+        }
+        $user = User::where(['email' => $request->input('email')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
+        }
+        if( $request->input('remember_token') != $user->remember_token){
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry. Try again. Token is invalid',
+            ]);
+        }
+        $user->password = Hash::make($request->input('new_password'));
+        $user->remember_token=str_random(60);
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Password changed successfully',
+        ]);
+    }
+
+    public function sendResetCodeEmail(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => $validation->errors(),
+                'message' => 'The given data was invalid.',
+            ]);
+        }
+        $user = User::where(['email' => $request->input('email')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
+        }
+        $token = rand(100000, 999999);
+        $user->device_token = Hash::make($token);
+        $user->save();
+        $data = array(
+            'code' => $token,
+            'name' => $user->first_name.' '.$user->last_name, 
+            'email'=> $user->email);
+        try{
+            Mail::send('emails.welcome', $data, function ($message) use($data) {
+                $message->to($data['email'], $data['name'])->subject
+                    ('Verify your email address');
+                $message->from('support@edatawiz.com', 'eDataWiz');
+            });
+            return response()->json([
+                'success' => true,
+                'message' => 'Reset code was sent successfully.',
+            ]);
+        }
+        catch (\Exception $e) {
+            return response()->json($e, 401);
         }
     }
 
-    function socialLogin($social, Request $request)
+    public function socialLogin($social, Request $request)
     {
 
         $user = User::where(['email' => $request->input('email')])->first();
-        
+
         if (!$user) {
             $user = new User;
             $fullname = explode(" ", $request->input('name'));
-            if(count($fullname) == 2){
+            if (count($fullname) == 2) {
                 $user->first_name = $fullname[0];
                 $user->last_name = $fullname[1];
-            }
-            else{
+            } else {
                 $user->first_name = $fullname[0];
                 $user->last_name = $fullname[0];
             }
@@ -226,8 +298,8 @@ class UserAPIController extends Controller
         $user->save();
         return response()->json([
             'success' => true,
-            'data'    => $user,
-            'message' => 'User retrieved successfully.'
+            'data' => $user,
+            'message' => 'User retrieved successfully.',
         ]);
     }
 }

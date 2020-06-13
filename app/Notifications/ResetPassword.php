@@ -42,7 +42,7 @@ class ResetPassword extends Notification
     {
         $url = url('password/reset/'.$this->token);
         return (new MailMessage)
-                     ->greeting('Hello!')
+                    ->greeting('Hello!')
                     ->line('You have requested to reset your password.')
                     ->action('Reset Password',$url)
                     ->line('Thank you for using our application!');
