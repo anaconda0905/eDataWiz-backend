@@ -186,7 +186,8 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         //social login
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -244,6 +245,6 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         //social login
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
-
 ];

@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Response;
 use Mail;
 use Sentinel;
 use Validator;
-
+use View;
+use Illuminate\Support\Facades\Log;
 class UserAPIController extends Controller
 {
 
@@ -256,18 +257,24 @@ class UserAPIController extends Controller
             'email'=> $user->email);
         try{
             Mail::send('emails.welcome', $data, function ($message) use($data) {
-                $message->to($data['email'], $data['name'])->subject
-                    ('Verify your email address');
-                $message->from('support@edatawiz.com', 'eDataWiz');
+                $message->to($data['email'], $data['name'])
+                ->subject('Verify your email address');
             });
-            return response()->json([
-                'success' => true,
-                'message' => 'Reset code was sent successfully.',
-            ]);
+            
+            $html =  \View::make('emails.welcome', $data)->render();
+            Log::debug($html);
+            
         }
         catch (\Exception $e) {
-            return response()->json($e, 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+            ]);
         }
+        return response()->json([
+            'success' => true,
+            'message' => 'Reset code was sent successfully.',
+        ]);
     }
 
     public function socialLogin($social, Request $request)

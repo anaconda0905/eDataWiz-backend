@@ -63,6 +63,11 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-    ],
+        'testDisk' => [
+            'driver' => 'local',
+            'root' => public_path('test_disk'),
+            'visibility' => 'public',
+        ],
 
+    ],
 ];

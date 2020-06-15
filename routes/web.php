@@ -20,9 +20,13 @@ Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
-
+Route::get('fs', ['uses' => 'HomeController@fs', 'as' => 'fs']);
 
 Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
+        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+        // Route::get('/demo', '\UniSharp\LaravelFilemanager\Controllers\DemoController@index');
+        Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users
         Route::resource('user', 'UserController');
@@ -45,5 +49,4 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
 
  Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
  Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
- 
  

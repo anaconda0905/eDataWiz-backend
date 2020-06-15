@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-  <title>@yield('title')| </title>
-
+  <title>eDataWiz | @yield('title')</title>
+  <link rel="icon" href="{{ URL::asset('/images/favicon.png') }}" type="image/x-icon" />
   <!-- Bootstrap -->
   <link href="{{ URL::asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="{{ URL::asset('/backend/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
-  <link href="{{ URL::asset('/backend/build/css/custom.min.css') }}" rel="stylesheet">
+  <link href="{{ URL::asset('/backend/build/css/custom.css') }}" rel="stylesheet">
   <!-- Datatables -->
   <link rel="stylesheet" href="{{ URL::asset('/backend/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('/backend/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}">
