@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
 use Mail;
 use Sentinel;
 use Validator;
 use View;
-use Illuminate\Support\Facades\Log;
+use Storage;
+
 class UserAPIController extends Controller
 {
 
@@ -150,6 +152,17 @@ class UserAPIController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
+            Storage::makeDirectory('public/files/' . $user->id, 444, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Commercial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/etc', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Customer Service', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Financial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Material-Store', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Project', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Production-Construction', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Purchasing', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/QA-QC', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/HSE', 0775, true);
 
             return response()->json([
                 'success' => true,
@@ -251,6 +264,7 @@ class UserAPIController extends Controller
         $token = rand(100000, 999999);
         $user->device_token = Hash::make($token);
         $user->save();
+
         $data = array(
             'code' => $token,
             'name' => $user->first_name.' '.$user->last_name, 
@@ -299,6 +313,17 @@ class UserAPIController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
+            Storage::makeDirectory('public/files/' . $user->id, 444, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Commercial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/etc', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Customer Service', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Financial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Material-Store', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Project', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Production-Construction', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Purchasing', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/QA-QC', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/HSE', 0775, true);
         }
         Sentinel::login($user);
         $user->api_token = str_random(60);

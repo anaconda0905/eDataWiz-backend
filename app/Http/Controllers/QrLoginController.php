@@ -47,7 +47,6 @@ class QrLoginController extends Controller
 		        $user->update();
 		        $result=1;
 			}
-		
 		}
 		
         return $result;

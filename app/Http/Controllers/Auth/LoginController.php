@@ -20,7 +20,7 @@ use Carbon\Carbon;
 use Mailchimp;
 use App\ZipCode;
 use Socialite;
-
+use Storage;
 class LoginController extends Controller
 {
     /*
@@ -126,6 +126,17 @@ class LoginController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
+            Storage::makeDirectory('public/files/' . $user->id, 444, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Commercial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/etc', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Customer Service', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Financial', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Material-Store', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Project', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Production-Construction', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/Purchasing', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/QA-QC', 0775, true);
+            Storage::makeDirectory('public/files/' . $user->id . '/HSE', 0775, true);
         }
 
         Sentinel::login($user);

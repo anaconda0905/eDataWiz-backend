@@ -23,9 +23,9 @@ Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 Route::get('fs', ['uses' => 'HomeController@fs', 'as' => 'fs']);
 
 Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
-        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+        // Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
         // Route::get('/demo', '\UniSharp\LaravelFilemanager\Controllers\DemoController@index');
-        Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+        // Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
 
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users

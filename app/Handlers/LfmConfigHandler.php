@@ -7,9 +7,15 @@ class LfmConfigHandler extends \UniSharp\LaravelFilemanager\Handlers\ConfigHandl
 {
     public function userField()
     {
-        return Sentinel::getUser()->id;
+        $user=Sentinel::getUser();
+        
+        if($user->roles()->first()->id == 1){
+            return auth()->id();
+        }
+        else
+            return Sentinel::getUser()->id;
     }
     public function baseDirectory(){
-        return 'storage/'.auth()->user()->id;
+        return Sentinel::getUser()->id;
     }
 }
