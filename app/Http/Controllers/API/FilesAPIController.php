@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-
+use Illuminate\Support\Facades\Storage;
 class FilesAPIController extends Controller
 {
     /**
@@ -118,12 +118,20 @@ class FilesAPIController extends Controller
                 'message' => 'User not found.',
             ]);
         }
-        $user_path = storage_path() . '\\app\\public\\files';
-
-        if ($user->roles()->first()->id == 2) {
-            $user_path = $user_path . '\\' . $user->id;
-        }
-        return FilesAPIController::dir_to_json($user_path);
+        
+        $files = Storage::disk('s3')->allFiles('/files/2/123');
+        //  . '\\app\\public\\files';
+        return response()->json([
+            'success' => true,
+            'data' => $files,
+            'message' => 'Folders and Files are successfully found.',
+        ]);
+        
+        
+        // if ($user->roles()->first()->id == 2) {
+        //     $user_path = $user_path . '\\' . $user->id;
+        // }
+        // return FilesAPIController::dir_to_json($user_path);
     }
     public function base64url_encode($data)
     {
