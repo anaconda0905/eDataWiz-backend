@@ -31,8 +31,5 @@ class PermissionMiddleware
             Session::flash('status', 'warning');
          return redirect()->back();
        }
-        
-
-        
     }
 }

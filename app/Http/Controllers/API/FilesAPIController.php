@@ -19,74 +19,52 @@ class FilesAPIController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    public function human_filesize($bytes, $decimals = 2)
-    {
-        $size = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-        $factor = floor((strlen($bytes) - 1) / 3);
-        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
-    }
 
     /*
      * Converts a filesystem tree to a PHP array.
      */
     public function dir_to_array($dir)
     {
-        if (!is_dir($dir)) {
+        
+        if (!Storage::disk('s3')->has($dir)) {
             // If the user supplies a wrong path we inform him.
-            return null;
+            return 0;
         }
-
+        
         // Our PHP representation of the filesystem
         // for the supplied directory and its descendant.
         $data = [];
-
-        foreach (new \DirectoryIterator($dir) as $f) {
-            if ($f->isDot()) {
-                // Dot files like '.' and '..' must be skipped.
+        $pattern = "~[^\/]+$~";
+        $direcotires = Storage::disk('s3')->directories($dir);
+        $files = Storage::disk('s3')->files($dir);
+        foreach ($direcotires as $d) {
+            preg_match_all($pattern, $d, $matches);
+            $name = implode($matches[0]);
+            if ($name == 'thumbs') {
                 continue;
             }
-
-            $path = $f->getPathname();
-            $name = $f->getFilename();
-            $path_parts = pathinfo($name);
-            $pattern_path = '~[\\\/]files[\\\/][\w\W]+~';
-
-            preg_match_all($pattern_path, $path, $matches);
-            $path = 'storage' . implode($matches[0]);
-            if ($f->isFile()) {
-                $data[] = [
-                    'file' => $name,
-                    'path' => $path,
-                    'filename' => $path_parts['filename'],
-                    'type' => $path_parts['extension'],
-                    'QRcode' => FilesAPIController::base64url_encode($path),
-                    'size' => FilesAPIController::human_filesize(filesize($path)),
-                    'actual_size' => filesize($path),
-                ];
-
-            } else {
-                // Process the content of the directory.
-                $files = FilesAPIController::dir_to_array($path);
-                if ($name == 'thumbs') {
-                    continue;
-                }
-
-                $data[] = ['dir' => $files,
-                    'name' => $name];
-                // A directory has a 'name' attribute
-                // to be able to retrieve its name.
-                // In case it is not needed, just delete it.
-            }
+            $data[] = [
+                'dir' => [],
+                'name' => $name
+            ];
         }
-
-        // Sorts files and directories if they are not on your system.
-        \usort($data, function ($a, $b) {
-            $aa = isset($a['file']) ? $a['file'] : $a['name'];
-            $bb = isset($b['file']) ? $b['file'] : $b['name'];
-
-            return \strcmp($aa, $bb);
-        });
-
+        foreach ($files as $f) {
+            preg_match_all($pattern, $f, $matches);
+            $name = implode($matches[0]);
+            $path_parts = pathinfo($name);
+            $absolute_path = Storage::disk('s3')->url($f);
+            $file_size = Storage::disk('s3')->size($f);
+            $file_date = Storage::disk('s3')->lastModified($f);
+            
+            $data[] = [
+                'file' => $name,
+                'name' => $path_parts['filename'],
+                'type' => $path_parts['extension'],
+                'link' => $absolute_path,
+                'modified_at' => $file_date,
+                'size' => $file_size,
+            ];
+        }
         return $data;
     }
 
@@ -95,19 +73,34 @@ class FilesAPIController extends Controller
      */
     public function dir_to_json($dir)
     {
-        $data = FilesAPIController::dir_to_array($dir);
-        if (!$data) {
+        try{
+            $data = FilesAPIController::dir_to_array($dir);
+            if ($data == 0) {
+                return response()->json([
+                    'success' => false,
+                    'data'    => null,
+                    'message' => 'Url is incorrect.',
+                ]);
+            }
+            elseif (!$data) {
+                return response()->json([
+                    'success' => true,
+                    'data'    => $data,
+                    'message' => 'Folder is Empty',
+                ]);
+            }
             return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong',
+                'success' => true,
+                'data'    => $data,
+                'message' => 'Folders and Files are successfully found.',
             ]);
         }
-
-        return response()->json([
-            'success' => true,
-            'data' => $data,
-            'message' => 'Folders and Files are successfully found.',
-        ]);
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+            ]);
+        }
     }
     public function getList(Request $request)
     {
@@ -118,28 +111,11 @@ class FilesAPIController extends Controller
                 'message' => 'User not found.',
             ]);
         }
-        
-        $files = Storage::disk('s3')->allFiles('/files/2/123');
-        //  . '\\app\\public\\files';
-        return response()->json([
-            'success' => true,
-            'data' => $files,
-            'message' => 'Folders and Files are successfully found.',
-        ]);
-        
-        
-        // if ($user->roles()->first()->id == 2) {
-        //     $user_path = $user_path . '\\' . $user->id;
-        // }
-        // return FilesAPIController::dir_to_json($user_path);
-    }
-    public function base64url_encode($data)
-    {
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
-    }
-
-    public function base64url_decode($data)
-    {
-        return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
+        $path = "files/";
+        if ($user->roles()->first()->id == 2) {
+            $path = $path . $user->id;
+        }
+        $path = $path .$request->input('path');
+        return FilesAPIController::dir_to_json($path);
     }
 }

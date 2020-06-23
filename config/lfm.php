@@ -122,13 +122,13 @@ return [
 
     'disk'                     => 'public',
 
-    'rename_file'              => true,
+    'rename_file'              => false,
 
     'alphanumeric_filename'    => false,
 
     'alphanumeric_directory'   => false,
 
-    'should_validate_size'     => true,
+    'should_validate_size'     => false,
 
     'should_validate_mime'     => false,
 
