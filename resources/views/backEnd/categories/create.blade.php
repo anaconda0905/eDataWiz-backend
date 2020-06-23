@@ -9,7 +9,7 @@ New user role
 
         <div class="panel-body">
 
-    {!! Form::open(['url' => 'role', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['url' => 'category', 'class' => 'form-horizontal']) !!}
 
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                 {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}

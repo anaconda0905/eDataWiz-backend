@@ -50,7 +50,7 @@ User role
             $('#tblroles').DataTable({
                 columnDefs: [{
                     targets: [0],
-                    visible: false,
+                    // visible: false,
                     searchable: false
                     },
                 ],
