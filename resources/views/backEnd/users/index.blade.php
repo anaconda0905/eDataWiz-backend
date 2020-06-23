@@ -34,7 +34,11 @@ Users
                 <td><a href="{{route('user.show', $user->id)}}">{{$user->first_name}}</a></td>
                 <td><a href="{{route('user.show', $user->id)}}">{{$user->last_name}}</a></td>
                 <td>{{$user->email}}</td>
-                <td> <a href="{{route('user.index',['type='.$user->roles()->first()->name])}}">{{empty($user->roles()->first())?"":$user->roles()->first()->name}}</a>  </td>
+                @if(empty($user->roles()->first()))
+                <td> <a href="{{route('user.index',['type='])}}">{{empty($user->roles()->first())?"":$user->roles()->first()->name}}</a></td>
+                @else
+                <td> <a href="{{route('user.index',['type='.$user->roles()->first()->name])}}">{{empty($user->roles()->first())?"":$user->roles()->first()->name}}</a></td>
+                @endif
                 <td>{{$user->created_at}}</td>
                 <td>
                     @if (Sentinel::getUser()->hasAccess(['user.show']))

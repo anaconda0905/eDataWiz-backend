@@ -43,6 +43,10 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::get('role/{role}/permissions', ['uses' => 'RoleController@permissions', 'as' => 'role.permissions']);
         Route::post('role/{role}/save', ['uses' => 'RoleController@save', 'as' => 'role.save']);
         Route::post('role/check', ['uses' => 'RoleController@check']);
+
+        //categories
+        Route::resource('category', 'CategoryController');
+
         //Update User Qr Code
         Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);
         Route::post('qrLogin-autogenerate', ['uses' => 'QrLoginController@QrAutoGenerate']);

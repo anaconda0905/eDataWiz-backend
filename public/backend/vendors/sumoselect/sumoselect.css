@@ -97,7 +97,7 @@
      .SumoSelect.disabled > .CaptionCont{border-color:#ccc;box-shadow:none;}
 
     /**Select all button**/
-    .SumoSelect .select-all{border-radius: 3px 3px 0 0;position: relative;border-bottom: 1px solid #ddd;background-color: #fff;padding: 8px 0 3px 35px;height: 20px;cursor: pointer;}
+    .SumoSelect .select-all{border-radius: 3px 3px 0 0;position: relative;border-bottom: 1px solid #ddd;background-color: #fff;padding: 8px 0 3px 35px;height: 35px;cursor: pointer;}
     .SumoSelect .select-all > label, .SumoSelect .select-all > span i{cursor: pointer;}
     .SumoSelect .select-all.partial > span i{background-color:#ccc;}
 

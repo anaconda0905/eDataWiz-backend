@@ -14,7 +14,7 @@ use Sentinel;
 use Route;
 class RoleController extends Controller
 {
-      protected function validator(Request $request)
+    protected function validator(Request $request)
     {
         return Validator::make($request->all(), [
             'slug' => 'required|max:35|min:2|string',
@@ -152,7 +152,7 @@ class RoleController extends Controller
 
         $actions = [];
         foreach ($routes as $route) {
-            if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
+            if ($route->getName() != "" && !substr_count($route->getName(), 'payment') && !substr_count($route->getName(), 'unisharp')) {
                 $actions[] = $route->getName();
             }            
         }

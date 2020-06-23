@@ -215,7 +215,7 @@ class UserController extends Controller
 
         $actions = [];
         foreach ($routes as $route) {
-            if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
+            if ($route->getName() != "" && !substr_count($route->getName(), 'payment') && !substr_count($route->getName(), 'unisharp')) {
                 $actions[] = $route->getName();
             }
         }

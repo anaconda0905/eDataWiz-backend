@@ -1,7 +1,7 @@
 
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
-    <a href="{{url('dashboard')}}" class="site_title"><i class="fa fa-th-list"></i> <span>File Manager</span></a>
+    <a href="{{url('dashboard')}}" class="site_title"><i class="fa fa-th-list"></i> <span>File Management</span></a>
   </div>
 
   <div class="clearfix"></div>
@@ -41,10 +41,17 @@
           </ul>
         </li>
       @endif
+      @if (Sentinel::getUser()->hasAnyAccess(['category.*']))
+        <li><a><i class="fa fa-tags"></i> Categories <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{route('category.index')}}">All Categories</a></li>
+            <li><a href="{{route('category.create')}}">New Category</a></li>
+          </ul>
+        </li>
+      @endif
       </ul>
     </div>
     <div class="menu_section">
-      <h3>Live On</h3>
       <ul class="nav side-menu">
         <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
