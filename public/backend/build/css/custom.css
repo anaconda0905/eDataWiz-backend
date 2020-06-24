@@ -210,7 +210,9 @@ body .container.body .right_col {
   float: left;
   background: #2A3F54;
   border-radius: 0;
-  height: 57px; }
+  height: 30px;
+  min-height: 30px !important;
+}
 
 @media (max-width: 991px) {
   .nav-md .container.body .right_col, .nav-md .container.body .top_nav {

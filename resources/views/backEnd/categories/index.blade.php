@@ -14,6 +14,8 @@ Category
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Subcategory</th>
+                        <th>Subcategory Action</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -25,7 +27,22 @@ Category
                         <td>{{ $item->id }}</td>
                         <td><a href="{{ url('category', $item->id) }}">{{ $item->name }}</a></td>
                         <td>
-                            <a href="{{route('user.index',['type='.$item->name])}}" class="btn btn-success btn-xs">View
+                            {!! Form::select('role', $item, null, ['class' => 'form-control']) !!}
+                        </td>
+                        <td>
+                            <a href="{{route('user.index',['type='.$item->name])}}" class="btn btn-primary btn-xs">Add</a>
+                            <a href="{{ url('category/' . $item->id . '/edit') }}"
+                                class="btn btn-success btn-xs">Edit</a>
+                            {!! Form::open([
+                            'method'=>'DELETE',
+                            'url' => ['category', $item->id],
+                            'style' => 'display:inline'
+                            ]) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs deleteconfirm']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                        <td>
+                            <a href="{{route('user.index',['type='.$item->name])}}" class="btn btn-primary btn-xs">View
                                 Products</a>
                             <a href="{{ url('category/' . $item->id . '/edit') }}"
                                 class="btn btn-success btn-xs">Edit</a>

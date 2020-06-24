@@ -34,6 +34,20 @@ class CategoryController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $category = Category::findOrFail($id);
+
+        return View('backEnd.categories.show', compact('category'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -59,6 +73,63 @@ class CategoryController extends Controller
         Session::flash('message', 'Success! Category is created successfully.');
         Session::flash('status', 'success');
 
-        return redirect('role');
+        return redirect('category');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+        return View('backEnd.categories.edit', compact('category'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+        
+        if ($this->validator($request)->fails()) {
+            return redirect()->back()
+                        ->withErrors($this->validator($request))
+                        ->withInput();
+        }
+        
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        Session::flash('message', 'Success! Category is updated successfully.');
+        Session::flash('status', 'success');
+
+        return redirect('category');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+
+        $category->delete();
+
+        Session::flash('message', 'Success! Category is deleted successfully.');
+        Session::flash('status', 'success');
+
+        return redirect('category');
     }
 }

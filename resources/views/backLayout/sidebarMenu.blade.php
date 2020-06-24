@@ -1,95 +1,53 @@
-
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
-    <a href="{{url('dashboard')}}" class="site_title"><i class="fa fa-th-list"></i> <span>File Management</span></a>
   </div>
 
-  <div class="clearfix"></div>
 
   <!-- menu profile quick info -->
-  <div class="profile">
-    <div class="profile_pic">
-      <img src="{{ URL::asset('/images/img.jpg') }}" alt="..." class="img-circle profile_img">
-    </div>
-    <div class="profile_info">
-      <span>Welcome,</span>
-      <h2>{{Sentinel::getUser()->first_name.' ' .Sentinel::getUser()->last_name }}</h2>
-    </div>
+  <div class="profile" style="text-align: center;">
+
+    <img src="{{ URL::asset('/images/footer-logo.png') }}" alt="..." style="width: 150px;">
   </div>
   <!-- /menu profile quick info -->
-
   <br />
 
   <!-- sidebar menu -->
   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-      <h3>General</h3>
+      <!-- <h3>General</h3> -->
       <ul class="nav side-menu">
-      @if (Sentinel::getUser()->hasAnyAccess(['user.*']))
+        @if (Sentinel::getUser()->hasAnyAccess(['user.*']))
         <li><a><i class="fa fa-users"></i>Users <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('user.index')}}">All users</a></li>
             <li><a href="{{route('user.create')}}">New user</a></li>
           </ul>
         </li>
-      @endif
-      @if (Sentinel::getUser()->hasAnyAccess(['role.*']))
+        @endif
+        @if (Sentinel::getUser()->hasAnyAccess(['role.*']))
         <li><a><i class="fa fa-cog"></i> Roles <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('role.index')}}">All Roles</a></li>
             <li><a href="{{route('role.create')}}">New Role</a></li>
           </ul>
         </li>
-      @endif
-      @if (Sentinel::getUser()->hasAnyAccess(['category.*']))
-        <li><a><i class="fa fa-tags"></i> Categories <span class="fa fa-chevron-down"></span></a>
+        @endif
+        @if (Sentinel::getUser()->hasAnyAccess(['category.*']))
+        <li><a><i class="fa fa-bookmark"></i> Categories <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('category.index')}}">All Categories</a></li>
             <li><a href="{{route('category.create')}}">New Category</a></li>
           </ul>
         </li>
-      @endif
+        @endif
       </ul>
     </div>
     <div class="menu_section">
       <ul class="nav side-menu">
-        <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="e_commerce.html">E-commerce</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="project_detail.html">Project Detail</a></li>
-            <li><a href="contacts.html">Contacts</a></li>
-            <li><a href="profile.html">Profile</a></li>
-          </ul>
-        </li>
-        <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="page_403.html">403 Error</a></li>
-            <li><a href="page_404.html">404 Error</a></li>
-            <li><a href="page_500.html">500 Error</a></li>
-            <li><a href="plain_page.html">Plain Page</a></li>
-            <li><a href="login.html">Login Page</a></li>
-            <li><a href="pricing_tables.html">Pricing Tables</a></li>
-          </ul>
-        </li>
-        <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-              <li><a href="#level1_1">Level One</a>
-              <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                  <li class="sub_menu"><a href="level2.html">Level Two</a>
-                  </li>
-                  <li><a href="#level2_1">Level Two</a>
-                  </li>
-                  <li><a href="#level2_2">Level Two</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#level1_2">Level One</a>
-              </li>
-          </ul>
-        </li>                  
-        <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li> -->
+        <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i>File Management</a></li>
+        <li><a href="{{url('dashboard')}}"><i class="fa fa-book"></i>Products Digital Library</a></li>
+        <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span
+              class="label label-success pull-right">Coming Soon</span></a></li>
       </ul>
     </div>
 
