@@ -40,8 +40,7 @@ Category
                         </td>
                         <td>
                             <a class="btn btn-primary btn-xs add_sub_cat">Add</a>
-                            <a href="{{ url('category/' . $item->id . '/edit') }}"
-                                class="btn btn-success btn-xs">Edit</a>
+                            <a class="btn btn-success btn-xs edit_sub_cat">Edit</a>
                             <a class="btn btn-danger btn-xs delete_sub_cat">Delete</a>
                         </td>
                         <td>
@@ -92,6 +91,32 @@ Category
     </div>
   </div>
 
+
+  <div class="modal fade" id="sub_cat_edit_modal" tabindex="-1" role="dialog" aria-labelledby="sub_cat_edit_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sub_cat_edit_modalLabel">Edit Subcategory</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="subcateditname">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" id="edit_subcat_id" value=""/>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary edit_sub_cat_perfom">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('scripts')
@@ -176,6 +201,38 @@ Category
         }
     });
 
- 
+    $('.edit_sub_cat').on("click", function(){
+        var subcat_id = $(this).parent().parent().find('.subcat').children(":selected").attr('id');
+        var subcat_name = $(this).parent().parent().find('.subcat').children(":selected").text();
+        if(subcat_id) {
+            $('#edit_subcat_id').val(subcat_id);
+            $('#sub_cat_edit_modal').modal();
+            $('#subcateditname').val(subcat_name);
+        }
+    });
+
+    $('.edit_sub_cat_perfom').on('click', function(){
+        $('#sub_cat_edit_modal').modal('toggle');
+        if($('#subcateditname').val() && $('#edit_subcat_id').val()){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '/ajax_sub_cat_update',
+                method: 'POST', 
+                data: { _token: CSRF_TOKEN, id: $('#edit_subcat_id').val(), name: $('#subcateditname').val()},
+                dataType: 'JSON',
+                /* remind that 'data' is the response of the AjaxController */
+                success: function (data) {
+                    swal(
+                        'Updated!',
+                        'Subcategory has been Updated.',
+                        'success'
+                    );
+                    setTimeout( function() {
+                        location.reload(true);
+                    }, 1000);
+                }
+            });
+        }
+    });
 </script>
 @endsection

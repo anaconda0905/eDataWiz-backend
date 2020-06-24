@@ -37,10 +37,23 @@ class HomeController extends Controller
     {
         return view('backEnd.dashboard');
     }
+
     public function create(Request $request){
         $category = Category::findOrFail($request->message);
         SubCategory::create([
             'category'  => $category->id,
+            'name'      => $request->name
+        ]);
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
+    }
+
+    public function update(Request $request){
+        $subcategory = SubCategory::findOrFail($request->id);
+        $subcategory->update([
+            'id'  => $subcategory->id,
             'name'      => $request->name
         ]);
         $response = array(
