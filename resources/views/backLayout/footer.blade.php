@@ -18,6 +18,7 @@
 <!-- NProgress -->
 <script src="{{ URL::asset('/backend/vendors/nprogress/nprogress.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('/backend/build/js/custom.min.js ') }}"></script>
 <!-- datatables -->

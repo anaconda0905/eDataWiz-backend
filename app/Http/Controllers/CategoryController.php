@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use App\SubCategory;
 use Carbon\Carbon;
 use Session;
 use Validator;
@@ -29,8 +30,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::all();
-
-        return View('backEnd.categories.index', compact('categories'));
+        $subcategories = SubCategory::orderBy('updated_at', 'desc')->get();
+        return View('backEnd.categories.index', compact('categories', 'subcategories'));
     }
 
     /**

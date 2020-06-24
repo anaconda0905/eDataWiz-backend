@@ -12,7 +12,7 @@
   <link href="{{ URL::asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="{{ URL::asset('/backend/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <!-- Custom Theme Style -->
   <link href="{{ URL::asset('/backend/build/css/custom.css') }}" rel="stylesheet">
   <!-- Datatables -->
