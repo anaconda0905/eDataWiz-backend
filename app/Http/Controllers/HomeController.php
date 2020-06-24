@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use QrCode;
+use App\SubCategory;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -35,7 +37,27 @@ class HomeController extends Controller
     {
         return view('backEnd.dashboard');
     }
+    public function create(Request $request){
+        $category = Category::findOrFail($request->message);
+        SubCategory::create([
+            'category'  => $category->id,
+            'name'      => $request->name
+        ]);
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
+    }
 
+    public function destroy(Request $request){
+        $subcategory = SubCategory::findOrFail($request->message);
+        $subcategory->delete();
+        
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
+    }
     public function ajax_update(Request $request)
     {
         $data ="data:image/png;base64,". base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size($request->dimension)->generate($request->message));
