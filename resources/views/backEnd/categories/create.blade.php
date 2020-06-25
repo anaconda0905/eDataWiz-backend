@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('title')
-New user role
+New category
 @stop
 
 @section('content')

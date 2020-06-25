@@ -4305,3 +4305,62 @@ ul.notifications {
   border: 1px solid #e5e5e5; }
 
 /** /Dropzone.js **/
+
+#filedrag {
+  padding: 1em;
+  margin: 1em 0;
+  color: #1a1a1a;
+  border: 2px dashed #808080;
+  border-radius: 4px;
+  cursor: default;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+#filedrag.hover {
+  border-color: #efd126;
+  border-style: solid;
+}
+
+#filedrag.hover .box-icon {
+  max-width: 50px;
+}
+
+#fileselect {
+  margin: auto;
+}
+
+.box-icon {
+  max-width: 50px;
+  display: block;
+  margin: auto;
+}
+
+#messages {
+  padding: 0 10px;
+  margin: 1em 0;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+#progress p {
+  display: block;
+  width: 100%;
+  padding: 5px 15px;
+  margin: 2px 0;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  background: #eee 100% 0 repeat-y;
+  color: #333;
+}
+
+#progress p.success {
+  background: #28a745 none 0 0 no-repeat;
+  color: #fff;
+}
+
+#progress p.failed {
+  background: #dc3545 none 0 0 no-repeat;
+  color: #fff;
+}

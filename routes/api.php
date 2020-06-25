@@ -26,10 +26,10 @@ Route::post('logout', 'API\UserAPIController@logout');
 Route::post('changepassword', 'API\UserAPIController@changepassword');
 Route::post('login/{social}','API\UserAPIController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
 Route::post('lists', 'API\FilesAPIController@getList');
+Route::post('products', 'API\FilesAPIController@getListModule1');
+Route::post('categories', 'API\FilesAPIController@getCategories');
 
-
-Route::middleware('auth:api')->group(function () {
-    Route::group(['middleware' => ['role:admin']], function () {
-        
-    });
-});
+// Route::middleware('auth:api')->group(function () {
+//     Route::group(['middleware' => ['role:admin']], function () {
+//     });
+// });

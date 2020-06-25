@@ -53,7 +53,7 @@ class HomeController extends Controller
     public function update(Request $request){
         $subcategory = SubCategory::findOrFail($request->id);
         $subcategory->update([
-            'id'  => $subcategory->id,
+            'id'        => $subcategory->id,
             'name'      => $request->name
         ]);
         $response = array(

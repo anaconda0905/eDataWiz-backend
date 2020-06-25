@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
 
         //categories
         Route::resource('category', 'CategoryController');
+        Route::resource('product', 'ProductController');
 
         //Update User Qr Code
         Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);

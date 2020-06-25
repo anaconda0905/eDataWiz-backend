@@ -45,7 +45,7 @@
     <div class="menu_section">
       <ul class="nav side-menu">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i>File Management</a></li>
-        <li><a href="{{url('dashboard')}}"><i class="fa fa-book"></i>Products Digital Library</a></li>
+        <li><a href="{{url('product/create')}}"><i class="fa fa-book"></i>Products Digital Library</a></li>
         <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span
               class="label label-success pull-right">Coming Soon</span></a></li>
       </ul>
@@ -59,15 +59,18 @@
     <a data-toggle="tooltip" data-placement="top" title="Settings">
       <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
     </a>
-    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+    <a data-toggle="tooltip" data-placement="top" title="FullScreen" onclick="toggleFullScreen(document.body)">
       <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
     </a>
     <a data-toggle="tooltip" data-placement="top" title="Lock">
       <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
     </a>
-    <a data-toggle="tooltip" data-placement="top" title="Logout">
+    {!! Form::open(['url' => url('logout'),'class'=>'form-inline', 'id'=>'logoutform']) !!}
+    {!! csrf_field() !!}
+    <a data-toggle="tooltip" data-placement="top" title="Logout" onclick="document.getElementById('logoutform').submit();">
       <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
     </a>
+    {!! Form::close() !!}
   </div>
   <!-- /menu footer buttons -->
 </div>
