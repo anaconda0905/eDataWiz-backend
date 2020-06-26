@@ -181,7 +181,10 @@
   border-bottom: 1px solid #D9DEE4;
   margin-bottom: 10px;
   width: 100%;
-  position: relative; }
+  position: relative; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
 
 @media (min-width: 480px) {
   .nav_menu {
@@ -199,12 +202,18 @@
   position: fixed; }
 
 body .container.body .right_col {
-  background: #F7F7F7; }
+  background: #F7F7F7; 
+}
 
 .nav-md .container.body .right_col {
   padding: 10px 20px 0;
   margin-left: 230px; 
-  min-height: 800px !important;
+  min-height: 900px !important;
+}
+
+.panel.panel-default{
+  margin-top: 80px !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .nav_title {

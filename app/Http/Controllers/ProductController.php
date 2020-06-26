@@ -17,9 +17,55 @@ use Session;
 use Validator;
 use Sentinel;
 use Route;
+use Storage;
+use App\User;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(Request $request)
+    {
+        $category1 = Category1::all();
+        $category2 = Category2::all();
+        $category3 = Category3::all();
+        $category4 = Category4::all();
+        $category5 = Category5::all();
+        $category6 = Category6::all();
+        $products = Product::all();
+        $users = User::all();
+        return View('backEnd.products.index', 
+            compact('products', 'category1', 'category2', 'category3', 'category4', 'category5', 'category6', "users"));
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->delete();
+
+        Session::flash('message', 'Success! Role is deleted successfully.');
+        Session::flash('status', 'success');
+
+        return redirect('product');
+    }
+
+    protected function validator(Request $request, $id = '')
+    {
+        return Validator::make($request->all(), [
+            'category1' => 'required',
+            'category2' => 'required',
+            'category3' => 'required',
+            'category4' => 'required',
+            'category5' => 'required',
+            'category6' => 'required',
+            'fileselect' => 'required',
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -209,7 +255,32 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
+        
+        // if ($this->validator($request, Sentinel::getUser()->id)->fails()) {
 
+        //     return redirect()->back()
+        //         ->withErrors($this->validator($request))
+        //         ->withInput();
+        // }
+        $json_categories = json_decode($request->categories);
+        $file = $request->file('fileselect');
+        $fileName = Sentinel::getUser()->id . '_' . time() . '_' . $file->getClientOriginalName();
+        $path = "PDF/".$fileName;
+        $f = Storage::disk('s31')->put($path, file_get_contents($file));
+        $absolute_path = Storage::disk('s31')->url($path);
+        Product::create([
+            'user_id'         => Sentinel::getUser()->id,
+            'category1_id'    => $json_categories->category1,
+            'category2_id'    => $json_categories->category2,
+            'category3_id'    => $json_categories->category3,
+            'category4_id'    => $json_categories->category4,
+            'category5_id'    => $json_categories->category5,
+            'category6_id'    => $json_categories->category6,
+            'aws_path'        => 'PDF/'.$fileName,
+            'filepath'        => $absolute_path,
+            'filename'        => $file->getClientOriginalName(),
+        ]);
+        
         Session::flash('message', 'Success! Product is created successfully.');
         Session::flash('status', 'success');
 

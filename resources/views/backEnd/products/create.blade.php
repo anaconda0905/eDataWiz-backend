@@ -7,7 +7,7 @@ New Product
 <div class="panel panel-default">
     <div class="panel-heading">New Product</div>
     <div class="panel-body">
-        {!! Form::open(['url' => 'product', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'method' => 'post', 'files' => true, 'id' => "productForm"]) !!}
+        {!! Form::open(['url' => route('product.store'), 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'method' => 'post', 'files' => true, 'id' => "productForm"]) !!}
         @include('backEnd.products.table')
         <div class="form-group {{ $errors->has('fileselect') ? 'has-error' : ''}}">
             {!! Form::label('fileselect', 'Upload File', ['class' => 'col-md-4 col-sm-4 col-xs-12 col-12 control-label']) !!}
@@ -24,6 +24,13 @@ New Product
                 {!! $errors->first('fileselect', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
+        <input type="hidden" name="categories" id="categories" value="" />
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-3">
+                <a id="productFormSubmit" class="btn btn-success form-control">Submit</a>
+            </div>
+            <a href="{{route('product.index')}}" class="btn btn-default">Return to all products</a>
+        </div>
         {!! Form::close() !!}
     </div>
 </div>
@@ -31,6 +38,16 @@ New Product
 
 @section('scripts')
 <script>
+    $('#productFormSubmit').on('click', function(){ 
+        var items = {};
+        $('.subcat').each(function(){
+            var selected_id = $(this).val();
+            items[$(this).attr('name')] = selected_id;
+        });
+        $('#categories').val(JSON.stringify(items));
+        $('#productForm').submit();
+    });
+
     $('.table').on("change", "select[name=category1]", function(){
         var cat1 = $('select[name=category1]').val();
         var cat2 = $('select[name=category2]').val();

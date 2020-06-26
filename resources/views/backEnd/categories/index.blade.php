@@ -235,7 +235,14 @@ Categories
     
     $('.table').on("click", ".add_sub_cat", function(){
         var cat_id = $(this).parent().attr("cat_id");
-        if(cat_id) {
+        var subcat_ids = [];
+        $('.subcat').each(function(){
+            subcat_ids.push($(this).val());
+        });
+        var parent_id;
+        if(cat_id == 1) parent_id = 1;
+        else parent_id = subcat_ids[cat_id-2];
+        if(cat_id && parent_id) {
             $('#sub_cat_add_modal').modal();
             $('#cat_id').val(cat_id);
         }
@@ -251,7 +258,7 @@ Categories
         var parent_id;
         if(cat_id == 1) parent_id = 1;
         else parent_id = subcat_ids[cat_id-2];
-
+        
         if($('#subcatname').val() && parent_id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({

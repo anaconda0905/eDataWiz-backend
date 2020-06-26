@@ -6,7 +6,7 @@
   <ul class="nav navbar-nav navbar-right">
     <li class="">
       <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <i class="fa fa-user"></i>
+        Account
         <span class=" fa fa-angle-down"></span>
       </a>
       <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -17,10 +17,9 @@
             <span>{{Sentinel::getUser()->first_name.' ' .Sentinel::getUser()->last_name }}</span>
           </a>
         </li>
-        <li><a href="javascript:;">Help</a></li>
         {!! Form::open(['url' => url('logout'),'class'=>'form-inline']) !!}
         {!! csrf_field() !!}
-        <li><button class="btn btn-primary btn-lg btn-block register-button" type="submit">Logout</button> </li>
+        <li><button class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></button> </li>
         {!! Form::close() !!}
       </ul>
     </li>
@@ -33,11 +32,10 @@
       <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
         <li>
           <a>
-            <span class="image"><img src="{{ URL::asset('/images/img.jpg') }}" alt="Profile Image" /></span>
             <span>
-              <span>John Smith</span>
               <span class="time">3 mins ago</span>
             </span>
+            <br/>
             <span class="message">
               Film festivals used to be do-or-die moments for movie makers. They were where...
             </span>
@@ -45,11 +43,10 @@
         </li>
         <li>
           <a>
-            <span class="image"><img src="{{ URL::asset('/images/img.jpg') }}" alt="Profile Image" /></span>
             <span>
-              <span>John Smith</span>
               <span class="time">3 mins ago</span>
             </span>
+            <br/>
             <span class="message">
               Film festivals used to be do-or-die moments for movie makers. They were where...
             </span>
@@ -57,23 +54,10 @@
         </li>
         <li>
           <a>
-            <span class="image"><img src="{{ URL::asset('/images/img.jpg') }}" alt="Profile Image" /></span>
             <span>
-              <span>John Smith</span>
               <span class="time">3 mins ago</span>
             </span>
-            <span class="message">
-              Film festivals used to be do-or-die moments for movie makers. They were where...
-            </span>
-          </a>
-        </li>
-        <li>
-          <a>
-            <span class="image"><img src="{{ URL::asset('/images/img.jpg') }}" alt="Profile Image" /></span>
-            <span>
-              <span>John Smith</span>
-              <span class="time">3 mins ago</span>
-            </span>
+            <br/>
             <span class="message">
               Film festivals used to be do-or-die moments for movie makers. They were where...
             </span>

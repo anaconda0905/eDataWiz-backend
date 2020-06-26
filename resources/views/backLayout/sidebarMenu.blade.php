@@ -42,7 +42,7 @@
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i>File Management</a></li>
         <li><a><i class="fa fa-book"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-              <li><a href="#level1_1">All Products</a>
+              <li><a href="{{url('product')}}">All Products</a>
               <li><a href="{{url('product/create')}}">New Product</a>
             </li>
           </ul>

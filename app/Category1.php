@@ -8,5 +8,4 @@ class Category1 extends Model
 {
     protected $table = "category1";
     protected $guarded = [];
-    
 }

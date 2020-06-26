@@ -63,6 +63,14 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        's31' => [
+            'driver' => 's3',
+            'key' => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET'),
+            'region' => env('AWS_REGION'),
+            'bucket' => 'edatawiz2',
+        ],
+
         'testDisk' => [
             'driver' => 'local',
             'root' => public_path('test_disk'),

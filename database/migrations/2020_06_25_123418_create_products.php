@@ -22,7 +22,9 @@ class CreateProducts extends Migration
             $table->integer('category4_id')->nullable();
             $table->integer('category5_id')->nullable();
             $table->integer('category6_id')->nullable();
+            $table->string('aws_path')->nullable();
             $table->string('filepath')->nullable();
+            $table->string('filename')->nullable();
             $table->timestamps();
         });
     }
