@@ -34,7 +34,16 @@ Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::post('ajax_catgories_update4', 'CategoryController@ajax_update4');
         Route::post('ajax_catgories_update5', 'CategoryController@ajax_update5');
 
+        Route::post('ajax_catgories_update11', 'ProductController@ajax_update1');
+        Route::post('ajax_catgories_update12', 'ProductController@ajax_update2');
+        Route::post('ajax_catgories_update13', 'ProductController@ajax_update3');
+        Route::post('ajax_catgories_update14', 'ProductController@ajax_update4');
+        Route::post('ajax_catgories_update15', 'ProductController@ajax_update5');
+
         Route::post('ajax_sub_cat_delete', 'CategoryController@deleteSubCat');
+        Route::post('ajax_sub_cat_add', 'CategoryController@addSubCat');
+        Route::post('ajax_sub_cat_update', 'CategoryController@editSubCat');
+        
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users
         Route::resource('user', 'UserController');

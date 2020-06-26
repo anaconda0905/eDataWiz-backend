@@ -13,8 +13,8 @@
                 </td>
                 
                 <td cat_id="1">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat">Delete</a>
                 </td>
             </tr>
@@ -34,8 +34,8 @@
                     {!! Form::select('category2', $categories2, null, ['class' => 'form-control subcat']) !!}
                 </td>
                 <td cat_id="2">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat">Delete</a>
                 </td>
             </tr>
@@ -56,8 +56,8 @@
                 </td>
                 
                 <td cat_id="3">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat">Delete</a>
                 </td>
             </tr>
@@ -78,8 +78,8 @@
                 </td>
                 
                 <td cat_id="4">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat ">Delete</a>
                 </td>
             </tr>
@@ -100,8 +100,8 @@
                 </td>
                 
                 <td cat_id="5">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat">Delete</a>
                 </td>
             </tr>
@@ -122,8 +122,8 @@
                 </td>
                 
                 <td cat_id="6">
-                    <a class="btn btn-success btn-xs">Add</a>
-                    <a class="btn btn-primary btn-xs">Edit</a>
+                    <a class="btn btn-success btn-xs add_sub_cat">Add</a>
+                    <a class="btn btn-primary btn-xs edit_sub_cat">Edit</a>
                     <a class="btn btn-danger btn-xs delete_cat">Delete</a>
                 </td>
             </tr>

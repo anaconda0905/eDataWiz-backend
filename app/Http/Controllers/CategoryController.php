@@ -33,13 +33,33 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories1 = Category1::get()->pluck('name', 'id');
-        $categories2 = Category2::get()->where('parent_id', '1')->pluck('name', 'id');
-        $categories3 = Category3::get()->where('parent_id', '1')->pluck('name', 'id');
-        $categories4 = Category4::get()->where('parent_id', '1')->pluck('name', 'id');
-        $categories5 = Category5::get()->where('parent_id', '1')->pluck('name', 'id');
-        $categories6 = Category6::get()->where('parent_id', '1')->pluck('name', 'id');
+        $parent_id1 = 0;
+        $parent_id2 = 0;
+        $parent_id3 = 0;
+        $parent_id4 = 0;
+        $parent_id5 = 0;
+        $parent_id6 = 0;
+        
+        $temp = Category1::get()->first();
+        if($temp) $parent_id1 = $temp->id;
+        $temp = Category2::get()->where('parent_id', $parent_id1)->first();
+        if($temp) $parent_id2 = $temp->id;
+        $temp = Category3::get()->where('parent_id', $parent_id2)->first();
+        if($temp) $parent_id3 = $temp->id;
+        $temp = Category4::get()->where('parent_id', $parent_id3)->first();
+        if($temp) $parent_id4 = $temp->id;
+        $temp = Category5::get()->where('parent_id', $parent_id4)->first();
+        if($temp) $parent_id5 = $temp->id;
+        $temp = Category6::get()->where('parent_id', $parent_id5)->first();
+        if($temp) $parent_id6 = $temp->id;
 
+        $categories1 = Category1::get()->pluck('name', 'id');
+        $categories2 = Category2::get()->where('parent_id', $parent_id1)->pluck('name', 'id');
+        $categories3 = Category3::get()->where('parent_id', $parent_id2)->pluck('name', 'id');
+        $categories4 = Category4::get()->where('parent_id', $parent_id3)->pluck('name', 'id');
+        $categories5 = Category5::get()->where('parent_id', $parent_id4)->pluck('name', 'id');
+        $categories6 = Category6::get()->where('parent_id', $parent_id5)->pluck('name', 'id');
+        
         return View('backEnd.categories.index', 
             compact('categories1','categories2','categories3', 'categories4', 'categories5','categories6'));
     }
@@ -204,15 +224,23 @@ class CategoryController extends Controller
                 break;
             case '2':
                 # code...
+                $cat = Category2::findOrFail($request->subcat_id);
+                $cat->delete();
                 break;
             case '3':
                 # code...
+                $cat = Category3::findOrFail($request->subcat_id);
+                $cat->delete();
                 break;
             case '4':
                 # code...
+                $cat = Category4::findOrFail($request->subcat_id);
+                $cat->delete();
                 break;
             case '5':
                 # code...
+                $cat = Category5::findOrFail($request->subcat_id);
+                $cat->delete();
                 break;
             case '6':
                 # code...
@@ -224,10 +252,90 @@ class CategoryController extends Controller
                 # code...
                 break;
         }
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
+    }
 
-        return response()->json([
-            "success" => true,
-            "message" => "Success"
-        ]);
+    public function addSubCat(Request $request){
+        switch ($request->cat_id) {
+            case '1':
+                # code...
+                Category1::create(['name' => $request->name]);
+                break;
+            case '2':
+                # code...
+                Category2::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+                break;
+            case '3':
+                # code...
+                Category3::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+                break;
+            case '4':
+                # code...
+                Category4::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+                break;
+            case '5':
+                # code...
+                Category5::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+                break;
+            case '6':
+                # code...
+                Category6::create(['name' => $request->name, 'parent_id' => $request->parent_id]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
+    }
+
+    
+    public function editSubCat(Request $request){
+        switch ($request->cat_id) {
+            case '1':
+                # code...
+                $cat = Category1::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+            case '2':
+                # code...
+                $cat = Category2::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+            case '3':
+                # code...
+                $cat = Category3::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+            case '4':
+                # code...
+                $cat = Category4::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+            case '5':
+                # code...
+                $cat = Category5::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+            case '6':
+                # code...
+                $cat = Category6::findOrFail($request->subcat_id);
+                $cat->update([ 'name' => $request->subcat_name ]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $response = array(
+            'status' => 'success',
+        );
+        return response()->json($response);
     }
 }
