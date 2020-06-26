@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Category;
-use App\SubCategory;
 use App\Product;
 use Carbon\Carbon;
 use Session;
@@ -23,17 +21,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $subcategories = SubCategory::orderBy('updated_at', 'desc')->get();
-        return View('backEnd.products.create',compact('categories', 'subcategories'));
+        return View('backEnd.products.create');
     }
 
     public function store(Request $request){
-        // $json_categories = json_decode($request->categories);
-        Product::create([
-            'user_id'       => Sentinel::getUser()->id,
-            'categories'    => $request->categories,
-        ]);
 
         Session::flash('message', 'Success! Product is created successfully.');
         Session::flash('status', 'success');

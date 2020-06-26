@@ -33,12 +33,7 @@
         </li>
         @endif
         @if (Sentinel::getUser()->hasAnyAccess(['category.*']))
-        <li><a><i class="fa fa-bookmark"></i> Categories <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{route('category.index')}}">All Categories</a></li>
-            <li><a href="{{route('category.create')}}">New Category</a></li>
-          </ul>
-        </li>
+        <li><a href="{{route('category.index')}}"><i class="fa fa-bookmark"></i> Categories</a></li>
         @endif
       </ul>
     </div>

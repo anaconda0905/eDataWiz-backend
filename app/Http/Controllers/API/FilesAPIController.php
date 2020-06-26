@@ -47,7 +47,7 @@ class FilesAPIController extends Controller
                 continue;
             }
             $data[] = [
-                'dir' => [],
+                'type' => 'dir',
                 'name' => $name
             ];
         }
@@ -60,9 +60,10 @@ class FilesAPIController extends Controller
             $file_date = Storage::disk('s3')->lastModified($f);
             
             $data[] = [
+                'type' => 'file',
                 'file' => $name,
                 'name' => $path_parts['filename'],
-                'type' => $path_parts['extension'],
+                'ext' => $path_parts['extension'],
                 'link' => $absolute_path,
                 'modified_at' => $file_date,
                 'size' => $file_size,

@@ -14,11 +14,12 @@ class CreateSubcategoryTable extends Migration
     public function up()
     {
         //
-        Schema::create('subcategories', function (Blueprint $table) {
+        Schema::create('category2', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category')->nullable();
+            $table->integer('parent_id')->unsigned();
             $table->string('name')->nullable();
             $table->timestamps();
+            $table->foreign('parent_id')->references('id')->on('category1')->onDelete('cascade');;
         });
     }
 
@@ -30,6 +31,6 @@ class CreateSubcategoryTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('subcategories');
+        Schema::dropIfExists('category2');
     }
 }

@@ -40,30 +40,36 @@ class UsersGenerate extends Seeder
                 'permissions' => '{"home.dashboard":true}',
             ],
         ]);
-        DB::table('categories')->insert([
+        DB::table('category1')->insert([
             [
                 'id' => '1',
-                'name' => 'Engineer Category',
+                'name' => 'Marine Pressure Components',
             ],
             [
                 'id' => '2',
-                'name' => 'Group part or equipment',
+                'name' => 'Mechanical Components',
+            ],
+        ]);
+        DB::table('category2')->insert([
+            [
+                'id' => '1',
+                'parent_id' => '1',
+                'name' => 'Pressure Components1',
+            ],
+            [
+                'id' => '2',
+                'parent_id' => '1',
+                'name' => 'Pressure Components2',
             ],
             [
                 'id' => '3',
-                'name' => 'Engineering Application',
+                'parent_id' => '2',
+                'name' => 'Mechanical Components1',
             ],
             [
                 'id' => '4',
-                'name' => 'Group description of part & equipment',
-            ],
-            [
-                'id' => '5',
-                'name' => 'Detail description of part & equipment',
-            ],
-            [
-                'id' => '6',
-                'name' => 'Part & Equipment Brand Name',
+                'parent_id' => '2',
+                'name' => 'Mechanical Components2',
             ],
         ]);
         DB::table('role_users')->insert([

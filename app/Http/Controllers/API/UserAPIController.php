@@ -152,17 +152,17 @@ class UserAPIController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
-            Storage::makeDirectory('public/files/' . $user->id, 444, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Commercial', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/etc', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Customer Service', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Financial', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Material-Store', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Project', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Production-Construction', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Purchasing', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/QA-QC', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/HSE', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Commercial', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Other', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Customer Service', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Financial', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Material-Store', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Project', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Production-Construction', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Purchasing', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/QA-QC', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/HSE', 0775, true);
 
             return response()->json([
                 'success' => true,
@@ -313,17 +313,17 @@ class UserAPIController extends Controller
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
             $user->roles()->sync([2]);
-            Storage::makeDirectory('public/files/' . $user->id, 444, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Commercial', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/etc', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Customer Service', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Financial', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Material-Store', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Project', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Production-Construction', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/Purchasing', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/QA-QC', 0775, true);
-            Storage::makeDirectory('public/files/' . $user->id . '/HSE', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Commercial', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Other', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Customer Service', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Financial', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Material-Store', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Project', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Production-Construction', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Purchasing', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/QA-QC', 0775, true);
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/HSE', 0775, true);
         }
         Sentinel::login($user);
         $user->api_token = str_random(60);

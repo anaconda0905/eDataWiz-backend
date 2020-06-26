@@ -28,9 +28,13 @@ Route::group(['middleware' => 'fw-block-blacklisted'], function ()
 
 Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
-        Route::post('ajax_sub_cat_add', 'HomeController@create');
-        Route::post('ajax_sub_cat_update', 'HomeController@update');
-        Route::post('ajax_sub_cat_delete', 'HomeController@destroy');
+        Route::post('ajax_catgories_update1', 'CategoryController@ajax_update1');
+        Route::post('ajax_catgories_update2', 'CategoryController@ajax_update2');
+        Route::post('ajax_catgories_update3', 'CategoryController@ajax_update3');
+        Route::post('ajax_catgories_update4', 'CategoryController@ajax_update4');
+        Route::post('ajax_catgories_update5', 'CategoryController@ajax_update5');
+
+        Route::post('ajax_sub_cat_delete', 'CategoryController@deleteSubCat');
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users
         Route::resource('user', 'UserController');
