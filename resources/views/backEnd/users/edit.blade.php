@@ -50,6 +50,22 @@ Edit User
                 </div>
             </div>
 
+            <div class="form-group {{ $errors->has('company') ? 'has-error' : ''}}">
+                {!! Form::label('company', 'Company', ['class' => 'col-md-4 col-sm-4 col-xs-4 col-12 control-label']) !!}
+               <div class="col-sm-6 col-xs-6 col-12">
+                   {!! Form::text('company', null, ['class' => 'form-control']) !!}
+                   {!! $errors->first('company', '<p class="help-block">:message</p>') !!}
+               </div>
+           </div>
+
+           <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
+                {!! Form::label('phone', 'Phone', ['class' => 'col-md-4 col-sm-4 col-xs-4 col-12 control-label']) !!}
+                <div class="col-sm-6 col-xs-6 col-12">
+                    {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
             <div id="role" class="form-group {{ $errors->has('role') ? 'has-error' : ''}}">
                  {!! Form::label('role','User role', ['class' => 'col-md-4 col-sm-4 col-xs-4 col-12 control-label']) !!}
                 <div class="col-sm-6 col-xs-6 col-12">
@@ -57,6 +73,8 @@ Edit User
                     {!! $errors->first('role', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+
+            
            
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-3">

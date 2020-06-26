@@ -191,11 +191,13 @@
     position: static; } }
 .nav-md .container.body .col-md-3.left_col {
   width: 230px;
+  height: 940px;
   padding: 0;
   position: absolute;
   display: -ms-flexbox;
   display: flex;
-  z-index: 9999; }
+  z-index: 9999; 
+}
 
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
   height: 100%;
@@ -1335,6 +1337,7 @@ ul.msg_list li a .message {
   position: absolute;
   background: #fff;
   margin-top: 0;
+  text-align: center;
   border: 1px solid #D9DEE4;
   -webkit-box-shadow: none;
   right: 0;

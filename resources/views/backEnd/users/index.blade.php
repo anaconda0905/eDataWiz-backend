@@ -19,6 +19,8 @@ Users
                     <th style="width: 10%">First name</th>
                     <th style="width: 10%">Last name</th>
                     <th style="width: 10%">E-mail</th>
+                    <th style="width: 5%">Company</th>
+                    <th style="width: 5%">Phone</th>
                     <th style="width: 10%">user Role</th>
                     <th style="width: 17%">Created At</th>
                     <th style="width: 30%">Actions</th>
@@ -32,6 +34,8 @@ Users
                     <td><a href="{{route('user.show', $user->id)}}">{{$user->first_name}}</a></td>
                     <td><a href="{{route('user.show', $user->id)}}">{{$user->last_name}}</a></td>
                     <td>{{$user->email}}</td>
+                    <td>{{$user->company}}</td>
+                    <td>{{$user->phone}}</td>
                     @if(empty($user->roles()->first()))
                     <td>
                         <a href="{{route('user.index',['type='])}}">{{empty($user->roles()->first())?"":$user->roles()->first()->name}}</a>
@@ -44,7 +48,7 @@ Users
                     <td>{{$user->created_at}}</td>
                     <td>
                         @if (Sentinel::getUser()->hasAccess(['user.show']))
-                            <a href="{{route('user.show', $user->id)}}" class="btn btn-success btn-xs">View</a>
+                            <a href="{{route('user.show', $user->id)}}" class="btn btn-primary btn-xs">View</a>
                         @endif
                         @if (Sentinel::getUser()->hasAccess(['user.edit']))
                             <a href="{{route('user.edit', $user->id)}}" class="btn btn-success btn-xs">edit</a>

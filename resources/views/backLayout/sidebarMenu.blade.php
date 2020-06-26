@@ -40,7 +40,7 @@
     <div class="menu_section">
       <ul class="nav side-menu">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i>File Management</a></li>
-        <li><a><i class="fa fa-book"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-book"></i> Product Digital Library <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
               <li><a href="{{url('product')}}">All Products</a>
               <li><a href="{{url('product/create')}}">New Product</a>
@@ -61,11 +61,11 @@
     <a data-toggle="tooltip" data-placement="top" title="Settings">
       <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
     </a>
-    <a data-toggle="tooltip" data-placement="top" title="FullScreen" onclick="toggleFullScreen(document.body)">
-      <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+    <a data-toggle="tooltip" data-placement="top" title="Notification" >
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
     </a>
-    <a data-toggle="tooltip" data-placement="top" title="Lock">
-      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+    <a href="{{route('user.edit', Sentinel::getUser()->id)}}" data-toggle="tooltip" data-placement="top" title="Edit Profile">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
     </a>
     {!! Form::open(['url' => url('logout'),'class'=>'form-inline', 'id'=>'logoutform']) !!}
     {!! csrf_field() !!}
