@@ -94,7 +94,7 @@ All Products
     </div>
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Properties</h5>
@@ -159,7 +159,7 @@ All Products
 
     $('#img_size_minus').on('click', function(){
       var size = parseInt($('#img_size').val()) - 50;
-      if(size > 149 && size < 351){
+      if(size > 149 && size < 251){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           url: '/ajax_update',
@@ -179,7 +179,7 @@ All Products
     });
     $('#img_size_plus').on('click', function(){
       var size1 = parseInt($('#img_size').val()) + 50;
-      if(size1 > 149 && size1 < 351){
+      if(size1 > 149 && size1 < 251){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           url: '/ajax_update',
