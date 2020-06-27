@@ -266,7 +266,7 @@ class ProductController extends Controller
         $file = $request->file('fileselect');
         $fileName = Sentinel::getUser()->id . '_' . time() . '_' . $file->getClientOriginalName();
         $path = "PDF/".$fileName;
-        $f = Storage::disk('s31')->put($path, file_get_contents($file));
+        $f = Storage::disk('s31')->put($path, file_get_contents($file), 'public');
         $absolute_path = Storage::disk('s31')->url($path);
         Product::create([
             'user_id'         => Sentinel::getUser()->id,

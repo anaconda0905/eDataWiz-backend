@@ -13,6 +13,8 @@
         "laravelcollective/html": "^5.4",
         "league/flysystem-aws-s3-v3": "~1.0",
         "pragmarx/firewall": "^2.3",
+        "geoip/geoip": "~1.14",
+        "laravel/cashier": "~7.0",
         "roland/crud": "dev-master",
         "simplesoftwareio/simple-qrcode": "~1",
         "unisharp/laravel-filemanager": "2.1.0"

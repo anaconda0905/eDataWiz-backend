@@ -16,6 +16,8 @@ use Sentinel;
 use Validator;
 use View;
 use Storage;
+use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
+use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 
 class UserAPIController extends Controller
 {
@@ -47,6 +49,7 @@ class UserAPIController extends Controller
                     'message' => 'The given data was invalid.',
                 ]);
             }
+            
             $user = Sentinel::authenticate($request->all(), true);
             if (!$user) {
                 return response()->json([
@@ -56,14 +59,32 @@ class UserAPIController extends Controller
             }
             $user->api_token = str_random(60);
             $user->save();
-
+            if($user->verified){
+                return response()->json([
+                    'success' => true,
+                    'data' => $user,
+                    'message' => 'User retrieved successfully.',
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => true,
+                    'data' => $user,
+                    'message' => 'This account hasn not verified yet.',
+                ]);
+            }
+            
+        } catch (NotActivatedException $e) {
             return response()->json([
-                'success' => true,
-                'data' => $user,
-                'message' => 'User retrieved successfully.',
+                'success' => false,
+                'message' => 'This user is not activated.',
             ]);
-        } catch (\Exception $e) {
-            return response()->json($e, 401);
+        } catch (ThrottlingException $e) {
+            $delay = $e->getDelay();
+            return response()->json([
+                'success' => false,
+                'message' => 'You are temporary susspended' . ' ' . $delay . ' seconds',
+            ]);
         }
     }
 
@@ -139,6 +160,14 @@ class UserAPIController extends Controller
                 ]);
             }
 
+            $test = User::where(['email' => $request->input('email')])->first();
+            if($test){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'This email is already used.',
+                ]);
+            }
+
             $user = new User;
             $user->first_name = $request->input('first_name');
             $user->last_name = $request->input('last_name');
@@ -147,7 +176,7 @@ class UserAPIController extends Controller
             $user->company = $request->input('company');
             $user->phone = $request->input('phone');
             $user->api_token = str_random(60);
-
+            $user->verified = 0;
             $user->save();
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
@@ -170,7 +199,10 @@ class UserAPIController extends Controller
                 'message' => 'User created successfully.',
             ]);
         } catch (\Exception $e) {
-            return response()->json($e, 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong',
+            ]);
         }
     }
     
@@ -274,10 +306,6 @@ class UserAPIController extends Controller
                 $message->to($data['email'], $data['name'])
                 ->subject('Verify your email address');
             });
-            
-            $html =  \View::make('emails.welcome', $data)->render();
-            Log::debug($html);
-            
         }
         catch (\Exception $e) {
             return response()->json([
@@ -309,6 +337,7 @@ class UserAPIController extends Controller
             $user->email = $request->input('email');
             $user->password = bcrypt(str_random());
             $user->api_token = str_random(60);
+            $user->verified = true;
             $user->save();
             $activation = Activation::create($user);
             $activation = Activation::complete($user, $activation->code);
@@ -332,6 +361,65 @@ class UserAPIController extends Controller
             'success' => true,
             'data' => $user,
             'message' => 'User retrieved successfully.',
+        ]);
+    }
+
+    public function sendVerifyAccountCodeEmail(Request $request)
+    {
+        $user = User::where(['api_token' => $request->input('api_token')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
+        }
+        $token = rand(100000, 999999);
+        $user->device_token = Hash::make($token);
+        $user->save();
+
+        $data = array(
+            'code' => $token,
+            'name' => $user->first_name.' '.$user->last_name, 
+            'email'=> $user->email);
+        try{
+            Mail::send('emails.verifyaccount', $data, function ($message) use($data) {
+                $message->to($data['email'], $data['name'])
+                ->subject('Verify your account');
+            });
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification code was sent successfully.',
+        ]);
+    }
+
+    public function VerifyAccount(Request $request)
+    {
+        $user = User::where(['api_token' => $request->input('api_token')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
+        }
+        if(Hash::check($request->input('code'), $user->device_token) == false){
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid code',
+            ]);
+        }
+        $user->verified = 1;
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'data' => $user,
+            'message' => 'Account successfully Verified',
         ]);
     }
 }

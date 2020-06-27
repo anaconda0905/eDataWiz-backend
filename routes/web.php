@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::auth();
+
 Route::get('/', ['uses' => 'HomeController@home', 'as' => 'home']);
 // Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
 Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']);
@@ -20,13 +20,14 @@ Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
+Route::auth();
 
 Route::group(['middleware' => 'fw-block-blacklisted'], function () 
 {
         Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
 });
 
-Route::group(['middleware' => ['web', 'auth', 'permission'] ], function () {
+Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_catgories_update1', 'CategoryController@ajax_update1');
         Route::post('ajax_catgories_update2', 'CategoryController@ajax_update2');

@@ -17,6 +17,7 @@ class AddApiTokenToUsersTable extends Migration
             //
             $table->char('api_token', 60)->unique()->nullable()->default(null);
             $table->string('device_token')->nullable();
+            $table->boolean('verified')->nullable();
         });
     }
 
@@ -31,6 +32,7 @@ class AddApiTokenToUsersTable extends Migration
             //
             $table->dropColumn('api_token');
             $table->dropColumn('device_token');
+            $table->dropColumn('verified');
         });
     }
 }

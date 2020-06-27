@@ -21,6 +21,7 @@ class UsersGenerate extends Seeder
                 'QRpassword' => 'Dammy-CODE-1S4u7lJzehk62xDm3DgYgXXYWtbHE6gSP',
                 'api_token' => 'PivvPlsQWxPl1bB5KrbKNBuraJit0PrUZekQUgtLyTRuyBq921atFtoR1HuA',
                 'device_token' => null,
+                'verified' => true,
                 'company' => null,
                 'phone' => null,
             ],

@@ -30,7 +30,7 @@ class AddInfoToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->dropColumn('company');
-            $table->dropColumn('company');
+            $table->dropColumn('phone');
         });
     }
 }

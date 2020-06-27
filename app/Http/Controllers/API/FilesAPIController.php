@@ -4,13 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Category;
-use App\SubCategory;
-use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+
 class FilesAPIController extends Controller
 {
     /**
@@ -121,72 +119,5 @@ class FilesAPIController extends Controller
         }
         $path = $path .$request->input('path');
         return FilesAPIController::dir_to_json($path);
-    }
-
-    public function getListModule1(Request $request)
-    {
-        $user = User::where(['api_token' => $request->input('api_token')])->first();
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You do not have permission.',
-            ]);
-        }
-        $products = Product::all();
-        $data = array();
-        $request_categories = json_decode($request->categories);
-        try{
-            foreach ($products as $product) {
-                $product_categories = json_decode($product->categories);
-                $flag = true;
-                foreach ($request_categories as $request_category_key => $value) {
-                    if($value == 0) 
-                    {
-                        $flag = true;
-                        continue;
-                    }
-                    if($product_categories->$request_category_key != $value){
-                        $flag = false;
-                        break;
-                    } 
-                }
-                if($flag) 
-                    array_push($data, $product);    
-            }
-            
-            return response()->json([
-                'success' => true,
-                'data'    => $data,
-                'message' => 'All products retrieved successfully.',
-            ]);
-        }
-        catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong.',
-            ]);
-        }
-    }
-
-    public function getCategories(Request $request)
-    {
-        $categories = Category::all();
-        $subcategories = SubCategory::all();
-        $data = array();
-        foreach ($categories as $category) {
-            $subitem = array();
-            foreach($subcategories as $subcategory)
-            {
-                if($category->id == $subcategory->category){
-                    array_push($subitem, $subcategory);
-                }
-            }
-            $category->subcategory = $subitem;
-        }
-        return response()->json([
-            'success' => true,
-            'data'    => $categories,
-            'message' => 'All categories retrieved successfully.',
-        ]);
     }
 }
