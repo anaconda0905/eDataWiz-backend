@@ -30,12 +30,12 @@ class CategoryAPIController extends Controller
     }
 
     public function productlist(Request $request){
-        $category1_id = $request->category1_id;
-        $category2_id = $request->category2_id;
-        $category3_id = $request->category3_id;
-        $category4_id = $request->category4_id;
-        $category5_id = $request->category5_id;
-        $category6_id = $request->category6_id;
+        $category1_id = $request->cat1;
+        $category2_id = $request->cat2;
+        $category3_id = $request->cat3;
+        $category4_id = $request->cat4;
+        $category5_id = $request->cat5;
+        $category6_id = $request->cat6;
         $data = Product::get()
             ->where('category1_id', $category1_id)
             ->where('category2_id', $category2_id)

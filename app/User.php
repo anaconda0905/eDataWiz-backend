@@ -32,10 +32,13 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPassword;
 use  Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Laravel\Cashier\Billable;
+
 class User extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface ,CanResetPassword,Authenticatable
 {
     use PermissibleTrait,Notifiable,AuthenticableTrait;
-     use SoftDeletes;
+    use SoftDeletes;
+    use Billable;
     /**
      * {@inheritDoc}
      */

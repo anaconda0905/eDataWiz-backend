@@ -190,6 +190,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         //Firewall
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
+        //Cashier
+        Laravel\Cashier\CashierServiceProvider::class,
     ],
 
     /*
