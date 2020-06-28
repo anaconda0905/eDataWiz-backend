@@ -256,18 +256,21 @@ class ProductController extends Controller
 
     public function store(Request $request){
         
-        // if ($this->validator($request, Sentinel::getUser()->id)->fails()) {
+        if ($this->validator($request, Sentinel::getUser()->id)->fails()) {
 
-        //     return redirect()->back()
-        //         ->withErrors($this->validator($request))
-        //         ->withInput();
-        // }
+            return redirect()->back()
+                ->withErrors($this->validator($request))
+                ->withInput();
+        }
+        
         $json_categories = json_decode($request->categories);
         $file = $request->file('fileselect');
         $fileName = Sentinel::getUser()->id . '_' . time() . '_' . $file->getClientOriginalName();
         $path = "PDF/".$fileName;
         $f = Storage::disk('s31')->put($path, file_get_contents($file), 'public');
         $absolute_path = Storage::disk('s31')->url($path);
+        $filedata = Storage::disk('s31')->lastModified($path);
+
         Product::create([
             'user_id'         => Sentinel::getUser()->id,
             'category1_id'    => $json_categories->category1,
@@ -279,6 +282,9 @@ class ProductController extends Controller
             'aws_path'        => 'PDF/'.$fileName,
             'filepath'        => $absolute_path,
             'filename'        => $file->getClientOriginalName(),
+            'filetype'        => $file->getMimeType(),
+            'filesize'        => $file->getSize(),
+            'filedate'        => $filedata
         ]);
         
         Session::flash('message', 'Success! Product is created successfully.');

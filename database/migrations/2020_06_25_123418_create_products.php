@@ -25,6 +25,9 @@ class CreateProducts extends Migration
             $table->string('aws_path')->nullable();
             $table->string('filepath')->nullable();
             $table->string('filename')->nullable();
+            $table->string('filetype')->nullable();
+            $table->string('filesize')->nullable();
+            $table->string('filedate')->nullable();
             $table->timestamps();
         });
     }

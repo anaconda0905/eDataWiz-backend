@@ -36,13 +36,29 @@ class CategoryAPIController extends Controller
         $category4_id = $request->cat4;
         $category5_id = $request->cat5;
         $category6_id = $request->cat6;
-        $data = Product::get()
+        $products = Product::get()
             ->where('category1_id', $category1_id)
             ->where('category2_id', $category2_id)
             ->where('category3_id', $category3_id)
             ->where('category4_id', $category4_id)
             ->where('category5_id', $category5_id)
             ->where('category6_id', $category6_id);
+
+        $data = array();
+        foreach ($products as $item) {
+            $path_parts = pathinfo($item->filename);
+            # code...
+            $temp = array(
+                'type' => 'file',
+                'file' => $item->filename,
+                'name' => $path_parts['filename'],
+                'ext' => $path_parts['extension'],
+                'link' => $item->filepath,
+                'modified_at' => $item->filedate,
+                'size' => $item->filesize,
+            );
+            array_push($data, $temp);
+        }
 
         return response()->json([
             'success' => true,

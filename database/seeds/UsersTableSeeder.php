@@ -55,24 +55,67 @@ class UsersGenerate extends Seeder
             [
                 'id' => '1',
                 'parent_id' => '1',
-                'name' => 'Pressure Components1',
+                'name' => 'Pressure Components',
             ],
             [
                 'id' => '2',
-                'parent_id' => '1',
-                'name' => 'Pressure Components2',
+                'parent_id' => '2',
+                'name' => 'Bearings',
             ],
             [
                 'id' => '3',
                 'parent_id' => '2',
-                'name' => 'Mechanical Components1',
+                'name' => 'Brakes, Clutches and Couplings',
             ],
             [
                 'id' => '4',
                 'parent_id' => '2',
-                'name' => 'Mechanical Components2',
+                'name' => 'Fasteners',
+            ],
+            [
+                'id' => '5',
+                'parent_id' => '2',
+                'name' => 'Fasteners',
             ],
         ]);
+
+        DB::table('category3')->insert([
+            [
+                'id' => '1',
+                'parent_id' => '1',
+                'name' => 'Valves by operating',
+            ],
+        ]);
+
+        DB::table('category4')->insert([
+            [
+                'id' => '1',
+                'parent_id' => '1',
+                'name' => 'Group Valves by operating',
+            ],
+        ]);
+
+        DB::table('category5')->insert([
+            [
+                'id' => '1',
+                'parent_id' => '1',
+                'name' => 'Ball valve',
+            ],
+            [
+                'id' => '2',
+                'parent_id' => '1',
+                'name' => 'Butterfly valve',
+            ],
+        ]);
+
+        DB::table('category6')->insert([
+            [
+                'id' => '1',
+                'parent_id' => '1',
+                'name' => 'KITZ Ball valve',
+            ],
+        ]);
+
         DB::table('role_users')->insert([
             [
                 'user_id' => '1',
