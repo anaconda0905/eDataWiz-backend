@@ -150,6 +150,9 @@ class LoginController extends Controller
 
     protected function logout()
     {
+        $user=Sentinel::getUser();
+        $user->api_token = str_random(60);
+        $user->save();
         Sentinel::logout();
         return redirect('/');
     }

@@ -34,7 +34,7 @@
                                 <label for="verify_code" class="col-md-4 col-sm-4 col-xs-4 col-4 control-label">Verification Code</label>
 
                                 <div class="col-md-6 col-sm-6 col-xs-6 col-6">
-                                    <input id="verify_code" type="text" class="form-control" name="verify_code" required>
+                                    <input id="verify_code" type="text" class="form-control" name="verify_code" required placeholder='Enter the 6-digit code'>
                                     @if ($errors->has('verify_code'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('verify_code') }}</strong>
@@ -84,8 +84,7 @@ $('#resend_verification_email').on('click', function (e) {
             alert("Email has been successfully sent.");
         },
         error:function (err) {
-            alert("fail");
-            console.log("unexpected error occured while sending email. Please try again.");
+            alert("unexpected error occured while sending email. Please try again.");
         },
     });
 });

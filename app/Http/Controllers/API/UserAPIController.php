@@ -57,8 +57,7 @@ class UserAPIController extends Controller
                     'message' => 'Either email or password is incorrect.',
                 ]);
             }
-            $user->api_token = str_random(60);
-            $user->save();
+            
             if($user->verified){
                 return response()->json([
                     'success' => true,
@@ -355,8 +354,7 @@ class UserAPIController extends Controller
             Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/HSE', 0775, true);
         }
         Sentinel::login($user);
-        $user->api_token = str_random(60);
-        $user->save();
+        
         return response()->json([
             'success' => true,
             'data' => $user,
