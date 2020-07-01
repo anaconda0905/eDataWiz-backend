@@ -1,4 +1,8 @@
-@extends('categories.layout')
+
+@extends('backLayout.app')
+@section('title')
+Categories
+@stop
 
 @section('content')
 
@@ -7,11 +11,6 @@
             <h2 class="text-center">
                 Categories
             </h2>
-        </div>
-        <div class="col-md-4 text-right pt-3">
-            <a href="{{route('questions.index')}}">Products</a>
-            &nbsp; &nbsp;
-            <a href="{{route('users.index')}}">Users</a>
         </div>
     </div>
 
@@ -140,7 +139,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <div class="modal-body">
                             <div class="form-group">
                                 <label for="add-general-name">Engineer Category:</label>
@@ -163,7 +162,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="edit-general-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
@@ -190,7 +189,7 @@
                     Do you really want to delete items?
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="delete-general-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-general-submit">Submit</button>
@@ -209,7 +208,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                 <input type="hidden" id="add-classification-general-id" name="general">
                     <div class="modal-body">
                             <div class="form-group">
@@ -233,7 +232,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="edit-classification-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
@@ -260,7 +259,7 @@
                     Do you really want to delete items?
                 </div>
                 <form method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="delete-classification-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-classification-submit">Submit</button>
@@ -279,7 +278,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                 <input type="hidden" id="add-header-classification-id" name="classification">
                     <div class="modal-body">
                         <div class="form-group">
@@ -303,7 +302,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="edit-header-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
@@ -330,7 +329,7 @@
                     Do you really want to delete items?
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="delete-header-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-header-submit">Submit</button>
@@ -349,7 +348,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="add-list-header-id" name="header">
                     <div class="modal-body">
                         <div class="form-group">
@@ -373,7 +372,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="edit-list-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
@@ -400,7 +399,7 @@
                     Do you really want to delete items?
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="delete-list-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-list-submit">Submit</button>
@@ -419,7 +418,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="add-brand-list-id" name="list">
                     <div class="modal-body">
                         <div class="form-group">
@@ -443,7 +442,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="edit-brand-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
@@ -470,7 +469,7 @@
                     Do you really want to delete items?
                 </div>
                 <form  method="post" enctype="multipart/form-data">
-                @csrf
+                {{ csrf_field() }}
                     <input type="hidden" id="delete-brand-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-brand-submit">Submit</button>
@@ -494,13 +493,14 @@
         </div>
     </div>
 @endsection
-@section('script')
+
+@section('scripts')
 <script>
-    var generals =  @json($generals);
-    var classifications =  @json($classifications);
-    var headers =  @json($headers);
-    var pdLists =  @json($pdLists);
-    var brands =  @json($brands);
+    var generals =  {!! $generals !!};
+    var classifications =  {!! $classifications !!};
+    var headers =  {!! $headers !!};
+    var pdLists =  {!! $pdLists !!};
+    var brands =  {!! $brands !!};
     $(document).keypress(
       function(event){
         if (event.which == '13') {
@@ -508,5 +508,5 @@
         }
 });
 </script>
-<script src="{{asset('js/pagejs/category.js')}}"></script>
+<script src="{{ URL::asset('/js/category.js') }}"></script>
 @endsection

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    protected $table = "questions";
+    protected $guarded = [];
+
     function general(){
         return $this->belongsTo('App\General','pd_general');
     }
