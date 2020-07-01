@@ -188,8 +188,6 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        //Firewall
-        PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
         //Cashier
         Laravel\Cashier\CashierServiceProvider::class,
     ],
@@ -250,6 +248,5 @@ return [
         //social login
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
     ],
 ];

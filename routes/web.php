@@ -24,11 +24,6 @@ Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
 Route::auth();
 
-Route::group(['middleware' => 'fw-block-blacklisted'], function () 
-{
-        Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
-});
-
 Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
