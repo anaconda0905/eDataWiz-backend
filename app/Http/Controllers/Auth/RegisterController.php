@@ -12,6 +12,9 @@ use Redirect;
 use Sentinel;
 use Session;
 use Storage;
+use Hash;
+use Mail;
+
 class RegisterController extends Controller
 {
     /*
@@ -74,6 +77,9 @@ class RegisterController extends Controller
         $user->api_token = str_random(60);
         $user->phone = $request['phone'];
         $user->company = $request['company'];
+        $user->verified = 0;
+        $token = rand(100000, 999999);
+        $user->device_token = Hash::make($token);
         $user->save();
 
         //Activate the user **
@@ -91,12 +97,26 @@ class RegisterController extends Controller
         Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Purchasing', 0775, true);
         Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/QA-QC', 0775, true);
         Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/HSE', 0775, true);
-        
+
         if ($user) {
             $user->roles()->sync([2]); // 2 = client
             Session::flash('message', 'Registration is completed');
             Session::flash('status', 'success');
-            return redirect('/dashboard');
+            $data = array(
+                'code' => $token,
+                'name' => $user->first_name.' '.$user->last_name, 
+                'email'=> $user->email);
+            try{
+                Mail::send('emails.verifyaccount', $data, function ($message) use($data) {
+                    $message->to($data['email'], $data['name'])
+                    ->subject('Verify your account');
+                });
+            }
+            catch (\Exception $e) {
+                
+            }
+            $token = $user->api_token;
+            return redirect()->route('verify', ['token'=>$token]);
         }
         Session::flash('message', 'There was an error with the registration');
         Session::flash('status', 'error');

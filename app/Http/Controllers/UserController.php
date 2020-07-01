@@ -11,6 +11,8 @@ use Sentinel;
 use Session;
 use Storage;
 use Validator;
+use Hash;
+use Mail;
 
 class UserController extends Controller
 {
@@ -347,6 +349,49 @@ class UserController extends Controller
             Session::flash('message', 'Success! Users are Activated successfully.');
             Session::flash('status', 'success');
             return response()->json(['success' => true, 'status' => 'Sucesfully Activated']);
+        }
+    }
+    public function verifyCode(Request $request)
+    {
+        
+        $user = User::where(['api_token' => $request->input('token')])->first();
+        if (!$user) {
+            return \Redirect::back()->withErrors(['global' => 'Token is invalid. Please try again.']);
+        }
+        if(Hash::check($request->input('verify_code'), $user->device_token) == false){
+            return \Redirect::back()->withErrors(['global' => 'Code is invalid. Please try again.']);
+        }
+        $user->verified = 1;
+        $user->save();
+        Sentinel::login($user);
+        return redirect('dashboard');
+    }
+
+    public function resendCode(Request $request)
+    {
+        $user = User::where(['api_token' => $request->input('token')])->first();
+        if (!$user) {
+            return response()->json(['error'=>"Token is invalid"], 500);
+        }
+        $token = rand(100000, 999999);
+        $user->device_token = Hash::make($token);
+        $user->save();
+        $data = array(
+            'code' => $token,
+            'name' => $user->first_name.' '.$user->last_name, 
+            'email'=> $user->email);
+        try{
+            Mail::send('emails.verifyaccount', $data, function ($message) use($data) {
+                $message->to($data['email'], $data['name'])
+                ->subject('Verify your account');
+            });
+            $response = array(
+                'status' => 'success',
+            );
+            return response()->json($response);
+        }
+        catch (\Exception $e) {
+            return response()->json(['error'=>"Unexpected error occured while sending verification code"], 500);
         }
     }
 }

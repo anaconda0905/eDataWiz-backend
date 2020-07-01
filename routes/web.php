@@ -17,7 +17,8 @@ Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']
 Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'contact']);
 Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
 Route::get('verify', ['uses' => 'HomeController@verify', 'as' => 'verify']);
-
+Route::post('verifyCode', 'UserController@verifyCode');
+Route::post('resend_verification_email', 'UserController@resendCode');
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
         
+
         Route::resource('questions','API\QuestionController');
         Route::resource('categories','API\CategoryController');
         Route::get('createGeneral','API\CategoryController@createGeneral');

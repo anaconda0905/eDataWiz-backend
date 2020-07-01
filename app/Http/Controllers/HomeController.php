@@ -48,9 +48,9 @@ class HomeController extends Controller
 
     public function verify(Request $request)
     {
-        return view('verify');
+        return view('auth.verify');
     }
-    
+  
     public function ajax_update_copy(Request $request)
     {
         $response = array(

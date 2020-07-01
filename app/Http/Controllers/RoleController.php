@@ -12,6 +12,7 @@ use Session;
 use Validator;
 use Sentinel;
 use Route;
+
 class RoleController extends Controller
 {
     protected function validator(Request $request)

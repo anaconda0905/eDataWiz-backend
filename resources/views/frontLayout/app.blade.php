@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ URL::asset('/vendors/camera-slider/camera.css') }}">
     <!-- Owlcarousel CSS-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/vendors/owl_carousel/owl.carousel.css') }}" media="all">
-
+    
     <!--Theme Styles CSS-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/style.css') }}" media="all" />
 
@@ -165,7 +165,7 @@
     <script src="{{ URL::asset('/js/theme.js') }}"></script>
     <!-- Custom JS -->
     <script src="{{ URL::asset('/js/custom.js') }}"></script>
-
+    
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

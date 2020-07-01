@@ -72,8 +72,13 @@ class LoginController extends Controller
             }
             $remember = (Input::get('remember') == 'on') ? true : false;
             if ($user = Sentinel::authenticate($request->all(), $remember)) {
-
-                return redirect('dashboard');
+                if($user->verified){
+                    return redirect('dashboard');
+                }
+                else{
+                    $token = $user->api_token;
+                    return redirect()->route('verify', ['token'=>$token]);
+                }
             }
             return Redirect::back()->withErrors(['global' => 'Invalid password or this user does not exist']);
         } catch (NotActivatedException $e) {
