@@ -53,7 +53,6 @@ class HomeController extends Controller
     
     public function ajax_update_copy(Request $request)
     {
-           
         $response = array(
             'status' => 'success',
             'msg' => '200',

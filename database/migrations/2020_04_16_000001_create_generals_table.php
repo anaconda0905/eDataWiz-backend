@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubcategory6 extends Migration
+class CreateGeneralsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSubcategory6 extends Migration
      */
     public function up()
     {
-        Schema::create('category6', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->unsigned();
-            $table->string('name')->nullable();
+        Schema::create('generals', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('pd_general')->unique();
             $table->timestamps();
-            $table->foreign('parent_id')->references('id')->on('category5')->onDelete('cascade');;
         });
     }
 
@@ -29,6 +27,6 @@ class CreateSubcategory6 extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category6');
+        Schema::dropIfExists('generals');
     }
 }

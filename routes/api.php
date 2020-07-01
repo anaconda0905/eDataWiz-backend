@@ -19,14 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('lists', 'API\FilesAPIController@getList');
 
-Route::post('productlist', 'API\CategoryAPIController@productlist');
-Route::post('category1', 'API\CategoryAPIController@getCatgory1');
-Route::post('category2', 'API\CategoryAPIController@getCatgory2');
-Route::post('category3', 'API\CategoryAPIController@getCatgory3');
-Route::post('category4', 'API\CategoryAPIController@getCatgory4');
-Route::post('category5', 'API\CategoryAPIController@getCatgory5');
-Route::post('category6', 'API\CategoryAPIController@getCatgory6');
-
 Route::post('login', 'API\UserAPIController@login');
 Route::post('register', 'API\UserAPIController@register');
 Route::post('send_reset_code_email', 'API\UserAPIController@sendResetCodeEmail');

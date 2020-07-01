@@ -12,7 +12,7 @@
 */
 
 Route::get('/', ['uses' => 'HomeController@home', 'as' => 'home']);
-// Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
+Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
 Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']);
 Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'contact']);
 Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
@@ -31,22 +31,33 @@ Route::group(['middleware' => 'fw-block-blacklisted'], function ()
 Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
-        Route::post('ajax_catgories_update1', 'CategoryController@ajax_update1');
-        Route::post('ajax_catgories_update2', 'CategoryController@ajax_update2');
-        Route::post('ajax_catgories_update3', 'CategoryController@ajax_update3');
-        Route::post('ajax_catgories_update4', 'CategoryController@ajax_update4');
-        Route::post('ajax_catgories_update5', 'CategoryController@ajax_update5');
-
-        Route::post('ajax_catgories_update11', 'ProductController@ajax_update1');
-        Route::post('ajax_catgories_update12', 'ProductController@ajax_update2');
-        Route::post('ajax_catgories_update13', 'ProductController@ajax_update3');
-        Route::post('ajax_catgories_update14', 'ProductController@ajax_update4');
-        Route::post('ajax_catgories_update15', 'ProductController@ajax_update5');
-
-        Route::post('ajax_sub_cat_delete', 'CategoryController@deleteSubCat');
-        Route::post('ajax_sub_cat_add', 'CategoryController@addSubCat');
-        Route::post('ajax_sub_cat_update', 'CategoryController@editSubCat');
         
+        Route::resource('questions','API\QuestionController');
+        Route::resource('categories','API\CategoryController');
+        Route::get('createGeneral','API\CategoryController@createGeneral')->name('createGeneral');
+        Route::get('editGeneral','API\CategoryController@editGeneral')->name('editGeneral');
+        Route::get('deleteGeneral','API\CategoryController@deleteGeneral')->name('deleteGeneral');
+
+        Route::get('createClassification','API\CategoryController@createClassification')->name('createClassification');
+        Route::get('editClassification','API\CategoryController@editClassification')->name('editClassification');
+        Route::get('deleteClassification','API\CategoryController@deleteClassification')->name('deleteClassification');
+
+        Route::get('createHeader','API\CategoryController@createHeader')->name('createHeader');
+        Route::get('editHeader','API\CategoryController@editHeader')->name('editHeader');
+        Route::get('deleteHeader','API\CategoryController@deleteHeader')->name('deleteHeader');
+
+        Route::get('createList','API\CategoryController@createList')->name('createList');
+        Route::get('editList','API\CategoryController@editList')->name('editList');
+        Route::get('deleteList','API\CategoryController@deleteList')->name('deleteList');
+
+        Route::get('createBrand','API\CategoryController@createBrand')->name('createBrand');
+        Route::get('editBrand','API\CategoryController@editBrand')->name('editBrand');
+        Route::get('deleteBrand','API\CategoryController@deleteBrand')->name('deleteBrand');
+
+        Route::post('updateQuestion','API\QuestionController@updateQuestion')->name('updateQuestion');
+        Route::post('deleteQuestion','API\QuestionController@deleteQuestion')->name('deleteQuestion');
+
+
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users
         Route::resource('user', 'UserController');
@@ -62,10 +73,6 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::get('role/{role}/permissions', ['uses' => 'RoleController@permissions', 'as' => 'role.permissions']);
         Route::post('role/{role}/save', ['uses' => 'RoleController@save', 'as' => 'role.save']);
         Route::post('role/check', ['uses' => 'RoleController@check']);
-
-        //categories
-        Route::resource('category', 'CategoryController');
-        Route::resource('product', 'ProductController');
 
         //Update User Qr Code
         Route::get('my-qrcode', ['uses' => 'QrLoginController@ViewUserQrCode']);
