@@ -16,6 +16,7 @@ Route::get('/', ['uses' => 'HomeController@home', 'as' => 'home']);
 Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']);
 Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'contact']);
 Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
+Route::get('verify', ['uses' => 'HomeController@verify', 'as' => 'verify']);
 
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'fw-block-blacklisted'], function ()
 
 Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
+        Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
         Route::post('ajax_catgories_update1', 'CategoryController@ajax_update1');
         Route::post('ajax_catgories_update2', 'CategoryController@ajax_update2');
         Route::post('ajax_catgories_update3', 'CategoryController@ajax_update3');

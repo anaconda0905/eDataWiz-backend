@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use QrCode;
 use App\SubCategory;
 use App\Category;
+use Activation;
+use App\Role;
+use App\User;
+use Route;
+use Sentinel;
+use Session;
+use Storage;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -37,6 +45,22 @@ class HomeController extends Controller
     {
         return view('backEnd.dashboard');
     }
+
+    public function verify(Request $request)
+    {
+        return view('verify');
+    }
+    
+    public function ajax_update_copy(Request $request)
+    {
+           
+        $response = array(
+            'status' => 'success',
+            'msg' => '200',
+        );
+        return response()->json($response);
+    }
+    
     public function ajax_update(Request $request)
     {
         $data ="data:image/png;base64,". base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size($request->dimension)->generate($request->message));

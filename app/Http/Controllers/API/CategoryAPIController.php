@@ -16,9 +16,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
-class CategoryAPIController extends Controller
-{
+class CategoryAPIController extends Controller {
     /**
      * Create a new controller instance.
      *
@@ -59,7 +59,6 @@ class CategoryAPIController extends Controller
             );
             array_push($data, $temp);
         }
-
         return response()->json([
             'success' => true,
             'data'    => $data,

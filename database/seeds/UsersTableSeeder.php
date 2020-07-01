@@ -13,7 +13,7 @@ class UsersGenerate extends Seeder
     {
         DB::table('users')->insert([
             ['id' => '1',
-                'email' => 'admin@admin.com',
+                'email' => 'admin@edatawiz.com',
                 'password' => bcrypt('admin'),
                 'permissions' => '{"home.dashboard":true}',
                 'first_name' => 'John',

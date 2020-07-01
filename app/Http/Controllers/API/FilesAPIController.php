@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class FilesAPIController extends Controller
 {
@@ -21,70 +22,60 @@ class FilesAPIController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*
-     * Converts a filesystem tree to a PHP array.
-     */
-    public function dir_to_array($dir)
+    public function getList(Request $request)
     {
-        
-        if (!Storage::disk('s3')->has($dir)) {
-            // If the user supplies a wrong path we inform him.
-            return 0;
+        $user = User::where(['api_token' => $request->input('api_token')])->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ]);
         }
-        
-        // Our PHP representation of the filesystem
-        // for the supplied directory and its descendant.
-        $data = [];
-        $pattern = "~[^\/]+$~";
-        $direcotires = Storage::disk('s3')->directories($dir);
-        $files = Storage::disk('s3')->files($dir);
-        foreach ($direcotires as $d) {
-            preg_match_all($pattern, $d, $matches);
-            $name = implode($matches[0]);
-            if ($name == 'thumbs') {
-                continue;
-            }
-            $data[] = [
-                'type' => 'dir',
-                'name' => $name
-            ];
+        $path = "files/";
+        if ($user->roles()->first()->id == 2) {
+            $path = $path . $user->id;
         }
-        foreach ($files as $f) {
-            preg_match_all($pattern, $f, $matches);
-            $name = implode($matches[0]);
-            $path_parts = pathinfo($name);
-            $absolute_path = Storage::disk('s3')->url($f);
-            $file_size = Storage::disk('s3')->size($f);
-            $file_date = Storage::disk('s3')->lastModified($f);
-            
-            $data[] = [
-                'type' => 'file',
-                'file' => $name,
-                'name' => $path_parts['filename'],
-                'ext' => $path_parts['extension'],
-                'link' => $absolute_path,
-                'modified_at' => $file_date,
-                'size' => $file_size,
-            ];
-        }
-        return $data;
-    }
+        $path = $path . $request->input('path');
 
-    /*
-     * Converts a filesystem tree to a JSON representation.
-     */
-    public function dir_to_json($dir)
-    {
         try{
-            $data = FilesAPIController::dir_to_array($dir);
-            if ($data == 0) {
-                return response()->json([
-                    'success' => false,
-                    'data'    => null,
-                    'message' => 'Url is incorrect.',
-                ]);
+            
+            // Our PHP representation of the filesystem
+            // for the supplied directory and its descendant.
+            $data = [];
+            $pattern = "~[^\/]+$~";
+            $direcotires = Storage::disk('s3')->directories($path);
+            $files = Storage::disk('s3')->files($path);
+            foreach ($direcotires as $d) {
+                preg_match_all($pattern, $d, $matches);
+                $name = implode($matches[0]);
+                if ($name == 'thumbs') {
+                    continue;
+                }
+                $data[] = [
+                    'type' => 'dir',
+                    'name' => $name
+                ];
             }
-            elseif (!$data) {
+            foreach ($files as $f) {
+                preg_match_all($pattern, $f, $matches);
+                $name = implode($matches[0]);
+                $path_parts = pathinfo($name);
+                $absolute_path = Storage::disk('s3')->url($f);
+                $file_size = Storage::disk('s3')->size($f);
+                $file_date = Storage::disk('s3')->lastModified($f);
+                
+                $data[] = [
+                    'type' => 'file',
+                    'file' => $name,
+                    'name' => $path_parts['filename'],
+                    'ext' => $path_parts['extension'],
+                    'link' => $absolute_path,
+                    'modified_at' => $file_date,
+                    'size' => $file_size,
+                ];
+            }
+            
+            if (!$data) {
                 return response()->json([
                     'success' => true,
                     'data'    => $data,
@@ -103,21 +94,5 @@ class FilesAPIController extends Controller
                 'message' => 'Something went wrong.',
             ]);
         }
-    }
-    public function getList(Request $request)
-    {
-        $user = User::where(['api_token' => $request->input('api_token')])->first();
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'User not found.',
-            ]);
-        }
-        $path = "files/";
-        if ($user->roles()->first()->id == 2) {
-            $path = $path . $user->id;
-        }
-        $path = $path .$request->input('path');
-        return FilesAPIController::dir_to_json($path);
     }
 }

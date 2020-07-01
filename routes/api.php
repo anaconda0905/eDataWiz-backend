@@ -17,6 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('lists', 'API\FilesAPIController@getList');
+
+Route::post('productlist', 'API\CategoryAPIController@productlist');
+Route::post('category1', 'API\CategoryAPIController@getCatgory1');
+Route::post('category2', 'API\CategoryAPIController@getCatgory2');
+Route::post('category3', 'API\CategoryAPIController@getCatgory3');
+Route::post('category4', 'API\CategoryAPIController@getCatgory4');
+Route::post('category5', 'API\CategoryAPIController@getCatgory5');
+Route::post('category6', 'API\CategoryAPIController@getCatgory6');
+
 Route::post('login', 'API\UserAPIController@login');
 Route::post('register', 'API\UserAPIController@register');
 Route::post('send_reset_code_email', 'API\UserAPIController@sendResetCodeEmail');
@@ -29,12 +39,3 @@ Route::post('verify_account', 'API\UserAPIController@VerifyAccount');
 Route::post('logout', 'API\UserAPIController@logout');
 Route::post('changepassword', 'API\UserAPIController@changepassword');
 Route::post('login/{social}','API\UserAPIController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
-Route::post('lists', 'API\FilesAPIController@getList');
-
-Route::post('productlist', 'API\CategoryAPIController@productlist');
-Route::post('category1', 'API\CategoryAPIController@getCatgory1');
-Route::post('category2', 'API\CategoryAPIController@getCatgory2');
-Route::post('category3', 'API\CategoryAPIController@getCatgory3');
-Route::post('category4', 'API\CategoryAPIController@getCatgory4');
-Route::post('category5', 'API\CategoryAPIController@getCatgory5');
-Route::post('category6', 'API\CategoryAPIController@getCatgory6');
