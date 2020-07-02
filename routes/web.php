@@ -12,7 +12,7 @@
 */
 
 Route::get('/', ['uses' => 'HomeController@home', 'as' => 'home']);
-// Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
+Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
 Route::get('solution', ['uses' => 'HomeController@solution', 'as' => 'solution']);
 Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'contact']);
 Route::get('demo', ['uses' => 'HomeController@demo', 'as' => 'demo']);
@@ -22,11 +22,13 @@ Route::post('resend_verification_email', 'UserController@resendCode');
 Route::get('qrLogin', ['uses' => 'QrLoginController@index']);
 Route::get('qrLogin-option1', ['uses' => 'QrLoginController@indexoption2']);
 Route::post('qrLogin', ['uses' => 'QrLoginController@checkUser']);
-Route::auth();
-// https://github.com/antonioribeiro/firewall
+
 Route::group(['middleware' => 'ipcheck'], function () {
-        Route::get('about', ['uses' => 'HomeController@about', 'as' => 'about']);
+        Route::auth();
+        Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+        Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
 });
+
 Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
@@ -79,5 +81,4 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('qrLogin-autogenerate', ['uses' => 'QrLoginController@QrAutoGenerate']);
  });
 
- Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
- Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+ 
