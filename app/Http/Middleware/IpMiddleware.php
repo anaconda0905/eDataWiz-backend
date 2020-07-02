@@ -15,11 +15,10 @@ class IpMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // print_r($request->ip());
-        // die();
-        // if($request->ip() != "192.168.6.*"){
-        //     return \redirect('/');
-        // }
+        $position = \Location::get($request->ip());
+        if($position->countryCode == "CN"){
+            return \redirect('/');
+        }
         return $next($request);
     }
 }

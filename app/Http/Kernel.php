@@ -59,10 +59,5 @@ class Kernel extends HttpKernel
         'ipcheck' => \App\Http\Middleware\IpMiddleware::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
-        'fw-only-whitelisted' => \PragmaRX\Firewall\Middleware\FirewallWhitelist::class,
-        'fw-block-blacklisted' => \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
-        'fw-block-attacks' => \PragmaRX\Firewall\Middleware\BlockAttacks::class,
-        'fw-block-bl' => \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
-        'fw-allow-wl' => \PragmaRX\Firewall\Middleware\FirewallWhitelist::class,
     ];
 }

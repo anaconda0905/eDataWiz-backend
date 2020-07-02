@@ -7,14 +7,15 @@
     "require": {
         "php": ">=5.6.4",
         "cartalyst/sentinel": "2.0.*",
+        "laravel/cashier": "~7.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "~3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "laravel/cashier": "~7.0",
         "roland/crud": "dev-master",
         "simplesoftwareio/simple-qrcode": "~1",
+        "stevebauman/location": "^5.1",
         "unisharp/laravel-filemanager": "2.1.0"
     },
     "require-dev": {

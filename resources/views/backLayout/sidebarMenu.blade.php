@@ -32,14 +32,15 @@
           </ul>
         </li>
         @endif
+        @if (Sentinel::getUser()->hasAnyAccess(['categories.*']))
+        <li><a href="{{route('categories.index')}}"><i class="fa fa-bookmark"></i> Categories</a></li>
+        @endif
       </ul>
     </div>
     <div class="menu_section">
       <ul class="nav side-menu">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i> File Management</a></li>
-        @if (Sentinel::getUser()->hasAnyAccess(['categories.*']))
-        <li><a href="{{route('categories.index')}}"><i class="fa fa-bookmark"></i> Categories</a></li>
-        @endif
+        
         <li><a href="{{url('product')}}"><i class="fa fa-book"></i> Product Digital Library</a></li>
         <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span
               class="label label-success pull-right">Coming Soon</span></a></li>

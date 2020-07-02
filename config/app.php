@@ -190,6 +190,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         //Cashier
         Laravel\Cashier\CashierServiceProvider::class,
+        //location
+        Stevebauman\Location\LocationServiceProvider::class,
     ],
 
     /*
@@ -248,5 +250,6 @@ return [
         //social login
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Location' => Stevebauman\Location\Facades\Location::class,
     ],
 ];
