@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         
         Route::post('updateQuestion','API\QuestionController@updateQuestion');
         Route::post('deleteQuestion','API\QuestionController@deleteQuestion');
+        Route::post('searchProduct','API\QuestionController@searchProduct');
         
         Route::resource('questions','API\QuestionController');
         Route::resource('categories','API\CategoryController');

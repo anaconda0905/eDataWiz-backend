@@ -20,9 +20,9 @@ Products
 
 <div class="panel panel-default">
     <div class="panel-heading">Products</div>
-    <div class="panel-body" style="overflow: scroll;">
-        <a href="{{ route('questions.create') }}" class="btn btn-default">New Product</a>
-        <a href="{{ route('categories.index') }}" class="btn btn-default">Categories</a>
+    <div class="panel-body">
+        {{-- <a href="{{ route('questions.create') }}" class="btn btn-default">New Product</a> --}}
+        {{-- <a href="{{ route('categories.index') }}" class="btn btn-default">Categories</a> --}}
 
         @if(sizeof($questions) > 0)
         <div class="table-responsive"> 

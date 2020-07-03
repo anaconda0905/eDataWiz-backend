@@ -97,7 +97,7 @@ class QuestionController extends Controller
         $brands = Brand::all();
         return view('backEnd.question.edit', compact('generals','classifications','headers','pdLists','dpdLists','brands','question'));
     }
-    
+
     public function updateQuestion(Request $request)
     {
         try{
@@ -136,5 +136,34 @@ class QuestionController extends Controller
         $question = Question::find($request->input('id'));
         $question->delete();
         return back()->with('success','Datasheet deleted successfully.');
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $pd_general_id = $request["pd_general"];
+        $pd_classification_id = $request["pd_classification"];
+        $pd_header_id = $request["pd_header"];
+        $pd_pdlist_id = $request["pd_list"];
+        $dpd_pdlist_id = $request["dpd_list"];
+        $pd_brand_id = $request["pd_brand"];
+        if(!$pd_pdlist_id)
+            $questions = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->get();
+        else if(!$dpd_pdlist_id)
+            $questions = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->where('pd_list', $pd_pdlist_id)->get();
+        else if(!$pd_brand_id)
+            $questions = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->where('pd_list', $pd_pdlist_id)->where('dpd_list', $dpd_pdlist_id)->get();
+        else
+            $questions = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->where('pd_list', $pd_pdlist_id)->where('dpd_list', $dpd_pdlist_id)->where('pd_brand', $pd_brand_id)->get();
+        
+        $html = View('backEnd.categories.table', compact('questions'))->render();
+        
+        if($questions){
+            return response()->json(compact('html'));
+        }else{
+            return response()->json([
+                'status' => 'false',
+                'message' => 'There is no results.' 
+            ]);
+        }
     }
 }

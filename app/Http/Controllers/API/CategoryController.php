@@ -24,7 +24,8 @@ class CategoryController extends Controller
         $pdLists = PdList::all();
         $dpdLists = DPdList::all();
         $brands = Brand::all();
-        return view('backEnd.categories.index',compact('generals','classifications','headers','pdLists','dpdLists','brands'));
+        $questions = [];
+        return view('backEnd.categories.index',compact('generals','classifications','headers','pdLists','dpdLists','brands','questions'));
     }
     public function createGeneral(Request $request){
         try{

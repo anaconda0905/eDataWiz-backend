@@ -217,7 +217,9 @@ body .container.body .right_col {
   margin-top: 80px !important;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
-
+.panel.panel-product{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 .nav_title {
   width: 230px;
   float: left;

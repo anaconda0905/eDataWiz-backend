@@ -6,152 +6,179 @@ Categories
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <h2 class="text-center">
-                Categories
-            </h2>
-        </div>
-    </div>
-
+    
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             {{ $message }}
         </div>
     @endif
-
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Engineer Category</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="general-select" style="width:100%; height: 40px;">
-                    @foreach ($generals as $general)
-                    <option value="{{$general->pd_general}}" data-id="{{$general->id}}">{{$general->pd_general}}</option>
-                    @endforeach
-                </select>
-                </td>
-                <td>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-general-modal">Add</button>
-                    <a class="btn btn-primary" href="javascript:void(0)" id="edit-general-btn">Edit</a>
-                    <a class="btn btn-danger" href="javascript:void(0)" id="delete-general-btn">Delete</a>
-                </td>
-            </tr>
-        </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="text-center">
+                            Categories
+                        </h2>
+                    </div>
+                </div>
+                <div class="panel panel-product">
+                    <div class="panel-body">
+                        <a class="btn btn-block btn-info searchProduct">Search Product</a>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">
+                                        Engineer Category
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="general-select" style="width:100%; height: 40px;">
+                                            @foreach ($generals as $general)
+                                            <option value="{{$general->pd_general}}" data-id="{{$general->id}}">{{$general->pd_general}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-general-modal">Add</button>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-general-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-general-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">Group Parts & Equipement</th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="classification-select"  style="width:100%; height: 40px;">
+                                            @foreach ($classifications as $classification)
+                                            <option value="{{$classification->pd_classification}}" data-id="{{$classification->id}}">{{$classification->pd_classification}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-success " href="javascript:void(0)" id="add-classification-btn">Add</a>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-classification-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-classification-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">Engineering Application</th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="header-select" style="width:100%; height: 40px;">
+                                            @foreach ($headers as $header)
+                                            <option value="{{$header->pd_header}}" data-id="{{$header->id}}">{{$header->pd_header}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-success" href="javascript:void(0)" id="add-header-btn">Add</a>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-header-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-header-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">Group Description of Part & Equipment</th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="list-select" style="width:100%; height: 40px;">
+                                            @foreach ($pdLists as $pdList)
+                                            <option value="{{$pdList->pd_list}}" data-id="{{$pdList->id}}">{{$pdList->pd_list}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-success" href="javascript:void(0)" id="add-list-btn">Add</a>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-list-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-list-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">Detail Description of Part & Equipment</th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="dlist-select" style="width:100%; height: 40px;">
+                                            @foreach ($dpdLists as $dpdList)
+                                            <option value="{{$dpdList->dpd_list}}" data-id="{{$dpdList->id}}">{{$dpdList->dpd_list}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-success" href="javascript:void(0)" id="add-dlist-btn">Add</a>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-dlist-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-dlist-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table-responsive"> 
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="70%">Brand Name of the Part & Equipment</th>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <select id="brand-select" style="width:100%; height: 40px;">
+                                            @foreach ($brands as $brand)
+                                            <option value="{{$brand->pd_brand}}" data-id="{{$brand->id}}">{{$brand->pd_brand}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-success" href="javascript:void(0)" id="add-brand-btn">Add</a>
+                                        <a class="btn btn-primary" href="javascript:void(0)" id="edit-brand-btn">Edit</a>
+                                        <a class="btn btn-danger" href="javascript:void(0)" id="delete-brand-btn">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="text-center">Search Result</h2>
+                    </div>
+                </div>
+                @include('backEnd.categories.table')
+            </div>
+        </div>
     </div>
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Group Parts & Equipement</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                    <td>
-                        <select id="classification-select"  style="width:100%; height: 40px;">
-                        @foreach ($classifications as $classification)
-                           <option value="{{$classification->pd_classification}}" data-id="{{$classification->id}}">{{$classification->pd_classification}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <a class="btn btn-success " href="javascript:void(0)" id="add-classification-btn">Add</a>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-classification-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-classification-btn">Delete</a>
-                    </td>
-                </tr>
-        </table>
-    </div>
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Engineering Application</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                    <td>
-                        <select id="header-select" style="width:100%; height: 40px;">
-                        @foreach ($headers as $header)
-                           <option value="{{$header->pd_header}}" data-id="{{$header->id}}">{{$header->pd_header}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <a class="btn btn-success" href="javascript:void(0)" id="add-header-btn">Add</a>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-header-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-header-btn">Delete</a>
-                    </td>
-                </tr>
-        </table>
-    </div>
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Group Description of Part & Equipment</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                    <td>
-                        <select id="list-select" style="width:100%; height: 40px;">
-                        @foreach ($pdLists as $pdList)
-                           <option value="{{$pdList->pd_list}}" data-id="{{$pdList->id}}">{{$pdList->pd_list}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <a class="btn btn-success" href="javascript:void(0)" id="add-list-btn">Add</a>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-list-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-list-btn">Delete</a>
-                    </td>
-                </tr>
-        </table>
-    </div>
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Detail Description of Part & Equipment</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                    <td>
-                        <select id="dlist-select" style="width:100%; height: 40px;">
-                        @foreach ($dpdLists as $dpdList)
-                           <option value="{{$dpdList->dpd_list}}" data-id="{{$dpdList->id}}">{{$dpdList->dpd_list}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <a class="btn btn-success" href="javascript:void(0)" id="add-dlist-btn">Add</a>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-dlist-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-dlist-btn">Delete</a>
-                    </td>
-                </tr>
-        </table>
-    </div>
-    <div class="table-responsive"> 
-        <table class="table table-bordered">
-            <tr>
-                <th>Brand Name of the Part & Equipment</th>
-                <th width="280px">More</th>
-            </tr>
-            <tr>
-                    <td>
-                        <select id="brand-select" style="width:100%; height: 40px;">
-                        @foreach ($brands as $brand)
-                           <option value="{{$brand->pd_brand}}" data-id="{{$brand->id}}">{{$brand->pd_brand}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <a class="btn btn-success" href="javascript:void(0)" id="add-brand-btn">Add</a>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-brand-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-brand-btn">Delete</a>
-                    </td>
-                </tr>
-        </table>
-    </div>
+    
 
     <div class="modal fade" id="add-general-modal">
         <div class="modal-dialog">
@@ -397,10 +424,10 @@ Categories
                 {{ csrf_field() }}
                     <input type="hidden" id="edit-list-id" name="id">
                     <div class="modal-body">
-                            <div class="form-group">
-                                <label for="edit-list-name">Group Description of Part & Equipment:</label>
-                                <input type="text" class="form-control" id="edit-list-name" name="list">
-                            </div>
+                        <div class="form-group">
+                            <label for="edit-list-name">Group Description of Part & Equipment:</label>
+                            <input type="text" class="form-control" id="edit-list-name" name="list">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="edit-list-submit">Submit</button>
@@ -584,6 +611,52 @@ Categories
             </div>
         </div>
     </div>
+    <div class="modal fade" id="delete-question-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Product</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                Do you reall want to delete items?
+            </div>
+            
+            <form action="/deleteQuestion" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <input type="hidden" id="delete-question-id" name="id">
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center qrcode">
+            <img id="qrcodeimage" style="-webkit-user-drag: none; border: 1px solid lightgray;" src=""><br/>
+            <input type="hidden" id="img_size" value="200"/>
+            <input type="hidden" id="qrcodeimage_url" value="200"/>
+            <strong><a id="img_size_minus"><i class="fa fa-search-minus"></i></a>&nbsp;&nbsp;<b id="img_dimension">200*200</b>&nbsp;&nbsp;<a id="img_size_plus"><i class="fa fa-search-plus"></i></a></strong>  
+            <strong id="file_name" style="display:block; word-break: break-word;padding: 10px;"></strong>
+            <a id="qrcodeimage_download" class="btn btn-success" download="frame.png" href=""><i class="fa fa-download"></i>&nbsp;Download QRcode</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('scripts')
@@ -600,7 +673,65 @@ Categories
         if (event.which == '13') {
           event.preventDefault();
         }
-});
+    });
+
+    $(".searchtable").on("click", ".delete-question-btn", function(){
+        var id = $(this).data("id");
+        $("#delete-question-id").val(id);
+        $('#delete-question-modal').modal('toggle');
+    });
+    
+    $('.searchProduct').on("click", function(){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var c1_id = $("#general-select").children("option:selected").data("id");
+        var c2_id = $("#classification-select").children("option:selected").data("id");
+        var c3_id = $("#header-select").children("option:selected").data("id");
+        var c4_id = $("#list-select").children("option:selected").data("id");
+        var c5_id = $("#dlist-select").children("option:selected").data("id");
+        var c6_id = $("#brand-select").children("option:selected").data("id");
+        
+        $.ajax({
+            url: '/searchProduct',
+            method: 'POST',
+            data: { 
+                _token: CSRF_TOKEN, 
+                pd_general:c1_id,
+                pd_classification:c2_id,
+                pd_header:c3_id,
+                pd_list:c4_id,
+                dpd_list:c5_id,
+                pd_brand:c6_id, 
+            },
+            dataType: 'JSON',
+            /* remind that 'data' is the response of the AjaxController */
+            success: function (response) {
+                $('.searchtable').html(response.html);
+                $('#question-table').DataTable();
+            }
+        });
+    });
+
+    $('.searchtable').on("click", ".detail_product", function(){
+        $('#exampleModalCenter').modal();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var absolute_path = $(this).attr('path');
+        var file_name = $(this).attr('filename');
+        $.ajax({
+            url: '/ajax_update',
+            method: 'POST',
+            data: { _token: CSRF_TOKEN, message: absolute_path, dimension:200 },
+            dataType: 'JSON',
+            /* remind that 'data' is the response of the AjaxController */
+            success: function (data) {
+                $('#qrcodeimage').attr("src", data.msg);
+                $('#qrcodeimage_url').val(absolute_path);
+                $('#img_dimension').text("200*200");
+                $('#file_name').text(file_name);
+                $('#qrcodeimage_download').attr("href", data.msg);
+            }
+        });
+    });
+    
 </script>
 <script src="{{ URL::asset('/js/category.js') }}"></script>
 @endsection
