@@ -68,8 +68,11 @@ Products
                         
                         <td>
                             <a class="btn btn-success btn-xs detail_product" path="{{ $question->filepath }}" filename="{{ $question->filename }}">Property</a>
+
+                            @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                             <a class="btn btn-xs btn-primary" href="{{ route('questions.edit',$question->id) }}">Edit</a>
                             <button  class="btn btn-xs btn-danger delete-question-btn"  data-id="{{$question->id}}">Delete</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

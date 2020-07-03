@@ -16,7 +16,7 @@
     <div class="menu_section">
       <!-- <h3>General</h3> -->
       <ul class="nav side-menu">
-        @if (Sentinel::getUser()->hasAnyAccess(['user.*']))
+        @if (Sentinel::getUser()->hasAnyAccess(['user.create']))
         <li><a><i class="fa fa-users"></i>Users <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('user.index')}}">All users</a></li>
@@ -32,14 +32,12 @@
           </ul>
         </li>
         @endif
-        @if (Sentinel::getUser()->hasAnyAccess(['categories.*']))
-        <li><a href="{{route('categories.index')}}"><i class="fa fa-bookmark"></i> Categories</a></li>
-        @endif
       </ul>
     </div>
     <div class="menu_section">
       <ul class="nav side-menu">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i> File Management</a></li>
+        <li><a href="{{route('categories.index')}}"><i class="fa fa-bookmark"></i> Product Categories</a></li>
         <li><a><i class="fa fa-book"></i> Product Digital Library <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('questions.index')}}">All Products</a></li>

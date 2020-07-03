@@ -41,6 +41,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-general-modal">Add</button>
@@ -48,6 +49,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-general-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="table-responsive"> 
@@ -64,6 +66,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <a class="btn btn-success " href="javascript:void(0)" id="add-classification-btn">Add</a>
@@ -71,6 +74,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-classification-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="table-responsive"> 
@@ -87,6 +91,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <a class="btn btn-success" href="javascript:void(0)" id="add-header-btn">Add</a>
@@ -94,6 +99,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-header-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="table-responsive"> 
@@ -110,6 +116,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <a class="btn btn-success" href="javascript:void(0)" id="add-list-btn">Add</a>
@@ -117,6 +124,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-list-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="table-responsive"> 
@@ -133,6 +141,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <a class="btn btn-success" href="javascript:void(0)" id="add-dlist-btn">Add</a>
@@ -140,6 +149,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-dlist-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="table-responsive"> 
@@ -156,6 +166,7 @@ Categories
                                         </select>
                                     </td>
                                 </tr>
+                                @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
                                 <tr>
                                     <td>
                                         <a class="btn btn-success" href="javascript:void(0)" id="add-brand-btn">Add</a>
@@ -163,6 +174,7 @@ Categories
                                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-brand-btn">Delete</a>
                                     </td>
                                 </tr>
+                                @endif
                             </table>
                         </div>
                     </div>
