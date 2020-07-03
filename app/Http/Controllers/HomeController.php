@@ -50,15 +50,6 @@ class HomeController extends Controller
     {
         return view('auth.verify');
     }
-  
-    public function ajax_update_copy(Request $request)
-    {
-        $response = array(
-            'status' => 'success',
-            'msg' => '200',
-        );
-        return response()->json($response);
-    }
     
     public function ajax_update(Request $request)
     {

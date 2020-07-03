@@ -744,6 +744,46 @@ Categories
         });
     });
     
+    $('#img_size_minus').on('click', function(){
+      var size = parseInt($('#img_size').val()) - 50;
+      if(size > 149 && size < 251){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          url: '/ajax_update',
+          method: 'POST',
+          data: { _token: CSRF_TOKEN, message: $('#qrcodeimage_url').val(), dimension:size },
+          dataType: 'JSON',
+          /* remind that 'data' is the response of the AjaxController */
+          success: function (data) {
+            $('#qrcodeimage').attr("src", data.msg);
+            $('#qrcodeimage_download').css("display", "block");
+            $('#qrcodeimage_download').attr("href", data.msg);
+          }
+        });
+        $('#img_size').val(size);
+        $('#img_dimension').text(size + "*" +size);
+      }
+    });
+    $('#img_size_plus').on('click', function(){
+      var size1 = parseInt($('#img_size').val()) + 50;
+      if(size1 > 149 && size1 < 251){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          url: '/ajax_update',
+          method: 'POST',
+          data: { _token: CSRF_TOKEN, message: $('#qrcodeimage_url').val(), dimension:size1 },
+          dataType: 'JSON',
+          /* remind that 'data' is the response of the AjaxController */
+          success: function (data) {
+            $('#qrcodeimage').attr("src", data.msg);
+            $('#qrcodeimage_download').css("display", "block");
+            $('#qrcodeimage_download').attr("href", data.msg);
+          }
+        });
+        $('#img_size').val(size1);
+        $('#img_dimension').text(size1 + "*" +size1);
+      }
+    });
 </script>
 <script src="{{ URL::asset('/js/category.js') }}"></script>
 @endsection

@@ -31,12 +31,11 @@ Route::group(['middleware' => 'ipcheck'], function () {
 
 Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
-        Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
         
         Route::post('updateQuestion','API\QuestionController@updateQuestion');
         Route::post('deleteQuestion','API\QuestionController@deleteQuestion');
         Route::post('searchProduct','API\QuestionController@searchProduct');
-        
+
         Route::resource('questions','API\QuestionController');
         Route::resource('categories','API\CategoryController');
         Route::get('createGeneral','API\CategoryController@createGeneral');
