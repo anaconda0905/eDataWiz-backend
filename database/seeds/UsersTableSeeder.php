@@ -32,13 +32,13 @@ class UsersGenerate extends Seeder
                 'id' => '1',
                 'slug' => 'admin',
                 'name' => 'Admin',
-                'permissions' => '{"password.request":true,"password.email":true,"password.reset":true,"home.dashboard":true,"user.index":true,"user.create":true,"user.store":true,"user.show":true,"user.edit":true,"user.update":true,"user.destroy":true,"user.permissions":true,"user.save":true,"user.activate":true,"user.deactivate":true,"role.index":true,"role.create":true,"role.store":true,"role.show":true,"role.edit":true,"role.update":true,"role.destroy":true,"role.permissions":true,"role.save":true}',
+                'permissions' => '{"home.dashboard":true,"password.request":true,"password.email":true,"password.reset":true,"questions.index":true,"questions.create":true,"questions.store":true,"questions.show":true,"questions.edit":true,"questions.update":true,"questions.destroy":true,"categories.index":true,"categories.create":true,"categories.store":true,"categories.show":true,"categories.edit":true,"categories.update":true,"categories.destroy":true,"user.index":true,"user.create":true,"user.store":true,"user.show":true,"user.edit":true,"user.update":true,"user.destroy":true,"user.permissions":true,"user.save":true,"user.activate":true,"user.deactivate":true,"role.index":true,"role.create":true,"role.store":true,"role.show":true,"role.edit":true,"role.update":true,"role.destroy":true,"role.permissions":true,"role.save":true}',
             ],
             [
                 'id' => '2',
                 'slug' => 'client',
                 'name' => 'client',
-                'permissions' => '{"home.dashboard":true}',
+                'permissions' => '{"home.dashboard":true,"questions.index":true,"questions.show":true,"categories.index":true,"categories.show":true,"user.show":true,"user.edit":true,"user.update":true}',
             ],
         ]);
 
