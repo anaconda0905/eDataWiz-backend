@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandsTable extends Migration
+class CreateDPdListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('dpd_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('pd_list_id');
-            $table->string('pd_brand')->unique();
+            $table->unsignedBigInteger('pd_lists_id');
+            $table->string('dpd_list')->unique();
             $table->timestamps();
 
-            $table->foreign('pd_list_id')->references('id')->on('pd_lists')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('pd_lists_id')->references('id')->on('pd_lists')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('dpd_lists');
     }
 }

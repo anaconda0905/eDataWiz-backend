@@ -27,25 +27,25 @@ Categories
                 <th width="280px">More</th>
             </tr>
             <tr>
-                    <td>
-                        <select id="general-select" style="width:100%; height: 40px;">
-                        @foreach ($generals as $general)
-                           <option value="{{$general->pd_general}}" data-id="{{$general->id}}">{{$general->pd_general}}</option>
-                        @endforeach
-                    </select>
-                    </td>
-                    <td>
-                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-general-modal">Add</button>
-                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-general-btn">Edit</a>
-                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-general-btn">Delete</a>
-                    </td>
-                </tr>
+                <td>
+                    <select id="general-select" style="width:100%; height: 40px;">
+                    @foreach ($generals as $general)
+                    <option value="{{$general->pd_general}}" data-id="{{$general->id}}">{{$general->pd_general}}</option>
+                    @endforeach
+                </select>
+                </td>
+                <td>
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add-general-modal">Add</button>
+                    <a class="btn btn-primary" href="javascript:void(0)" id="edit-general-btn">Edit</a>
+                    <a class="btn btn-danger" href="javascript:void(0)" id="delete-general-btn">Delete</a>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="table-responsive"> 
         <table class="table table-bordered">
             <tr>
-                <th>Parts & Equipement</th>
+                <th>Group Parts & Equipement</th>
                 <th width="280px">More</th>
             </tr>
             <tr>
@@ -67,7 +67,7 @@ Categories
     <div class="table-responsive"> 
         <table class="table table-bordered">
             <tr>
-                <th>Engineer Application</th>
+                <th>Engineering Application</th>
                 <th width="280px">More</th>
             </tr>
             <tr>
@@ -89,7 +89,7 @@ Categories
     <div class="table-responsive"> 
         <table class="table table-bordered">
             <tr>
-                <th>Name of Part & Equipment</th>
+                <th>Group Description of Part & Equipment</th>
                 <th width="280px">More</th>
             </tr>
             <tr>
@@ -104,6 +104,28 @@ Categories
                          <a class="btn btn-success" href="javascript:void(0)" id="add-list-btn">Add</a>
                          <a class="btn btn-primary" href="javascript:void(0)" id="edit-list-btn">Edit</a>
                          <a class="btn btn-danger" href="javascript:void(0)" id="delete-list-btn">Delete</a>
+                    </td>
+                </tr>
+        </table>
+    </div>
+    <div class="table-responsive"> 
+        <table class="table table-bordered">
+            <tr>
+                <th>Detail Description of Part & Equipment</th>
+                <th width="280px">More</th>
+            </tr>
+            <tr>
+                    <td>
+                        <select id="dlist-select" style="width:100%; height: 40px;">
+                        @foreach ($dpdLists as $dpdList)
+                           <option value="{{$dpdList->dpd_list}}" data-id="{{$dpdList->id}}">{{$dpdList->dpd_list}}</option>
+                        @endforeach
+                    </select>
+                    </td>
+                    <td>
+                         <a class="btn btn-success" href="javascript:void(0)" id="add-dlist-btn">Add</a>
+                         <a class="btn btn-primary" href="javascript:void(0)" id="edit-dlist-btn">Edit</a>
+                         <a class="btn btn-danger" href="javascript:void(0)" id="delete-dlist-btn">Delete</a>
                     </td>
                 </tr>
         </table>
@@ -344,7 +366,7 @@ Categories
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">New Name of Part & Equipment</h4>
+                    <h4 class="modal-title">New Group Description of Part & Equipment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
@@ -352,7 +374,7 @@ Categories
                     <input type="hidden" id="add-list-header-id" name="header">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="add-list-name">Name of Part & Equipment:</label>
+                            <label for="add-list-name">Group Description of Part & Equipment:</label>
                             <input type="text" class="form-control" id="add-list-name" name="list">
                         </div>
                     </div>
@@ -368,7 +390,7 @@ Categories
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Name of Part & Equipment</h4>
+                    <h4 class="modal-title">Edit Group Description of Part & Equipment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form  method="post" enctype="multipart/form-data">
@@ -376,7 +398,7 @@ Categories
                     <input type="hidden" id="edit-list-id" name="id">
                     <div class="modal-body">
                             <div class="form-group">
-                                <label for="edit-list-name">Name of Part & Equipment:</label>
+                                <label for="edit-list-name">Group Description of Part & Equipment:</label>
                                 <input type="text" class="form-control" id="edit-list-name" name="list">
                             </div>
                     </div>
@@ -392,7 +414,7 @@ Categories
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Name of Part & Equipment</h4>
+                    <h4 class="modal-title">Delete Group Description of Part & Equipment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -403,6 +425,76 @@ Categories
                     <input type="hidden" id="delete-list-id" name="id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="delete-list-submit">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-dlist-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Detail Description of Part & Equipment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form  method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                    <input type="hidden" id="add-dlist-header-id" name="header">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="add-dlist-name">Detail Description of Part & Equipment:</label>
+                            <input type="text" class="form-control" id="add-dlist-name" name="dlist">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="add-dlist-submit">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit-dlist-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Detail Description of Part & Equipment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form  method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                    <input type="hidden" id="edit-dlist-id" name="id">
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="edit-dlist-name">Detail Description of Part & Equipment:</label>
+                                <input type="text" class="form-control" id="edit-dlist-name" name="dlist">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="edit-dlist-submit">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete-dlist-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Detail Description of Part & Equipment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Do you really want to delete items?
+                </div>
+                <form  method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                    <input type="hidden" id="delete-dlist-id" name="id">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="delete-dlist-submit">Submit</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -500,7 +592,9 @@ Categories
     var classifications =  {!! $classifications !!};
     var headers =  {!! $headers !!};
     var pdLists =  {!! $pdLists !!};
+    var dpdLists =  {!! $dpdLists !!};
     var brands =  {!! $brands !!};
+    
     $(document).keypress(
       function(event){
         if (event.which == '13') {

@@ -102,14 +102,41 @@ $("#delete-list-btn").on("click",function(){
     $('#delete-list-modal').modal('toggle');
 });
 
-$("#add-brand-btn").on("click",function(){
+$("#add-dlist-btn").on("click",function(){
     var listId = $("#list-select").children("option:selected").data("id");
     if(!listId){
+        $('#message').html("Please select group list!");
+        $('#parent-confirm-modal').modal('toggle');
+      return;  
+    }
+    $("#add-dlist-header-id").val(listId);
+    $('#add-dlist-modal').modal('toggle');
+});
+
+$("#edit-dlist-btn").on("click",function(){
+    var name = $("#dlist-select").children("option:selected").val();
+    var id = $("#dlist-select").children("option:selected").data("id");
+    if(!id)return;
+    $("#edit-dlist-id").val(id);
+    $("#edit-dlist-name").val(name);
+    $('#edit-dlist-modal').modal('toggle');
+});
+
+$("#delete-dlist-btn").on("click",function(){
+    var id = $("#dlist-select").children("option:selected").data("id");
+    if(!id)return;
+    $("#delete-dlist-id").val(id);
+    $('#delete-dlist-modal').modal('toggle');
+});
+
+$("#add-brand-btn").on("click",function(){
+    var dlistId = $("#dlist-select").children("option:selected").data("id");
+    if(!dlistId){
         $('#message').html("Please select list!");
         $('#parent-confirm-modal').modal('toggle');
       return;  
     }
-    $("#add-brand-list-id").val(listId);
+    $("#add-brand-list-id").val(dlistId);
     $('#add-brand-modal').modal('toggle');
 });
 
@@ -139,6 +166,7 @@ $("#classification-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#header-select").empty();
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
     resetHeader(id);
 });
@@ -146,11 +174,19 @@ $("#classification-select").on("change",function(){
 $("#header-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
     resetList(id);
 });
 
 $("#list-select").on("change",function(){
+    var id = $(this).children("option:selected").data("id");
+    $("#dlist-select").empty();
+    $("#brand-select").empty();
+    resetDList(id);
+});
+
+$("#dlist-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#brand-select").empty();
     resetBrand(id);
@@ -186,6 +222,18 @@ function resetList(headerId){
             $("#list-select").append("<option value="+list.pd_list+" data-id="+list.id+">"+list.pd_list+"</option>");
         }
     });
+    if(id)resetDList(id);
+}
+
+function resetDList(listId){
+    
+    var id = null;
+    dpdLists.forEach(dlist => {
+        if(dlist.pd_lists_id==listId){
+            if(!id)id = dlist.id;
+            $("#dlist-select").append("<option value="+dlist.dpd_list+" data-id="+dlist.id+">"+dlist.dpd_list+"</option>");
+        }
+    });
     if(id)resetBrand(id);
 }
 
@@ -193,7 +241,7 @@ function resetBrand(listId){
     
     var id = null;
     brands.forEach(brand => {
-        if(brand.pd_list_id==listId){
+        if(brand.dpd_list_id==listId){
             if(!id)id = brand.id;
             $("#brand-select").append("<option value="+brand.pd_brand+" data-id="+brand.id+">"+brand.pd_brand+"</option>");
         }
@@ -204,6 +252,7 @@ function allSelectEmpty(){
     $("#classification-select").empty();
     $("#header-select").empty();
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
 }
 
@@ -228,6 +277,7 @@ $('#add-general-submit').on('click', function(e) {
             $('#classification-select').empty();
             $('#header-select').empty();
             $('#list-select').empty();
+            $('#dlist-select').empty();
             $('#brand-select').empty();
         },
         error:function (err) {
@@ -433,7 +483,7 @@ $('#add-list-submit').on('click', function(e) {
             list = result.list;
             $('#add-list-modal').modal('hide');
             $("#list-select").append("<option value="+list.pd_list+" data-id="+list.id+" selected>"+list.pd_list+"</option>");
-            $('#brand-select').empty();
+            $('#dlist-select').empty();
         },
         error:function (err) {
             alert('You can not input same name.')
@@ -485,15 +535,83 @@ $('#delete-list-submit').on('click', function(e) {
     });
 });
 
+$('#add-dlist-submit').on('click', function(e) {
+
+    e.preventDefault();
+    var list = $('#add-dlist-header-id').val();
+    var dlist = $('#add-dlist-name').val();
+    $('#add-dlist-name').val('');
+    $.ajax({
+        url:"/createDList",
+        method: "GET",
+        data: {dlist:dlist,list:list},
+        success:function(result)
+        {
+            console.log(result);
+            dlist = result.dlist;
+            $('#add-dlist-modal').modal('hide');
+            $("#dlist-select").append("<option value="+dlist.pd_list+" data-id="+dlist.id+" selected>"+dlist.dpd_list+"</option>");
+            $('#brand-select').empty();
+        },
+        error:function (err) {
+            alert('You can not input same name.')
+            console.log(err);
+        },
+    });
+});
+
+$('#edit-dlist-submit').on('click', function(e) {
+    e.preventDefault();
+    var dlist = $('#edit-dlist-name').val();
+    var id = $('#edit-dlist-id').val();
+    console.log(dlist);
+    $.ajax({
+        url:"/editDList",
+        method: "GET",
+        data: {dlist:dlist,id:id},
+        success:function(result)
+        {
+            console.log(result);
+            dlist = result.dlist;
+            $('#edit-dlist-modal').modal('hide');
+            $("#dlist-select").children("option:selected").html("<option value="+dlist.dpd_list+" data-id="+dlist.id+" selected>"+dlist.dpd_list+"</option>");
+        },
+        error:function (err) {
+            alert('You can not input same name.')
+            console.log(err);
+        },
+    });
+});
+
+$('#delete-dlist-submit').on('click', function(e) {
+    e.preventDefault();
+    var id = $('#delete-dlist-id').val();
+    $.ajax({
+        url:"/deleteDList",
+        method: "GET",
+        data: {id:id},
+        success:function(result)
+        {
+            console.log(result.dlist);
+            $('#delete-dlist-modal').modal('hide');
+            $("#dlist-select").children("option:selected").remove();
+            location.reload();
+        },
+        error:function (err) {
+            console.log(err);
+        },
+    });
+});
+
 $('#add-brand-submit').on('click', function(e) {
     e.preventDefault();
-    var list = $('#add-brand-list-id').val();
+    var dlist = $('#add-brand-list-id').val();
     var brand = $('#add-brand-name').val();
     $('#add-brand-name').val('');
     $.ajax({
         url:"/createBrand",
         method: "GET",
-        data: {brand:brand,list:list},
+        data: {brand:brand,dlist:dlist},
         success:function(result)
         {
             console.log(result);

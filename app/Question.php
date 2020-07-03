@@ -21,6 +21,9 @@ class Question extends Model
     function pdList(){
         return $this->belongsTo('App\PdList','pd_list');
     }
+    function dpdList(){
+        return $this->belongsTo('App\DPdList','dpd_list');
+    }
     function brand(){
         return $this->belongsTo('App\Brand','pd_brand');
     }

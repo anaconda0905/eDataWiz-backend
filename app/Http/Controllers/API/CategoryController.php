@@ -9,6 +9,7 @@ use App\Classification;
 use App\General;
 use App\Header;
 use App\PdList;
+use App\DPdList;
 use App\Question;
 use Exception;
 
@@ -21,8 +22,9 @@ class CategoryController extends Controller
         $classifications = Classification::all();
         $headers = Header::all();
         $pdLists = PdList::all();
+        $dpdLists = DPdList::all();
         $brands = Brand::all();
-        return view('backEnd.categories.index',compact('generals','classifications','headers','pdLists','brands'));
+        return view('backEnd.categories.index',compact('generals','classifications','headers','pdLists','dpdLists','brands'));
     }
     public function createGeneral(Request $request){
         try{
@@ -133,10 +135,37 @@ class CategoryController extends Controller
         return response()->json(['list'=>$list]);
     }
 
+    public function createDList(Request $request){
+        try{
+            $dlist = new DPdList();
+            $dlist->pd_lists_id = $request->input('list');
+            $dlist->dpd_list = $request->input('dlist');
+            $dlist->save();
+            return response()->json(['dlist'=>$dlist]);
+        }catch (Exception $e){
+            return response()->json(['error'=>$e->getMessage()],500);
+        }
+    }
+    public function editDList(Request $request){
+        try{
+            $dlist = DPdList::find($request->input('id'));
+            $dlist->dpd_list = $request->input('dlist');
+            $dlist->save();
+            return response()->json(['dlist'=>$dlist]);
+        }catch (Exception $e){
+            return response()->json(['error'=>$e->getMessage()],500);
+        }
+    }
+    public function deleteDList(Request $request){
+        $dlist = DPdList::find($request->input('id'));
+        $dlist->delete();
+        return response()->json(['dlist'=>$dlist]);
+    }
+
     public function createBrand(Request $request){
         try{
             $brand = new Brand();
-            $brand->pd_list_id = $request->input('list');
+            $brand->dpd_list_id = $request->input('dlist');
             $brand->pd_brand = $request->input('brand');
             $brand->save();
             return response()->json(['brand'=>$brand]);
@@ -168,6 +197,7 @@ class CategoryController extends Controller
             $classifications = Classification::all();
             $headers = Header::all();
             $pdLists = PdList::all();
+            $dpdLists = DPdList::all();
             $brands = Brand::all();
             if($generals){
                 return response()->json([
@@ -176,7 +206,8 @@ class CategoryController extends Controller
                  'data1' => $classifications,
                  'data2' => $headers,
                  'data3' => $pdLists,
-                 'data4' => $brands,
+                 'data4' => $dpdLists,
+                 'data5' => $brands,
                  ]);
             }else{
                 return response()->json([
@@ -238,12 +269,11 @@ class CategoryController extends Controller
              'status' => 'false',
              'message' => 'There is no results.' ]);
         }
-        
     }
-    public function getBrandList(Request $request)
+    public function getDPdList(Request $request)
     {
         $id = $request["id"];
-        $classfication = Brand::where('pd_list_id', $id)->get();
+        $classfication = DPdList::where('pd_lists_id', $id)->get();
         if($classfication){
             return response()->json([
              'status' => 'true',
@@ -255,28 +285,44 @@ class CategoryController extends Controller
              'status' => 'false',
              'message' => 'There is no results.' ]);
         }
-        
     }
+
+    public function getBrandList(Request $request)
+    {
+        $id = $request["id"];
+        $classfication = Brand::where('dpd_list_id', $id)->get();
+        if($classfication){
+            return response()->json([
+             'status' => 'true',
+             'message' => 'There are results.',
+             'data' => $classfication 
+            ]);
+        }else{
+            return response()->json([
+             'status' => 'false',
+             'message' => 'There is no results.' ]);
+        }
+    }
+
     public function getProduct(Request $request)
     {
         $pd_general_id = $request["pd_general"];
         $pd_classification_id = $request["pd_classification"];
         $pd_header_id = $request["pd_header"];
         $pd_pdlist_id = $request["pd_list"];
+        $dpd_pdlist_id = $request["dpd_list"];
         $pd_brand_id = $request["pd_brand"];
-        
-        $classfication = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->where('pd_list', $pd_pdlist_id)->where('pd_brand', $pd_brand_id)->get();
+        $classfication = Question::where('pd_general', $pd_general_id)->where('pd_classification', $pd_classification_id)->where('pd_header', $pd_header_id)->where('pd_list', $pd_pdlist_id)->where('dpd_list', $dpd_pdlist_id)->where('pd_brand', $pd_brand_id)->get();
         if($classfication){
             return response()->json([
              'status' => 'true',
              'message' => 'There are results.',
-             'data' => $classfication 
+             'data' => $classfication
             ]);
         }else{
             return response()->json([
              'status' => 'false',
              'message' => 'There is no results.' ]);
         }
-        
     }
 }

@@ -18,15 +18,23 @@ class CreateQuestionsTable extends Migration
             $table->unsignedBigInteger('pd_general');
             $table->unsignedBigInteger('pd_classification');
             $table->unsignedBigInteger('pd_header');
-            $table->unsignedBigInteger('pd_list');
-            $table->unsignedBigInteger('pd_brand');
-            $table->string('pd_filename');
+            $table->unsignedBigInteger('pd_list')->nullable();
+            $table->unsignedBigInteger('dpd_list')->nullable();
+            $table->unsignedBigInteger('pd_brand')->nullable();
+            
+            $table->string('filepath')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('filetype')->nullable();
+            $table->string('filesize')->nullable();
+            $table->string('filedate')->nullable();
+
             $table->timestamps();
 
             $table->foreign('pd_general')->references('id')->on('generals')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pd_classification')->references('id')->on('classifications')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pd_header')->references('id')->on('headers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pd_list')->references('id')->on('pd_lists')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('dpd_list')->references('id')->on('dpd_lists')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pd_brand')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
 
         });

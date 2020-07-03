@@ -7,7 +7,6 @@ $(document).ready(function() {
     }
 });
 
-
 $("#general-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     allSelectEmpty();
@@ -18,6 +17,7 @@ $("#classification-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#header-select").empty();
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
     resetHeader(id);
 });
@@ -25,11 +25,19 @@ $("#classification-select").on("change",function(){
 $("#header-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
     resetList(id);
 });
 
 $("#list-select").on("change",function(){
+    var id = $(this).children("option:selected").data("id");
+    $("#dlist-select").empty();
+    $("#brand-select").empty();
+    resetDList(id);
+});
+
+$("#dlist-select").on("change",function(){
     var id = $(this).children("option:selected").data("id");
     $("#brand-select").empty();
     resetBrand(id);
@@ -62,7 +70,19 @@ function resetList(headerId){
     pdLists.forEach(list => {
         if(list.pd_header_id==headerId){
             if(!id)id = list.id;
-            $("#list-select").append("<option value="+list.id+" data-id="+list.id+">"+list.pd_list+"</option>");
+            $("#list-select").append("<option value="+list.pd_list+" data-id="+list.id+">"+list.pd_list+"</option>");
+        }
+    });
+    if(id)resetDList(id);
+}
+
+function resetDList(listId){
+    
+    var id = null;
+    dpdLists.forEach(dlist => {
+        if(dlist.pd_lists_id==listId){
+            if(!id)id = dlist.id;
+            $("#dlist-select").append("<option value="+dlist.dpd_list+" data-id="+dlist.id+">"+dlist.dpd_list+"</option>");
         }
     });
     if(id)resetBrand(id);
@@ -72,9 +92,9 @@ function resetBrand(listId){
     
     var id = null;
     brands.forEach(brand => {
-        if(brand.pd_list_id==listId){
+        if(brand.dpd_list_id==listId){
             if(!id)id = brand.id;
-            $("#brand-select").append("<option value="+brand.id+" data-id="+brand.id+">"+brand.pd_brand+"</option>");
+            $("#brand-select").append("<option value="+brand.pd_brand+" data-id="+brand.id+">"+brand.pd_brand+"</option>");
         }
     });
 }
@@ -83,5 +103,6 @@ function allSelectEmpty(){
     $("#classification-select").empty();
     $("#header-select").empty();
     $("#list-select").empty();
+    $("#dlist-select").empty();
     $("#brand-select").empty();
 }

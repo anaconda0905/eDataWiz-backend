@@ -33,7 +33,9 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::post('ajax_update', 'HomeController@ajax_update');
         Route::post('ajax_update_copy', 'HomeController@ajax_update_copy');
         
-
+        Route::post('updateQuestion','API\QuestionController@updateQuestion');
+        Route::post('deleteQuestion','API\QuestionController@deleteQuestion');
+        
         Route::resource('questions','API\QuestionController');
         Route::resource('categories','API\CategoryController');
         Route::get('createGeneral','API\CategoryController@createGeneral');
@@ -52,13 +54,17 @@ Route::group(['middleware' => ['web', 'auth', 'permission' ] ], function () {
         Route::get('editList','API\CategoryController@editList');
         Route::get('deleteList','API\CategoryController@deleteList');
 
+        Route::get('createDList','API\CategoryController@createDList');
+        Route::get('editDList','API\CategoryController@editDList');
+        Route::get('deleteDList','API\CategoryController@deleteDList');
+
+
         Route::get('createBrand','API\CategoryController@createBrand');
         Route::get('editBrand','API\CategoryController@editBrand');
         Route::get('deleteBrand','API\CategoryController@deleteBrand');
 
-        Route::post('updateQuestion','API\QuestionController@updateQuestion');
-        Route::post('deleteQuestion','API\QuestionController@deleteQuestion');
-
+        
+        
 
         Route::get('dashboard', ['uses' => 'HomeController@dashboard', 'as' => 'home.dashboard']);
         //users

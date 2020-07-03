@@ -15,10 +15,10 @@ class IpMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $position = \Location::get($request->ip());
-        if($position->countryCode == "CN"){
-            return \redirect('/');
-        }
+        // $position = \Location::get($request->ip());
+        // if($position->countryCode == "CN"){
+        //     return \redirect('/');
+        // }
         return $next($request);
     }
 }

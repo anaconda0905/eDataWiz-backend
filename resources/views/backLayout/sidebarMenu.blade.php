@@ -40,8 +40,15 @@
     <div class="menu_section">
       <ul class="nav side-menu">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-sitemap"></i> File Management</a></li>
+        <li><a><i class="fa fa-book"></i> Product Digital Library <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{route('questions.index')}}">All Products</a></li>
+            @if (Sentinel::getUser()->hasAnyAccess(['questions.create']))
+            <li><a href="{{route('questions.create')}}">New Product</a></li>
+            @endif
+          </ul>
+        </li>
         
-        <li><a href="{{url('product')}}"><i class="fa fa-book"></i> Product Digital Library</a></li>
         <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span
               class="label label-success pull-right">Coming Soon</span></a></li>
       </ul>
