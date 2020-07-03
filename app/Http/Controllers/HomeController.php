@@ -53,7 +53,33 @@ class HomeController extends Controller
     
     public function ajax_update(Request $request)
     {
-        $data ="data:image/png;base64,". base64_encode(QrCode::format('png')->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size($request->dimension)->generate($request->message));
+        // Create image (base64) from some text
+        $string = $request->filename;  
+        $string1 = substr($string, 0, 16); 
+        $string2 = substr($string, 16, 16); 
+        $string3 = substr($string, 32, 16); 
+        $width  = $request->dimension;
+        $height = $request->dimension;
+        $im = @imagecreate ($width, $height);
+        $text_color = imagecolorallocate ($im, 0, 0, 120); //black text
+        // white background
+        // $background_color = imagecolorallocate ($im, 255, 255, 255);
+        // transparent background
+        $transparent = imagecolorallocatealpha($im, 0, 0, 0, 127);
+        imagefill($im, 0, 0, $transparent);
+        imagesavealpha($im, true);
+        imagestring ($im, 30, ($request->dimension -140)/2, $request->dimension - 40, $string1, $text_color);
+        imagestring ($im, 30, ($request->dimension -140)/2, $request->dimension - 27, $string2, $text_color);
+        imagestring ($im, 30, ($request->dimension -140)/2, $request->dimension - 14, $string3, $text_color);
+        ob_start();
+        imagepng($im);
+        $imstr = base64_encode(ob_get_clean());
+        imagedestroy($im);
+        // Save Image in folder from string base64
+        $image_base64 = base64_decode($imstr);
+        Storage::disk('local')->put('images/qrcode.png', $image_base64, 'public');
+
+        $data ="data:image/png;base64,". base64_encode(QrCode::format('png')->margin(10)->merge(storage_path()."/app/images/qrcode.png",1,true)->color(38, 38, 38, 0.85)->backgroundColor(255, 255, 255, 0.82)->size($request->dimension)->generate($request->message));
         $response = array(
             'status' => 'success',
             'msg' => $data,

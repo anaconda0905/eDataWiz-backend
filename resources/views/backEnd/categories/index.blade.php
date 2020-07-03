@@ -660,7 +660,8 @@ Categories
             <input type="hidden" id="img_size" value="200"/>
             <input type="hidden" id="qrcodeimage_url" value="200"/>
             <strong><a id="img_size_minus"><i class="fa fa-search-minus"></i></a>&nbsp;&nbsp;<b id="img_dimension">200*200</b>&nbsp;&nbsp;<a id="img_size_plus"><i class="fa fa-search-plus"></i></a></strong>  
-            <strong id="file_name" style="display:block; word-break: break-word;padding: 10px;"></strong>
+            <br/><br/>
+            <strong id="file_name" style="display:none; word-break: break-word;padding: 10px;"></strong>
             <a id="qrcodeimage_download" class="btn btn-success" download="frame.png" href=""><i class="fa fa-download"></i>&nbsp;Download QRcode</a>
           </div>
         </div>
@@ -731,7 +732,7 @@ Categories
         $.ajax({
             url: '/ajax_update',
             method: 'POST',
-            data: { _token: CSRF_TOKEN, message: absolute_path, dimension:200 },
+            data: { _token: CSRF_TOKEN, message: absolute_path, dimension:200, filename:file_name },
             dataType: 'JSON',
             /* remind that 'data' is the response of the AjaxController */
             success: function (data) {
@@ -751,7 +752,7 @@ Categories
         $.ajax({
           url: '/ajax_update',
           method: 'POST',
-          data: { _token: CSRF_TOKEN, message: $('#qrcodeimage_url').val(), dimension:size },
+          data: { _token: CSRF_TOKEN, message: $('#qrcodeimage_url').val(), dimension:size, filename:$('#file_name').text() },
           dataType: 'JSON',
           /* remind that 'data' is the response of the AjaxController */
           success: function (data) {

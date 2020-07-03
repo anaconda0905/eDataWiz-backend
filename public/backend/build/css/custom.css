@@ -191,7 +191,7 @@
     position: static; } }
 .nav-md .container.body .col-md-3.left_col {
   width: 230px;
-  height: 940px;
+  height: auto;
   padding: 0;
   position: absolute;
   display: -ms-flexbox;
@@ -210,7 +210,7 @@ body .container.body .right_col {
 .nav-md .container.body .right_col {
   padding: 10px 20px 0;
   margin-left: 230px; 
-  min-height: 900px !important;
+  min-height: 700px !important;
 }
 
 .panel.panel-default{
