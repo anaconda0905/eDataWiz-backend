@@ -16,9 +16,5 @@ class IsUploadingImageListener
      */
     public function handle(ImageIsUploading $event)
     {
-        $user=Sentinel::getUser();
-        if (!$user) {
-            die('<p>You need to be logged in in order to upload files.</p>');
-        }
     }
 }

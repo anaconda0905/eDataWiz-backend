@@ -191,7 +191,8 @@ class UserAPIController extends Controller
             Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/Purchasing', 0775, true);
             Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/QA-QC', 0775, true);
             Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/HSE', 0775, true);
-
+            
+            Storage::disk('s3')->makeDirectory('/files/' . $user->id . '/', 0775, true);
             return response()->json([
                 'success' => true,
                 'data' => $user,
