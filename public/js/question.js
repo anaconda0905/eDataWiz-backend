@@ -70,7 +70,7 @@ function resetList(headerId){
     pdLists.forEach(list => {
         if(list.pd_header_id==headerId){
             if(!id)id = list.id;
-            $("#list-select").append("<option value="+list.pd_list+" data-id="+list.id+">"+list.pd_list+"</option>");
+            $("#list-select").append("<option value="+list.id+" data-id="+list.id+">"+list.pd_list+"</option>");
         }
     });
     if(id)resetDList(id);
@@ -82,7 +82,7 @@ function resetDList(listId){
     dpdLists.forEach(dlist => {
         if(dlist.pd_lists_id==listId){
             if(!id)id = dlist.id;
-            $("#dlist-select").append("<option value="+dlist.dpd_list+" data-id="+dlist.id+">"+dlist.dpd_list+"</option>");
+            $("#dlist-select").append("<option value="+dlist.id+" data-id="+dlist.id+">"+dlist.dpd_list+"</option>");
         }
     });
     if(id)resetBrand(id);
@@ -94,7 +94,7 @@ function resetBrand(listId){
     brands.forEach(brand => {
         if(brand.dpd_list_id==listId){
             if(!id)id = brand.id;
-            $("#brand-select").append("<option value="+brand.pd_brand+" data-id="+brand.id+">"+brand.pd_brand+"</option>");
+            $("#brand-select").append("<option value="+brand.id+" data-id="+brand.id+">"+brand.pd_brand+"</option>");
         }
     });
 }

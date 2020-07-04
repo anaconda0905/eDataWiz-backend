@@ -51,6 +51,14 @@ class HomeController extends Controller
         return view('auth.verify');
     }
     
+    public function ajax_update_copy(Request $request){
+        $response = array(
+            'status' => 'success',
+            'msg' => $request->dest_url,
+        );
+        return response()->json($response);
+    }
+
     public function ajax_update(Request $request)
     {
         // Create image (base64) from some text

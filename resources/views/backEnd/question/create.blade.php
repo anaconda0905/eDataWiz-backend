@@ -86,7 +86,7 @@ New Product
                     <strong>Brand Name of the Part & Equipment:</strong><br>
                     <select class="form-control" id="brand-select" name="brand" style="width:100%; height: 40px;">
                         @foreach ($brands as $brand)
-                           <option value="{{$brand->pd_brand}}" data-id="{{$brand->id}}">{{$brand->pd_brand}}</option>
+                           <option value="{{$brand->id}}" data-id="{{$brand->id}}">{{$brand->pd_brand}}</option>
                         @endforeach
                     </select>
                 </div>
