@@ -10,10 +10,10 @@
         <span class=" fa fa-angle-down"></span>
       </a>
       <ul class="dropdown-menu dropdown-usermenu pull-right">
-        <li><a href="{{route('user.edit', Sentinel::getUser()->id)}}">Edit Profile</a></li>
-        {!! Form::open(['url' => url('logout'),'class'=>'form-inline']) !!}
+        <li><a href="{{route('user.edit', Sentinel::getUser()->id)}}" class="edit-profile">Edit Profile</a></li>
+        {!! Form::open(['url' => url('logout'),'class'=>'form-inline', 'id'=>'toplogoutform']) !!}
         {!! csrf_field() !!}
-        <li><button class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></button> </li>
+        <li><button class="btn btn-primary btn-block" type="submit">Log Out</button> </li>
         {!! Form::close() !!}
       </ul>
     </li>
