@@ -192,6 +192,8 @@ return [
         Laravel\Cashier\CashierServiceProvider::class,
         //location
         Stevebauman\Location\LocationServiceProvider::class,
+        //Firebase
+        Kreait\Laravel\Firebase\ServiceProvider::class
     ],
 
     /*
